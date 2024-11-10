@@ -1,0 +1,32 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for WST Final Project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Emjiii/WST_Final_Project.git"
+  },
+  "keywords": [
+    "[backend",
+    "web",
+    "API]"
+  ],
+  "author": "LoGeeks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Emjiii/WST_Final_Project/issues"
+  },
+  "homepage": "https://github.com/Emjiii/WST_Final_Project#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
