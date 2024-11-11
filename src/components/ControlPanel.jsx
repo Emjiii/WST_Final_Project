@@ -42,6 +42,7 @@ const ControlPanel = ({ addGateNode }) => {
 
       {/* Main Workspace */}
       <main className="workspace">
+        
         {/* Side Toolbar */}
         <div className="side-toolbar">
           {gates.map(gate => (
