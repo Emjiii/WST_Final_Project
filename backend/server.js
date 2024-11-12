@@ -4,6 +4,13 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.use(cors());
+app.use(express.json());
+
+app.get('/', (req, res) => {
+    res.send("Welcome to the Logic Gate API!");
+});
+
 //Logic Gate Endpoints
 app.post('/api/and', (req, res) => {
     const {input1, input2} = req.body;
@@ -15,7 +22,7 @@ app.post('/api/or', (req, res) => {
     const {input1, input2} = req.body;
     const output = input1 || input2;
     res.json({output});
-})
+});
 
 app.post('/api/not', (req, res) => {
     const {input} = req.body;
@@ -23,12 +30,14 @@ app.post('/api/not', (req, res) => {
     res.json({output}); 
 });
 
-
-
-// app.get("/api", (req, res) =>{
+// app.get("/api", (req, res) => {
 //     res.json({"users": ["userOne", "userTwo", "userThree", "userFour", "testing...", "try"]})
-// })
+// });
 
-app.listen (PORT, () => {
-    console.log('Server is running on http://localhost:${PORT}');
+app.get('/api', (req, res) => {
+    res.json({ message: "API is working!" });
+});
+
+app.listen(PORT, () => {
+    console.log("Server started on port 5000");
 });
