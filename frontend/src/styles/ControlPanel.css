@@ -1,0 +1,87 @@
+/* Component-specific styles */
+.top-panel {
+  height: var(--top-panel-height);
+  background: var(--primary-color);
+  border-bottom: 2px solid var(--text-color);
+}
+
+.bottom-control-panel {
+  position: fixed;
+  bottom: max(10px, 2vh);
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: calc(var(--padding) * 0.5) var(--padding);
+  display: flex;
+  gap: min(16px, 2vw);
+  align-items: center;
+  box-shadow: 0 2px 10px var(--shadow-color);
+  max-width: 95vw;
+  overflow-x: auto;
+}
+
+.tool-group {
+  position: relative;
+  padding: min(4px, 1vw);
+  flex-shrink: 0;
+}
+
+.tool-button {
+  display: flex;
+  align-items: center;
+  gap: min(4px, 1vw);
+  padding: min(4px, 1vw) min(8px, 2vw);
+  min-width: max-content;
+}
+
+.tool-button svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.dropdown-content {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  display: none;
+  padding: min(8px, 2vw);
+  margin-bottom: min(8px, 2vw);
+  min-width: max(120px, 20vw);
+  box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.tool-group.active .dropdown-content {
+  display: block;
+}
+
+.dropdown-content button {
+  width: 100%;
+  padding: min(8px, 2vw);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.dropdown-content button:hover {
+  background: var(--hover-color);
+}
+
+.divider {
+  width: 1px;
+  height: min(24px, 4vh);
+  background: var(--border-color);
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 480px) {
+  .dropdown-content {
+    left: 0;
+    transform: none;
+    min-width: 100px;
+  }
+} 
