@@ -1,14 +1,14 @@
 // src/components/ControlPanel.jsx
 
 import React, { useState } from 'react';
-import '../styles/modern.css';
+import '../../styles/modern.css';
 // Import icons (assuming you're using the same icons)
-import gateIcon from '../assets/icons/gateIcon.png';
-import arrowhead from '../assets/icons/arrowhead.png';
-import bulbOff from '../assets/icons/bulbOff.png';
-import powerSwitch from '../assets/icons/power-switch.png';
-import download from '../assets/icons/download.png';
-import theme from '../assets/icons/theme.png';
+import gateIcon from '../../assets/icons/gateIcon.png';
+import arrowhead from '../../assets/icons/arrowhead.png';
+import bulbOff from '../../assets/icons/bulbOff.png';
+import powerSwitch from '../../assets/icons/power-switch.png';
+import download from '../../assets/icons/download.png';
+import theme from '../../assets/icons/theme.png';
 
 const ControlPanel = ({ addGateNode }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);

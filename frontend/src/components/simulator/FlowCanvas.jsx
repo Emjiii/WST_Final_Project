@@ -7,14 +7,14 @@ import '@xyflow/react/dist/style.css';
 
 import ControlPanel from './ControlPanel';
 
-import AndGate from './gates/AndGate';
-import NandGate from './gates/NandGate';
-import OrGate from './gates/OrGate';
-import NorGate from './gates/NorGate';
-import XorGate from './gates/XorGate';
-import XnorGate from './gates/XnorGate';
-import NotGate from './gates/NotGate';
-import BufferGate from './gates/BufferGate';
+import AndGate from '../gates/AndGate';
+import NandGate from '../gates/NandGate';
+import OrGate from '../gates/OrGate';
+import NorGate from '../gates/NorGate';
+import XorGate from '../gates/XorGate';
+import XnorGate from '../gates/XnorGate';
+import NotGate from '../gates/NotGate';
+import BufferGate from '../gates/BufferGate';
 
 const GATE_COMPONENTS = {
   andNode: AndGate,
