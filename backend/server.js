@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const gateRoutes = require('./src/gateRoutes');
 const app = express();
-const port = process.env.PORT||3000;
+const port = process.env.PORT||8080;
 
 //middleware to handle cors
 app.use(cors());
@@ -13,6 +13,10 @@ app.use(express.json());
 //Root route
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to Logic Gates Simulator</h1>');
+});
+
+app.get("/api", (req, res) => {
+    res.json({users: ["tomato", "userTwo", "testing...", "try"]});
 });
 
 //use gateRoutes
