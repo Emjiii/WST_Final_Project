@@ -1,0 +1,100 @@
+.container {
+    position: relative;
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.ledDome {
+    width: 60px;
+    height: 75px;
+    border-radius: 30px 30px 6px 6px;
+    position: relative;
+    transition: all 0.2s ease;
+    z-index: 1;
+}
+
+.ledDome.lit {
+    background: linear-gradient(145deg, #ff4444, #ff2222);
+    box-shadow: 
+        0 0 30px #ff444466,
+        inset 3px 3px 6px #ff6666,
+        inset -3px -3px 6px #ff2222;
+}
+
+.ledDome.unlit {
+    background: linear-gradient(145deg, #e8edf3, #d0d5db);
+    box-shadow: 
+        inset 3px 3px 6px #ffffff,
+        inset -3px -3px 6px #bcc2c9,
+        0 3px 6px rgba(0,0,0,0.1);
+}
+
+.innerPattern {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 48px;
+    clip-path: polygon(0 0, 100% 15%, 100% 85%, 0 100%);
+}
+
+.innerPattern.lit {
+    background: linear-gradient(135deg, #ff6666, #ff3333);
+}
+
+.innerPattern.unlit {
+    background: linear-gradient(135deg, #cbd1d8, #a8aeb6);
+}
+
+.baseRing {
+    width: 66px;
+    height: 12px;
+    border-radius: 0 0 30px 30px;
+    position: absolute;
+    bottom: 27px;
+    z-index: 2;
+}
+
+.baseRing.lit {
+    background: linear-gradient(to bottom, #ff5555, #ff3333);
+    box-shadow: 0 3px 6px #ff444444;
+}
+
+.baseRing.unlit {
+    background: linear-gradient(to bottom, #e8edf3, #d0d5db);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.legsContainer {
+    display: flex;
+    gap: 18px;
+    margin-top: 1.5px;
+    position: relative;
+    z-index: 0;
+}
+
+.leg {
+    position: relative;
+}
+
+.legLine {
+    width: 3px;
+    height: 30px;
+    background: linear-gradient(to right, #b8b8b8, #d0d0d0, #b8b8b8);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.handle {
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(145deg, #666, #444);
+    border: 3px solid #333;
+    box-shadow: 0 3px 4px rgba(0,0,0,0.2);
+    bottom: -6px;
+} 
