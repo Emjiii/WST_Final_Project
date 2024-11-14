@@ -1,19 +1,13 @@
 // src/App.jsx
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import FlowCanvas from './components/simulator/FlowCanvas';
+import { ReactFlowProvider } from '@xyflow/react';
+import FlowCanvas from './components/FlowCanvas';
 
-const App = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/flowcanvas" element={<FlowCanvas />} />
-      </Routes>
-    </Router>
-  );
-};
+const App = () => (
+  <ReactFlowProvider>
+    <FlowCanvas />
+  </ReactFlowProvider>
+);
 
 export default App;
