@@ -1,0 +1,56 @@
+/* Connection Lines */
+.inputLineTop {
+    position: absolute;
+    left: 0;
+    top: 30%;
+    width: 25px;
+    height: 6px;
+    background: linear-gradient(to right, #555, #333);
+    box-shadow: 
+        0 1.5px 0 rgba(255,255,255,0.1),
+        0 -1.5px 0 rgba(0,0,0,0.2),
+        inset 0 1.5px 1.5px rgba(0,0,0,0.2);
+    border-radius: 3px;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.inputLineBottom {
+    composes: inputLineTop;
+    top: 70%;
+}
+
+.outputLine {
+    position: absolute;
+    right: 80px;
+    top: 50%;
+    width: 50px;
+    height: 6px;
+    background: linear-gradient(to right, #555, #333);
+    box-shadow: 
+        0 1.5px 0 rgba(255,255,255,0.1),
+        0 -1.5px 0 rgba(0,0,0,0.2),
+        inset 0 1.5px 1.5px rgba(0,0,0,0.2);
+    border-radius: 3px;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+/* Handle Positions */
+.inputHandleTop {
+    left: -9px;
+    top: 30%;
+    transform: translateY(-50%);
+}
+
+.inputHandleBottom {
+    left: -9px;
+    top: 70%;
+    transform: translateY(-50%);
+}
+
+.outputHandle {
+    right: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+} 

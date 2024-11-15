@@ -1,80 +1,49 @@
-import React, { useEffect, useRef } from 'react'; 
+import React from 'react';
 import { Handle, Position } from '@xyflow/react';
+import styles from '../../styles/components/gates/GateStyles.module.css';
+import andStyles from '../../styles/components/gates/AndGate.module.css';
 
-const AndGateCanvas = ({ isConnectable }) => {
-    const canvasRef = useRef(null);
-
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-
-        // Set line properties
-        ctx.lineWidth = 5.6; 
-        ctx.strokeStyle = 'black';
-
-        // Draw the left vertical line (input side)
-        ctx.beginPath();
-        ctx.moveTo(35, 28); 
-        ctx.lineTo(35, 112); 
-        ctx.stroke();
-
-        // Draw the upper input line
-        ctx.beginPath();
-        ctx.moveTo(7, 56); 
-        ctx.lineTo(35, 56); 
-        ctx.stroke();
-
-        // Draw the lower input line
-        ctx.beginPath();
-        ctx.moveTo(7, 84); 
-        ctx.lineTo(35, 84); 
-        ctx.stroke();
-
-        // Draw the AND gate shape (output side)
-        ctx.beginPath();
-        ctx.moveTo(31.5, 28); 
-        ctx.arc(56, 70, 42, -Math.PI / 2, Math.PI / 2, false); 
-        ctx.lineTo(31.5, 112); 
-        ctx.stroke();
-
-        // Draw the output line on the right side of the half-circle
-        ctx.beginPath();
-        ctx.moveTo(98, 70); 
-        ctx.lineTo(126, 70); 
-        ctx.stroke();
-    }, []);
-
+export const AndGate = ({ isConnectable, id }) => {
     return (
-      <div style={{ position: 'relative', width: 140, height: 140 }}> 
-          {/* Canvas for the gate drawing */}
-          <canvas ref={canvasRef} width={140} height={140} style={{ position: 'absolute', top: 0, left: 0 }} />
+        <div className={styles.gateContainer}>
+            {/* Input Connection Lines */}
+            <div className={andStyles.inputLineTop} />
+            <div className={andStyles.inputLineBottom} />
+            
+            {/* Output Connection Line */}
+            <div className={andStyles.outputLine} />
 
-          {/* Input Handles */}
-          <Handle
-              type="source"
-              position={Position.Left}
-              id="input-top"
-              isConnectable={isConnectable}
-              style={{ top: 56, left: 7 }} 
-          />
-          <Handle
-              type="source"
-              position={Position.Left}
-              id="input-bottom"
-              isConnectable={isConnectable}
-              style={{ top: 84, left: 7 }} 
-          />
+            {/* AND Gate Body */}
+            <div className={styles.andGateShape}>
+                <span className={styles.gateLabel}>AND</span>
+            </div>
 
-          {/* Output Handle */}
-          <Handle
-              type="target"
-              position={Position.Right}
-              id="output"
-              isConnectable={isConnectable}
-              style={{ top: 70, right: 14 }} 
-          />
-      </div>
-  );
+            {/* Input Handles */}
+            <Handle
+                type="target"
+                position={Position.Left}
+                id={`${id}-input-1`}
+                isConnectable={isConnectable}
+                className={`${styles.handle} ${andStyles.inputHandleTop}`}
+            />
+            <Handle
+                type="target"
+                position={Position.Left}
+                id={`${id}-input-2`}
+                isConnectable={isConnectable}
+                className={`${styles.handle} ${andStyles.inputHandleBottom}`}
+            />
+
+            {/* Output Handle */}
+            <Handle
+                type="source"
+                position={Position.Right}
+                id={`${id}-output`}
+                isConnectable={isConnectable}
+                className={`${styles.handle} ${andStyles.outputHandle}`}
+            />
+        </div>
+    );
 };
 
-export default AndGateCanvas;
+export default AndGate;
