@@ -6,7 +6,7 @@ const gateController = require('./gateController');
 router.post('/and', (req, res) => {
     const { a, b } = req.body;
     const result = gateController.andGate(a, b);
-    res.json({ input: { a, b }, output: result });
+    res.json({ input: { a, b }, output: result });  
 });
 
 //OR Gate Route
