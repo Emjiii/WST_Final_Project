@@ -12,7 +12,7 @@ import theme from '../assets/icons/theme.png';
 import PushButton from './inputs/PushButton';
 import LedOutput from './outputs/LedOutput';
 
-const ControlPanel = ({ addGateNode }) => {
+const ControlPanel = ({ addGateNode, setNodes }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [showCustomization, setShowCustomization] = useState(false);
@@ -33,32 +33,53 @@ const ControlPanel = ({ addGateNode }) => {
 
   // Input options handling
   const handleAddInput = (type) => {
+    const nodeId = `${type}-${Date.now()}`;
     const inputTypes = {
       switch: {
         nodeType: 'inputSwitch',
         label: 'Toggle Switch',
         initialState: false,
         setValue: (newValue) => {
-          setNodes((nds) =>
-            nds.map((node) => {
-              if (node.id === `${type}-${Date.now()}`) {
-                return {
-                  ...node,
-                  data: {
-                    ...node.data,
-                    value: newValue
-                  }
-                };
-              }
-              return node;
-            })
-          );
+          if (setNodes) {
+            setNodes((nds) =>
+              nds.map((node) => {
+                if (node.id === nodeId) {
+                  return {
+                    ...node,
+                    data: {
+                      ...node.data,
+                      value: newValue
+                    }
+                  };
+                }
+                return node;
+              })
+            );
+          }
         }
       },
       button: {
         nodeType: 'inputButton',
         label: 'Push Button',
-        initialState: false
+        initialState: false,
+        setValue: (newValue) => {
+          if (setNodes) {
+            setNodes((nds) =>
+              nds.map((node) => {
+                if (node.id === nodeId) {
+                  return {
+                    ...node,
+                    data: {
+                      ...node.data,
+                      value: newValue
+                    }
+                  };
+                }
+                return node;
+              })
+            );
+          }
+        }
       },
       clock: {
         nodeType: 'inputClock',
@@ -68,7 +89,7 @@ const ControlPanel = ({ addGateNode }) => {
     };
 
     const newNode = {
-      id: `${type}-${Date.now()}`,
+      id: nodeId,
       type: inputTypes[type].nodeType,
       position: { 
         x: Math.random() * 500, 

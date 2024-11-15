@@ -115,7 +115,7 @@ const FlowCanvas = () => {
 
     return (
         <div className="workspace-layout">
-            <ControlPanel addGateNode={addGateNode} />
+            <ControlPanel addGateNode={addGateNode} setNodes={setNodes} />
             <div className="react-flow-container">
                 <ReactFlow
                     nodes={nodes}
