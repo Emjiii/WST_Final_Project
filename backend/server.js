@@ -2,31 +2,40 @@ const express = require('express');
 const cors = require('cors');
 const gateRoutes = require('./src/gateRoutes');
 const app = express();
-const port = process.env.PORT||8080;
+const PORT = 3000;
 
-//middleware to handle cors
 app.use(cors());
 
-//middleware to parse JSON request bodies
+// Middleware to parse JSON bodies
 app.use(express.json());
 
-//Root route
+// In-memory storage for power switch states
+let powerSwitchStates = {};
+
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to Logic Gates Simulator</h1>');
 });
 
-app.get("/api", (req, res) => {
-    res.json({users: ["tomato", "userTwo", "testing...", "try"]});
+app.use('/gates', gateRoutes);
+
+// Endpoint to get the current state of a power switch
+app.get('/api/power-switch/:id', (req, res) => {
+    const { id } = req.params;
+    const state = powerSwitchStates[id] || false; // Default to false if not set
+    res.json({ state });
 });
 
 //use gateRoutes
 app.use('/gates', gateRoutes);
 
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send({ error: 'Something went wrong!'});
+app.post('/api/input-switch', (req, res) => {
+    const { id, state } = req.body;
+    powerSwitchStates[id] = state;
+    console.log(`InputSwitch ${id} is now ${state ? 'ON' : 'OFF'}`);
+    res.json({ success: true, message: `In ${id} updated` });
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+// Start the server
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });

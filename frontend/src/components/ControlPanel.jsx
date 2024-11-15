@@ -19,6 +19,7 @@ const ControlPanel = ({ addGateNode }) => {
   const [showInputMenu, setShowInputMenu] = useState(false);
   const [showOutputMenu, setShowOutputMenu] = useState(false);
 
+
   const gates = [
     { type: 'andNode', label: 'AND Gate', description: 'Output is HIGH only when all inputs are HIGH' },
     { type: 'nandNode', label: 'NAND Gate', description: 'Inverse of AND gate' },

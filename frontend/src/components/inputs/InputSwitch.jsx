@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Handle, Position } from '@xyflow/react';
 import styles from '../../styles/components/inputs/InputSwitch.module.css';
 
 const InputSwitch = ({ data, isConnectable, id }) => {
     const [isOn, setIsOn] = useState(false);
 
-    //MOdify here 
+    // Fetch the initial state from the backend
+    useEffect(() => {
+        const fetchInitialState = async () => {
+            try {
+                const response = await axios.get(`/api/power-switch/${id}`);
+                setIsOn(response.data.state);
+            } catch (error) {
+                console.error('Error fetching initial state:', error);
+            }
+        };
+
+        fetchInitialState();
+    }, [id]);
+
     const handleClick = () => {
         setIsOn(!isOn);
         if (data.setValue) {
@@ -13,7 +27,6 @@ const InputSwitch = ({ data, isConnectable, id }) => {
         }
     };
 
-    
     return (
         <div className={styles.container}>
             {/* Base Border */}
