@@ -5,23 +5,22 @@ import styles from '../../styles/components/inputs/InputSwitch.module.css';
 
 const InputSwitch = ({ data, isConnectable, id }) => {
     const [isOn, setIsOn] = useState(false);
-    const [connections, setConnections] = useState([]); // Add this line
 
 
-    // Fetch the initial state from the backend
-    // useEffect(() => {
-    //     const fetchInitialState = async () => {
-    //         try {
-    //             const response = await axios.get(`/api/power-switch/${id}`);
-    //             setIsOn(response.data.state);
-    //             console.log(response.data.state);
-    //         } catch (error) {
-    //             console.error('Error fetching initial state:', error);
-    //         }
-    //     };
+    //Fetch the initial state from the backend
+    useEffect(() => {
+        const fetchInitialState = async () => {
+            try {
+                const response = await axios.get(`/api/power-switch/${id}`);
+                setIsOn(response.data.state);
+                console.log(response.data.state);
+            } catch (error) {
+                console.error('Error fetching initial state:', error);
+            }
+        };
 
-    //     fetchInitialState();
-    // }, [id]);
+        fetchInitialState();
+    }, [id]);
 
     const handleClick = async () => {
         const newState = !isOn;
@@ -39,26 +38,26 @@ const InputSwitch = ({ data, isConnectable, id }) => {
         }
     };
 
-    const handleConnect = async (params) => {
-        // Create connection data with state
-        const connectionWithState = {
-            ...params,
-            data: { state: isOn }  // Include the current switch state
-        };
+    // const handleConnect = async (params) => {
+    //     // Create connection data with state
+    //     const connectionWithState = {
+    //         ...params,
+    //         data: { state: isOn }  // Include the current switch state
+    //     };
 
-        console.log('Connection made with state: ', connectionWithState);
+    //     console.log('Connection made with state: ', connectionWithState);
 
-        // Update local state with new connection
-        setConnections(prevConnections => [...prevConnections, connectionWithState]);
+    //     // Update local state with new connection
+    //     setConnections(prevConnections => [...prevConnections, connectionWithState]);
 
-        // Make API call to save the connection with state
-        try {
-            const response = await axios.post('http://localhost:3000/api/connections', connectionWithState);
-            console.log('Connection saved:', response.data);
-        } catch (error) {
-            console.error('Error saving connection:', error);
-        }
-    };
+    //     // Make API call to save the connection with state
+    //     try {
+    //         const response = await axios.post('http://localhost:3000/api/connections', connectionWithState);
+    //         console.log('Connection saved:', response.data);
+    //     } catch (error) {
+    //         console.error('Error saving connection:', error);
+    //     }
+    // };
 
     return (
         <div className={styles.container}>
@@ -105,7 +104,7 @@ const InputSwitch = ({ data, isConnectable, id }) => {
                 id={`${id}-output`}
                 isConnectable={isConnectable}
                 className={styles.handle}
-                onConnect={handleConnect}
+                //onConnect={handleConnect}
             />
         </div>
     );
