@@ -37,26 +37,31 @@ export const AndGate = ({ isConnectable, id, data }) => {
 
     // Separate useEffect for output calculation
     useEffect(() => {
-        // Convert inputs to boolean and calculate output
+        // Calculate and update output immediately
         const newOutput = Boolean(input1) && Boolean(input2);
-        
-        const andGateState = async () => {
-            try {
-                const response = await axios.post('http://localhost:3000/gates/and', {
-                    input1: Boolean(input1),
-                    input2: Boolean(input2),
-                    output: newOutput
-                });
-                if (data && data.setValue) {
-                    data.setValue(newOutput);
-                }
-            } catch (error) {
-                console.error('Error updating AND gate state:', error);
-            }
-        };
+        if (data) {
+            data.value = newOutput;
+            data.onChange?.(newOutput);
+        }
 
-        andGateState();
-        console.log('Inputs:', Boolean(input1), Boolean(input2), 'Output:', newOutput);
+        // Debounce the API call
+        const timeoutId = setTimeout(() => {
+            const andGateState = async () => {
+                try {
+                    await axios.post('http://localhost:3000/gates/and', {
+                        input1: Boolean(input1),
+                        input2: Boolean(input2),
+                        output: newOutput
+                    });
+                } catch (error) {
+                    console.error('Error updating AND gate state:', error);
+                }
+            };
+            andGateState();
+        }, 300); // 300ms delay
+
+        // Cleanup timeout on next update
+        return () => clearTimeout(timeoutId);
     }, [input1, input2, data]);
 
     return (
