@@ -11,6 +11,7 @@ app.use(express.json());
 
 // In-memory storage for power switch states
 let powerSwitchStates = {};
+const connections = [];
 
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to Logic Gates Simulator</h1>');
@@ -34,6 +35,43 @@ app.post('/api/input-switch', (req, res) => {
     console.log(`InputSwitch ${id} is now ${state ? 'ON' : 'OFF'}`);
     res.json({ success: true, message: `In ${id} updated` });
 });
+
+app.get('/api/current-state/:id', (req, res) => {
+    const { id } = req.params;
+    const currentState = powerSwitchStates[id] || false; // Default to false if not set
+    res.json({ state: currentState });
+});
+
+//Connection of handles
+app.post('/api/connections', (req, res) => {
+    try {
+        const connectionData = req.body;
+        
+        // Add connection to storage
+        connections.push(connectionData);
+        
+        console.log('New connection saved:', connectionData);
+        
+        res.status(200).json({
+            message: 'Connection saved successfully',
+            connection: connectionData
+        });
+    } catch (error) {
+        console.error('Error saving connection:', error);
+        res.status(500).json({ error: 'Failed to save connection' });
+    }
+});
+
+// GET endpoint to retrieve all connections
+app.get('/api/connections', (req, res) => {
+    try {
+        res.status(200).json(connections);
+    } catch (error) {
+        console.error('Error fetching connections:', error);
+        res.status(500).json({ error: 'Failed to fetch connections' });
+    }
+});
+
 
 // Start the server
 app.listen(PORT, () => {
