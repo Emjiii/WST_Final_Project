@@ -1,7 +1,47 @@
-import React from 'react';
-import { Handle, Position } from '@xyflow/react';
+import React, { useState, useEffect } from 'react';
+import { Handle, Position, useEdges, useNodes } from '@xyflow/react';
+import axios from 'axios';
 
-const NotGateCanvas = ({ isConnectable, id }) => {
+
+export const NotGateCanvas = ({ isConnectable, id, data }) => {
+
+    const [input, setInput] = useState(null);
+    const [output, setOutput] = useState(null);
+    const edges = useEdges();
+    const nodes = useNodes();
+
+    useEffect(() => {
+        const incomingEdge = edges.find(edge => edge.target === id && edge.targetHandle === `${id}-input`);
+        if (incomingEdge) {
+            const sourceNode = nodes.find(node => node.id === incomingEdge.source);
+            setInput(sourceNode?.data?.value ?? false);
+        }
+    }, [edges, nodes, id]);
+
+    useEffect(() => {
+        const newOutput = !Boolean(input);
+        if (data) {
+            data.value = newOutput;
+            data.onChange?.(newOutput);
+        }
+
+        const timeoutId = setTimeout(() => {
+            const notGateState = async () => {
+                try {
+                    await axios.post('http://localhost:3000/gates/not', {
+                        input: Boolean(input),
+                        output: newOutput
+                    });
+                } catch (error) {
+                    console.error('Error updating NOT gate state:', error);
+                }
+            };
+            notGateState();
+        }, 1000);
+
+        return () => clearTimeout(timeoutId);
+    }, [input, data]);
+
     return (
         <div className="gate-container" 
             style={{ 
