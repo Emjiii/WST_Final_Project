@@ -2,37 +2,37 @@
 
 //AND Gate
 function andGate(a, b) {
-    return a && b;
+    return Boolean(a) && Boolean(b);
 }
 
 //OR Gate   
 function orGate(a, b) {
-    return a || b;
+    return Boolean(a) || Boolean(b);
 }
 
 //NOT Gate
 function notGate(a) {
-    return !a;                  
+    return !Boolean(a);                  
 }
 
 //NAND Gate
 function nandGate(a, b) {
-    return !(a && b);
+    return !(Boolean(a) && Boolean(b));
 }
 
 //NOR Gate
 function norGate(a, b) {
-    return !(a || b);
+    return !(Boolean(a) || Boolean(b));
 }
 
 //XOR Gate 
 function xorGate(a, b) {
-    return (a || b) && !(a && b);
+    return Boolean(a) !== Boolean(b);
 }
 
 //XNOR Gate
 function xnorGate(a, b) {
-    return (a || b) && (a && b);
+    return !(Boolean(a) !== Boolean(b));
 }
 
 
