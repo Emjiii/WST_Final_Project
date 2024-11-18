@@ -40,16 +40,18 @@ export const AndGate = ({ isConnectable, id, data }) => {
         // Convert inputs to boolean and calculate output
         const newOutput = Boolean(input1) && Boolean(input2);
         
+        if (data?.setValue) {
+            data.setValue(newOutput);
+        }
+        
         const andGateState = async () => {
             try {
-                const response = await axios.post('http://localhost:3000/gates/and', {
+                await axios.post('http://localhost:3000/gates/and', {
                     input1: Boolean(input1),
                     input2: Boolean(input2),
                     output: newOutput
                 });
-                if (data && data.setValue) {
-                    data.setValue(newOutput);
-                }
+               
             } catch (error) {
                 console.error('Error updating AND gate state:', error);
             }
