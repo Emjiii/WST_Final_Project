@@ -108,7 +108,7 @@ const FlowCanvas = () => {
                     y: window.innerHeight / 2 - 70
                 },
                 data: { label: `${nodeData.toUpperCase()} Gate`,
-                value: false, 
+                value: null, 
                 setValue: (newValue) => {
                     if (setNodes) {
                         setNodes((nds) =>
