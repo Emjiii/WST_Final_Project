@@ -6,7 +6,6 @@ export const XnorGate = ({ isConnectable, id, data }) => {
 
     const [input1, setInput1] = useState(null);
     const [input2, setInput2] = useState(null);
-    const [output, setOutput] = useState(null);
     const edges = useEdges();
     const nodes = useNodes();               
 
@@ -34,15 +33,13 @@ export const XnorGate = ({ isConnectable, id, data }) => {
 
     useEffect(() => {
         const newOutput = !(Boolean(input1) ^ Boolean(input2));
-        if (data) {
-            data.value = newOutput;
-            data.onChange?.(newOutput);
+        if (data?.setValue) {
+            data.setValue(newOutput);
         }
 
-        const timeoutId = setTimeout(() => {
-            const xnorGateState = async () => {
-                try {
-                    await axios.post('http://localhost:3000/gates/xnor', {
+        const xnorGateState = async () => {
+            try {
+                await axios.post('http://localhost:3000/gates/xnor', {
                         input1: Boolean(input1),
                         input2: Boolean(input2),
                         output: newOutput
@@ -52,10 +49,7 @@ export const XnorGate = ({ isConnectable, id, data }) => {
                 }
             };
             xnorGateState();
-        }, 1000);
-
-        return () => clearTimeout(timeoutId);
-    }, [input1, input2]);
+    }, [input1, input2, data]);
 
     return (
         <div className="gate-container" 

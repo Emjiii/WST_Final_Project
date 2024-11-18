@@ -8,7 +8,6 @@ export const NandGate = ({ isConnectable, id, data }) => {
     
     const [input1, setInput1] = useState(null);
     const [input2, setInput2] = useState(null);
-    const [output, setOutput] = useState(null);
     const edges = useEdges();
     const nodes = useNodes();   
 
@@ -36,28 +35,25 @@ export const NandGate = ({ isConnectable, id, data }) => {
 
     useEffect(() => {
         const newOutput = !(Boolean(input1) && Boolean(input2));
-        if (data) {
-            data.value = newOutput;
-            data.onChange?.(newOutput);
+        
+        if (data?.setValue) {
+            data.setValue(newOutput);
         }
         
-        const timeoutId = setTimeout(() => {
-            const nandGateState = async () => {
-                try {
-                    await axios.post('http://localhost:3000/gates/nand', {
-                        input1: Boolean(input1),
-                        input2: Boolean(input2),
-                        output: newOutput
-                    });
-                } catch (error) {
-                    console.error('Error updating NAND gate state:', error);
-                }
-            };
-            nandGateState();
-        }, 300);
+        const nandGateState = async () => {
+            try {
+                await axios.post('http://localhost:3000/gates/nand', {
+                    input1: Boolean(input1),
+                    input2: Boolean(input2),
+                    output: newOutput
+                });
+            } catch (error) {
+                console.error('Error updating NAND gate state:', error);
+            }
+        };
+        nandGateState();
 
-        return () => clearTimeout(timeoutId);
-    }, [input1, input2]);
+    }, [input1, input2, data]);
 
     return (
         <div className={styles.gateContainer}>

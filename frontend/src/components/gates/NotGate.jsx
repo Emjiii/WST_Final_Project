@@ -6,7 +6,6 @@ import axios from 'axios';
 export const NotGateCanvas = ({ isConnectable, id, data }) => {
 
     const [input, setInput] = useState(null);
-    const [output, setOutput] = useState(null);
     const edges = useEdges();
     const nodes = useNodes();
 
@@ -20,14 +19,12 @@ export const NotGateCanvas = ({ isConnectable, id, data }) => {
 
     useEffect(() => {
         const newOutput = !Boolean(input);
-        if (data) {
-            data.value = newOutput;
-            data.onChange?.(newOutput);
+        if (data?.setValue) {
+            data.setValue(newOutput);
         }
 
-        const timeoutId = setTimeout(() => {
-            const notGateState = async () => {
-                try {
+        const notGateState = async () => {
+            try {
                     await axios.post('http://localhost:3000/gates/not', {
                         input: Boolean(input),
                         output: newOutput
@@ -37,9 +34,6 @@ export const NotGateCanvas = ({ isConnectable, id, data }) => {
                 }
             };
             notGateState();
-        }, 1000);
-
-        return () => clearTimeout(timeoutId);
     }, [input, data]);
 
     return (

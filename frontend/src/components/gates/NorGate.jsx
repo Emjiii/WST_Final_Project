@@ -8,7 +8,6 @@ export const NorGate = ({ isConnectable, id, data }) => {
 
     const [input1, setInput1] = useState(null);
     const [input2, setInput2] = useState(null);
-    const [output, setOutput] = useState(null);
     const edges = useEdges();
     const nodes = useNodes();
 
@@ -35,28 +34,23 @@ export const NorGate = ({ isConnectable, id, data }) => {
 
     useEffect(() => {
         const newOutput = !(Boolean(input1) || Boolean(input2));
-        if (data) {
-            data.value = newOutput;
-            data.onChange?.(newOutput);
+        if (data?.setValue) {
+            data.setValue(newOutput);
         }
 
-        const timeoutId = setTimeout(() => {
-            const norGateState = async () => {
-                try {
-                    await axios.post('http://localhost:3000/gates/nor', {
-                        input1: Boolean(input1),
-                        input2: Boolean(input2),
-                        output: newOutput
-                    });
-                } catch (error) {
-                    console.error('Error updating NOR gate state:', error);
-                }
-            };
-            norGateState();
-        }, 300);
-
-        return () => clearTimeout(timeoutId);
-    }, [input1, input2]);
+        const norGateState = async () => {
+            try {
+                await axios.post('http://localhost:3000/gates/nor', {
+                    input1: Boolean(input1),
+                    input2: Boolean(input2),
+                    output: newOutput
+                });
+            } catch (error) {
+                console.error('Error updating NOR gate state:', error);
+            }
+        };
+        norGateState();
+    }, [input1, input2, data]);
 
     return (
         <div className={styles.gateContainer}>

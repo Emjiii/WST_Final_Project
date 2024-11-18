@@ -8,7 +8,6 @@ export const OrGate = ({ isConnectable, id, data }) => {
 
     const [input1, setInput1] = useState(null); 
     const [input2, setInput2] = useState(null); 
-    const [output, setOutput] = useState(null); 
     const edges = useEdges();
     const nodes = useNodes();   
 
@@ -36,14 +35,12 @@ export const OrGate = ({ isConnectable, id, data }) => {
 
     useEffect(() => {
         const newOutput = Boolean(input1) || Boolean(input2);
-        if (data) {
-            data.value = newOutput;
-            data.onChange?.(newOutput);
+        if (data?.setValue) {
+            data.setValue(newOutput);
         }
 
-        const timeoutId = setTimeout(() => {
-            const orGateState = async () => {
-                try {
+        const orGateState = async () => {
+            try {
                     await axios.post('http://localhost:3000/gates/or', {
                         input1: Boolean(input1),
                         input2: Boolean(input2),
@@ -54,8 +51,7 @@ export const OrGate = ({ isConnectable, id, data }) => {
                 }
             };
             orGateState();
-        }, 1000);
-    }, [input1, input2, data]);
+        }, [input1, input2, data]);
 
     return (
         <div className={gateStyles.gateContainer}>

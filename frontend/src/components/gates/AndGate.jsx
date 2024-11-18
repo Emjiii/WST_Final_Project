@@ -8,7 +8,6 @@ export const AndGate = ({ isConnectable, id, data }) => {
 
     const [input1, setInput1] = useState(null);
     const [input2, setInput2] = useState(null);
-    const [output, setOutput] = useState(null);
     const edges = useEdges();
     const nodes = useNodes();
 
