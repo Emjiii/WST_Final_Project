@@ -25,13 +25,9 @@ const InputSwitch = ({ data, isConnectable, id }) => {
     const handleClick = async () => {
         const newState = !isOn;
         setIsOn(newState);
-        
-        // Add these lines to update node data
-        if (data) {
-            data.value = newState;
-            data.onChange?.(newState);
+        if (data.setValue) {
+            data.setValue(newState);
         }
-
         try {
             await axios.post('http://localhost:3000/api/input-switch', {
                 id,
