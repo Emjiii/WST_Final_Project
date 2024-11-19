@@ -16,23 +16,23 @@ export const XnorGate = ({ isConnectable, id, data }) => {
 
         if (incomingEdge1) {
             const sourceNode1 = nodes.find(node => node.id === incomingEdge1.source);
-            const inputValue1 = sourceNode1?.data?.value ?? false;
+            const inputValue1 = sourceNode1?.data?.value ?? null;
             setInput1(inputValue1);
         } else {
-            setInput1(false);
+            setInput1(null);
         }               
 
         if (incomingEdge2) {
             const sourceNode2 = nodes.find(node => node.id === incomingEdge2.source);
-            const inputValue2 = sourceNode2?.data?.value ?? false;
+            const inputValue2 = sourceNode2?.data?.value ?? null;
             setInput2(inputValue2);
         } else {
-            setInput2(false);
+            setInput2(null);
         }
     }, [edges, nodes, id]);
 
     useEffect(() => {
-        const newOutput = !(Boolean(input1) ^ Boolean(input2));
+        const newOutput = input1 !== null && input2 !== null ? !(Boolean(input1) ^ Boolean(input2)) : null;
         if (data?.setValue) {
             data.setValue(newOutput);
         }
@@ -40,8 +40,8 @@ export const XnorGate = ({ isConnectable, id, data }) => {
         const xnorGateState = async () => {
             try {
                 await axios.post('http://localhost:3000/gates/xnor', {
-                        input1: Boolean(input1),
-                        input2: Boolean(input2),
+                        input1: input1 !== null ? Boolean(input1) : null,
+                        input2: input2 !== null ? Boolean(input2) : null,
                         output: newOutput
                     });
                 } catch (error) {
@@ -49,6 +49,7 @@ export const XnorGate = ({ isConnectable, id, data }) => {
                 }
             };
             xnorGateState();
+            console.log('Inputs:', Boolean(input1), Boolean(input2), 'Output:', newOutput);
     }, [input1, input2, data]);
 
     return (
