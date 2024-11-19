@@ -9,8 +9,8 @@ import bulbOff from '../assets/icons/bulbOff.png';
 import powerSwitch from '../assets/icons/power-switch.png';
 import download from '../assets/icons/download.png';
 import theme from '../assets/icons/theme.png';
-import PushButton from './inputs/PushButton';
-import LedOutput from './outputs/LedOutput';
+import PushButton from './LogicComponents/inputs/PushButton';
+import LedOutput from './LogicComponents/outputs/LedOutput';
 
 const ControlPanel = ({ addGateNode, setNodes }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
