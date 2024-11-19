@@ -3,7 +3,7 @@ import { Handle, Position, useEdges, useNodes } from '@xyflow/react';
 import styles from '../../styles/components/outputs/LedOutput.module.css';
 
 const LedOutput = ({ data, isConnectable, id }) => {
-    const [isLit, setIsLit] = useState(false);
+    const [isLit, setIsLit] = useState(null);
     const edges = useEdges();
     const nodes = useNodes();
 
@@ -21,6 +21,9 @@ const LedOutput = ({ data, isConnectable, id }) => {
             console.log('Input Value:', inputValue);
             
             setIsLit(inputValue);
+        } else {
+            // Set isLit to false if no incoming edge is found
+            setIsLit(false);
         }
     }, [edges, nodes, id]);
 

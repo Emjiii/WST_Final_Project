@@ -13,27 +13,30 @@ export const NotGateCanvas = ({ isConnectable, id, data }) => {
         const incomingEdge = edges.find(edge => edge.target === id && edge.targetHandle === `${id}-input`);
         if (incomingEdge) {
             const sourceNode = nodes.find(node => node.id === incomingEdge.source);
-            setInput(sourceNode?.data?.value ?? false);
+            setInput(sourceNode?.data?.value);
+        } else {
+            setInput(null);
         }
     }, [edges, nodes, id]);
 
     useEffect(() => {
-        const newOutput = !Boolean(input);
+        const newOutput = input !== null ? !Boolean(input) : null;
         if (data?.setValue) {
             data.setValue(newOutput);
         }
 
         const notGateState = async () => {
             try {
-                    await axios.post('http://localhost:3000/gates/not', {
-                        input: Boolean(input),
-                        output: newOutput
-                    });
-                } catch (error) {
-                    console.error('Error updating NOT gate state:', error);
-                }
-            };
-            notGateState();
+                await axios.post('http://localhost:3000/gates/not', {
+                    input: input !== null ? Boolean(input) : null,
+                    output: newOutput
+                });
+            } catch (error) {
+                console.error('Error updating NOT gate state:', error);
+            }
+        };
+
+        notGateState();
     }, [input, data]);
 
     return (
