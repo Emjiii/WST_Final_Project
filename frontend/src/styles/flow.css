@@ -1,0 +1,65 @@
+/* Wrapper for entire content */
+.flow-wrapper {
+  @apply min-h-screen w-full 
+    bg-white dark:bg-gray-900 
+    transition-colors duration-200;
+}
+
+/* Container for ReactFlow */
+.flow-container {
+  @apply w-full 
+    h-[calc(100vh-4rem)]  /* Subtract header height */
+    sm:h-[calc(100vh-4.5rem)]
+    md:h-[calc(100vh-5rem)]
+    lg:h-[calc(100vh-5.5rem)]
+    overflow-hidden;
+}
+
+/* ReactFlow canvas */
+.flow-canvas {
+  @apply bg-white dark:bg-gray-900
+    w-full h-full
+    transition-colors duration-200;
+}
+
+.flow-controls {
+    @apply scale-75 sm:scale-90 md:scale-100  /* Responsive scaling */
+    origin-bottom-right  /* Correct Tailwind class for transform-origin */
+    transition-transform duration-200;  /* Smooth transition */
+}
+
+
+/* Background */
+.flow-background {
+  @apply gap-3
+    dark:bg-gray-900
+    transition-colors duration-200;
+}
+
+/* Base node styles */
+.react-flow__node {
+  @apply transition-all duration-200;
+}
+
+
+
+/* Edge styles */
+.react-flow__edge {
+  @apply stroke-gray-400 dark:stroke-gray-600;
+}
+
+/* MiniMap */
+.react-flow__minimap {
+  @apply w-[25%] sm:w-[20%] md:w-[18%] lg:w-[15%]  /* Responsive width */
+    min-w-[100px]         /* Prevent from getting too small */
+    max-w-[250px]         /* Prevent from getting too large */
+    transition-all duration-200;
+
+  aspect-ratio: 16/9;     /* Maintain proportions */
+}
+
+/* Hide ReactFlow attribution */
+.react-flow__attribution {
+  @apply hidden;
+}
+
