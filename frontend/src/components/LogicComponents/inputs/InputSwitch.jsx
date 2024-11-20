@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { memo } from 'react';   
 import { Handle, Position } from '@xyflow/react';
 import styles from "../../../styles/LogicComponents/inputs/InputSwitch.module.css";
 

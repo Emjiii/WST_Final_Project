@@ -11,6 +11,7 @@ import {
   addEdge,
 } from '@xyflow/react';
 
+
 // Update these imports to reflect the correct folder structure
 import NotGateCanvas from '../components/LogicComponents/gates/NotGate';
 import AndGateCanvas from '../components/LogicComponents/gates/AndGate';
@@ -97,22 +98,6 @@ const FlowCanvas = () => {
     return confirmDelete;
   }, [setNodes, setEdges]);
 
-  const addGateNode = useCallback((nodeData) => {
-    if (typeof nodeData === 'object') {
-        setNodes((nds) => nds.concat(nodeData));
-    } else {
-        const newNode = {
-          id: `${nodeData}-${Date.now()}`,
-            type: nodeData,
-            position: {
-                x: window.innerWidth / 2 - 70,
-                y: window.innerHeight / 2 - 70
-            },
-            data: { label: `${nodeData.toUpperCase()} Gate` }
-        };
-        setNodes((nds) => nds.concat(newNode));
-    }
-  }, [nodes.length, setNodes]);
 
     const addGateNode = useCallback((nodeData) => {
         // Check if nodeData is an object (from input/output nodes)

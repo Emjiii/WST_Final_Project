@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { createInputNode, createOutputNode } from '../utils/nodeHandlers';
 import { saveCircuit } from '../utils/circuitOperations';
 import LogicGateDrawer from './LogicGateDrawer';

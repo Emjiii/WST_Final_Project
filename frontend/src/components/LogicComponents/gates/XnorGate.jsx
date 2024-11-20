@@ -4,7 +4,7 @@ import axios from 'axios';
 import styles from "../../../styles/LogicComponents/gates/GateStyles.module.css";
 import xnorStyles from "../../../styles/LogicComponents/gates/XnorGate.module.css";
 
-export const XnorGate = ({ isConnectable, id, data }) => {
+export const XnorGateCanvas = ({ isConnectable, id, data }) => {
 
     const [input1, setInput1] = useState(null);
     const [input2, setInput2] = useState(null);
