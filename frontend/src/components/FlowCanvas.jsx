@@ -154,7 +154,7 @@ const FlowCanvas = () => {
         getEdges={() => edges} 
       />
       <ControlPanel addGateNode={addGateNode} setNodes={setNodes} />
-      <div className="flow-container">
+      <div id="circuitCanvas" className="flow-container">
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -184,8 +184,8 @@ const FlowCanvas = () => {
             return !existingEdge;
           }}
         >
-          <Controls className="flow-controls" />
-          <MiniMap className="flow-minimap" />
+          <Controls id="flow-controls" className="flow-controls" />
+          <MiniMap id="flow-minimap" className="flow-minimap" />
           <Background 
             variant="dots" 
             gap={12} 

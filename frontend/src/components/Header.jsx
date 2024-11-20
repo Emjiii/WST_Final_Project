@@ -3,10 +3,21 @@ import PropTypes from 'prop-types';
 import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon } from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
 import '../styles/header.css';
-import { saveCircuit } from '../utils/circuitOperations';
+import { saveCircuit, saveCircuitAsImage } from '../utils/circuitOperations';
 
 const Header = ({ addGateNode, isDarkMode, setIsDarkMode, getNodes, getEdges }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isSavePopupOpen, setIsSavePopupOpen] = useState(false);
+
+  const handleSaveAsFile = () => {
+    saveCircuit(getNodes, getEdges);
+    setIsSavePopupOpen(false);
+  };
+
+  const handleSaveAsImage = () => {
+    saveCircuitAsImage('circuitCanvas');
+    setIsSavePopupOpen(false);
+  };
 
   return (
     <>
@@ -40,7 +51,7 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, getNodes, getEdges }) 
               <button 
                 className="save-button"
                 aria-label="Save Project"
-                onClick={() => saveCircuit(getNodes, getEdges)}
+                onClick={() => setIsSavePopupOpen(true)}
               >
                 <SaveIcon className="header-icon" />
               </button>
@@ -67,6 +78,17 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, getNodes, getEdges }) 
         </div>
       </header>
 
+      {isSavePopupOpen && (
+        <div className="save-popup">
+          <div className="save-popup-content">
+            <h3 className="save-popup-title">Save Options</h3>
+            <button className="save-option-button" onClick={handleSaveAsFile}>Save as File</button>
+            <button className="save-option-button" onClick={handleSaveAsImage}>Save as Image</button>
+            <button className="close-button" onClick={() => setIsSavePopupOpen(false)}>Close</button>
+          </div>
+        </div>
+      )}
+
       <LogicGateDrawer 
         isOpen={isDrawerOpen} 
         onClose={() => setIsDrawerOpen(false)} 
@@ -80,6 +102,8 @@ Header.propTypes = {
   addGateNode: PropTypes.func.isRequired,
   isDarkMode: PropTypes.bool.isRequired,
   setIsDarkMode: PropTypes.func.isRequired,
+  getNodes: PropTypes.func.isRequired,
+  getEdges: PropTypes.func.isRequired,
 };
 
 export default Header;
