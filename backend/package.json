@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server",
-    "dev": "nodemon server"
+    "start:dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/Emjiii/WST_Final_Project#readme",
   "dependencies": {
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
     "express": "^4.21.1"
   },
   "devDependencies": {

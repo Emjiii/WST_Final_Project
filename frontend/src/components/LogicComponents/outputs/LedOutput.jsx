@@ -1,14 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { Handle, Position } from '@xyflow/react';
+import { Handle, Position, useEdges, useNodes } from '@xyflow/react';
 import styles from "../../../styles/LogicComponents/outputs/LedOutput.module.css";
 
 const LedOutput = ({ data, isConnectable, id }) => {
-    const [isLit, setIsLit] = useState(false);
+    const [isLit, setIsLit] = useState(null);
+    const edges = useEdges();
+    const nodes = useNodes();
 
-    //modify here
     useEffect(() => {
-        setIsLit(Boolean(data?.value));
-    }, [data?.value]);
+        // Find edges connected to this node
+        const incomingEdge = edges.find(edge => edge.target === id);
+        
+        if (incomingEdge) {
+            // Find the source node using the edge's source id
+            const sourceNode = nodes.find(node => node.id === incomingEdge.source);
+            console.log('Source node:', sourceNode);
+            
+            // Access the source node's state
+            const inputValue = sourceNode?.data?.value;
+            console.log('Input Value:', inputValue);
+            
+            setIsLit(inputValue);
+        } else {
+            // Set isLit to false if no incoming edge is found
+            setIsLit(false);
+        }
+    }, [edges, nodes, id]);
 
     return (
         <div className={styles.container}>

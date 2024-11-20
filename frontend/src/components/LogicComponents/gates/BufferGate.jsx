@@ -1,9 +1,46 @@
-import React from 'react';
-import { Handle, Position } from '@xyflow/react';
+import React, { useState, useEffect } from 'react';
+import { Handle, Position, useEdges, useNodes } from '@xyflow/react';
+import axios from 'axios';
 import styles from "../../../styles/LogicComponents/gates/GateStyles.module.css";
 import bufferStyles from "../../../styles/LogicComponents/gates/BufferGate.module.css";
 
-const BufferGateCanvas = ({ isConnectable, id }) => {
+export const BufferGateCanvas = ({ isConnectable, id, data }) => {
+
+    const [input, setInput] = useState(null);
+    const edges = useEdges();
+    const nodes = useNodes();
+
+    useEffect(() => {
+        const incomingEdge = edges.find(edge => edge.target === id && edge.targetHandle === `${id}-input`);
+        if (incomingEdge) {
+            const sourceNode = nodes.find(node => node.id === incomingEdge.source);
+            setInput(sourceNode?.data?.value ?? null);
+        } else {
+            setInput(null);
+        }
+    }, [edges, nodes, id]);
+
+    useEffect(() => {
+        const newOutput = input !== null ? Boolean(input) : null;
+        if (data?.setValue) {
+            data.setValue(newOutput);
+        }
+
+        const bufferGateState = async () => {
+            try {
+                await axios.post('http://localhost:3000/gates/buffer', {
+                    input: input !== null ? Boolean(input) : null,
+                    output: newOutput
+                });
+            } catch (error) {
+                console.error('Error updating buffer gate state:', error);
+            }
+        };
+
+        bufferGateState();
+        console.log('Inputs:', Boolean(input), 'Output:', newOutput);
+    }, [input, data]);
+
     return (
         <div className={`${styles.gateContainer} ${bufferStyles.bufferGate}`}>
             {/* Input Connection Lines with Glowing Effect */}
@@ -30,13 +67,13 @@ const BufferGateCanvas = ({ isConnectable, id }) => {
                 <span className={bufferStyles.label}>BUFFER</span>
             </div>
 
-
             {/* Input Handle */}
             <Handle
                 type="target"
                 position={Position.Left}
                 id={`${id}-input`}
                 isConnectable={isConnectable}
+
                 className={`${styles.handle} ${bufferStyles.inputHandle} ${bufferStyles.handleEffect}`}
             />
 
@@ -46,6 +83,7 @@ const BufferGateCanvas = ({ isConnectable, id }) => {
                 position={Position.Right}
                 id={`${id}-output`}
                 isConnectable={isConnectable}
+
                 className={`${styles.handle} ${bufferStyles.outputHandle} ${bufferStyles.handleEffect}`}
             />
         </div>

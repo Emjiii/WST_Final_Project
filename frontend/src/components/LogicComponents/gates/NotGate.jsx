@@ -1,9 +1,47 @@
-import React from 'react';
-import { Handle, Position } from '@xyflow/react';
+import React, { useState, useEffect } from 'react';
+import { Handle, Position, useEdges, useNodes } from '@xyflow/react';
+import axios from 'axios';
 import styles from "../../../styles/LogicComponents/gates/GateStyles.module.css";
 import notStyles from "../../../styles/LogicComponents/gates/NotGate.module.css";
 
-const NotGateCanvas = ({ isConnectable, id }) => {
+
+export const NotGateCanvas = ({ isConnectable, id, data }) => {
+
+    const [input, setInput] = useState(null);
+    const edges = useEdges();
+    const nodes = useNodes();
+
+    useEffect(() => {
+        const incomingEdge = edges.find(edge => edge.target === id && edge.targetHandle === `${id}-input`);
+        if (incomingEdge) {
+            const sourceNode = nodes.find(node => node.id === incomingEdge.source);
+            setInput(sourceNode?.data?.value);
+        } else {
+            setInput(null);
+        }
+    }, [edges, nodes, id]);
+
+    useEffect(() => {
+        const newOutput = input !== null ? !Boolean(input) : null;
+        if (data?.setValue) {
+            data.setValue(newOutput);
+        }
+
+        const notGateState = async () => {
+            try {
+                await axios.post('http://localhost:3000/gates/not', {
+                    input: input !== null ? Boolean(input) : null,
+                    output: newOutput
+                });
+            } catch (error) {
+                console.error('Error updating NOT gate state:', error);
+            }
+        };
+
+        notGateState();
+    }, [input, data]);
+
+
     return (
         <div className={`${styles.gateContainer} ${notStyles.notGate}`}>
             {/* Input Connection Lines with Glowing Effect */}
@@ -38,14 +76,13 @@ const NotGateCanvas = ({ isConnectable, id }) => {
                 </div>
             </div>
 
-            
-
             {/* Input Handle */}
             <Handle
                 type="target"
                 position={Position.Left}
                 id={`${id}-input`}
                 isConnectable={isConnectable}
+
                 className={`${styles.handle} ${notStyles.inputHandle} ${notStyles.handleEffect}`}
             />
 
@@ -55,6 +92,7 @@ const NotGateCanvas = ({ isConnectable, id }) => {
                 position={Position.Right}
                 id={`${id}-output`}
                 isConnectable={isConnectable}
+
                 className={`${styles.handle} ${notStyles.outputHandle} ${notStyles.handleEffect}`}
             />
         </div>

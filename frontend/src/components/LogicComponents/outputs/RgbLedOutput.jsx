@@ -12,6 +12,7 @@ const RgbLedOutput = ({ data, isConnectable, id }) => {
     return (
         <div className={styles.container}>
             <div className={styles.mainContainer}>
+
                 <div className={`${styles.ledDome} ${isLit ? styles.lit : styles.unlit}`}>
                     <div className={`${styles.innerPattern} ${isLit ? styles.lit : styles.unlit}`} />
                 </div>
@@ -26,6 +27,7 @@ const RgbLedOutput = ({ data, isConnectable, id }) => {
                             type="target"
                             position="bottom"
                             id="left"
+
                             className={styles.hiddenHandle}
                             isConnectable={isConnectable}
                         />
@@ -38,6 +40,7 @@ const RgbLedOutput = ({ data, isConnectable, id }) => {
                             type="target"
                             position="bottom"
                             id="right"
+
                             className={styles.hiddenHandle}
                             isConnectable={isConnectable}
                         />

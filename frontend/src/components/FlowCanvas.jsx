@@ -114,6 +114,50 @@ const FlowCanvas = () => {
     }
   }, [nodes.length, setNodes]);
 
+    const addGateNode = useCallback((nodeData) => {
+        // Check if nodeData is an object (from input/output nodes)
+        if (typeof nodeData === 'object') {
+            setNodes((nds) => nds.concat(nodeData));
+        } else {
+            // Handle regular gates (when nodeData is a string type)
+            const nodeId = `${nodeData}-${nodes.length + 1}`;
+            const newNode = {
+                id: nodeId,
+                type: nodeData,
+                position: {
+                    x: window.innerWidth / 2 - 70,
+                    y: window.innerHeight / 2 - 70
+                },
+                data: { label: `${nodeData.toUpperCase()} Gate`,
+                value: null, 
+                setValue: (newValue) => {
+                    if (setNodes) {
+                        setNodes((nds) =>
+                            nds.map((node) => {
+                                if (node.id === nodeId) {
+                                    // Only update if the new value is different
+                                    if (node.data.value !== newValue) {
+                                        return {
+                                            ...node,
+                                            data: {
+                                                ...node.data,
+                                                value: newValue
+                                            }
+                                        };
+                                    }
+                                }
+                                return node;
+                            })
+                        );
+                    }
+                }
+            },
+                className: 'gate-node'
+            };
+            setNodes((nds) => nds.concat(newNode));
+        }
+    }, [nodes.length, setNodes]);
+
 
   return (
     <div className="flow-wrapper">
