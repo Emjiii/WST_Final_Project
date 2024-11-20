@@ -146,7 +146,13 @@ const FlowCanvas = () => {
 
   return (
     <div className="flow-wrapper">
-      <Header addGateNode={addGateNode} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+      <Header 
+        addGateNode={addGateNode} 
+        isDarkMode={isDarkMode} 
+        setIsDarkMode={setIsDarkMode} 
+        getNodes={() => nodes} 
+        getEdges={() => edges} 
+      />
       <ControlPanel addGateNode={addGateNode} setNodes={setNodes} />
       <div className="flow-container">
         <ReactFlow

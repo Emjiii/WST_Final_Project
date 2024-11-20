@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon } from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
 import '../styles/header.css';
+import { saveCircuit } from '../utils/circuitOperations';
 
-const Header = ({ addGateNode, isDarkMode, setIsDarkMode }) => {
+const Header = ({ addGateNode, isDarkMode, setIsDarkMode, getNodes, getEdges }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
@@ -39,7 +40,7 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode }) => {
               <button 
                 className="save-button"
                 aria-label="Save Project"
-                onClick={() => {/* Add save logic */}}
+                onClick={() => saveCircuit(getNodes, getEdges)}
               >
                 <SaveIcon className="header-icon" />
               </button>
