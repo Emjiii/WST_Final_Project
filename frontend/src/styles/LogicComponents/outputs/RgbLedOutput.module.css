@@ -81,6 +81,7 @@
 
 .leg {
     position: relative;
+    cursor: crosshair;
 }
 
 .legLine {
@@ -88,13 +89,24 @@
     height: 30px;
     background: linear-gradient(to right, #b8b8b8, #d0d0d0, #b8b8b8);
     box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    position: relative;
 }
 
-.handle {
-    width: 18px;
-    height: 18px;
-    background: linear-gradient(145deg, #666, #444);
-    border: 3px solid #333;
-    box-shadow: 0 3px 4px rgba(0,0,0,0.2);
-    bottom: -6px;
+.hiddenHandle {
+    opacity: 0 !important;
+    width: 10px !important;
+    height: 10px !important;
+    bottom: -5px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: crosshair !important;
+    pointer-events: all !important;
+    z-index: 1000 !important;
+}
+
+.leg:hover .legLine {
+    background: linear-gradient(to right, #a0a0a0, #c0c0c0, #a0a0a0);
 } 

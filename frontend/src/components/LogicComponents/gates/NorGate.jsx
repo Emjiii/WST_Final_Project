@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Handle, Position, useEdges, useNodes } from '@xyflow/react';
 import axios from 'axios';
-import norStyles from '../../styles/components/gates/NorGate.module.css';
-import styles from '../../styles/components/gates/GateStyles.module.css';
+import norStyles from "../../../styles/LogicComponents/gates/NorGate.module.css";
+import styles from "../../../styles/LogicComponents/gates/GateStyles.module.css";
 
-export const NorGate = ({ isConnectable, id, data }) => {
+export const NorGateCanvas = ({ isConnectable, id, data }) => {
 
     const [input1, setInput1] = useState(null);
     const [input2, setInput2] = useState(null);
@@ -53,11 +53,32 @@ export const NorGate = ({ isConnectable, id, data }) => {
         console.log('Inputs:', Boolean(input1), Boolean(input2), 'Output:', newOutput);
     }, [input1, input2, data]);
 
+ 
     return (
-        <div className={styles.gateContainer}>
-            {/* Input Connection Lines */}
-            <div className={norStyles.inputLine1} />
-            <div className={norStyles.inputLine2} />
+        <div className={`${styles.gateContainer} ${norStyles.norGate}`}>
+             {/* Input Connection Lines with Glowing Effect */}
+             <div className={norStyles.inputLineTop}>
+                <div className={norStyles.lineShadow} />
+                <div className={norStyles.lineGlow} />
+            </div>
+            <div className={norStyles.inputLineBottom}>
+                <div className={norStyles.lineShadow} />
+                <div className={norStyles.lineGlow} />
+            </div>
+
+            {/* NOT Bubble with Enhanced Effects - Moved before output line */}
+            <div className={norStyles.notBubble}>
+                <div className={norStyles.notBubbleInner}>
+                    <div className={norStyles.bubbleHighlight} />
+                    <div className={norStyles.bubbleGlow} />
+                </div>
+            </div>
+
+            {/* Output Connection Line */}
+            <div className={norStyles.outputLine}>
+                <div className={norStyles.lineShadow} />
+                <div className={norStyles.lineGlow} />
+            </div>
 
             {/* Main Gate Body - Border Background */}
             <div className={norStyles.gateBorderBackground} />
@@ -65,46 +86,43 @@ export const NorGate = ({ isConnectable, id, data }) => {
             {/* Main Gate Body */}
             <div className={norStyles.gateBody}>
                 {/* Gate Label */}
-                <span className={styles.gateLabel}>
-                    NOR
-                </span>
-    
+
+                <div className={norStyles.metalEffect} />
+                <div className={norStyles.innerShadow} />
+                <div className={norStyles.highlight} />
+                <div className={norStyles.bevel} />
+                <span className={norStyles.label}>NOR</span>
             </div>
 
-            {/* Output Connection Line */}
-            <div className={norStyles.outputLine} />
-
-           {/* NOT Bubble */}
-           <div className={styles.notBubble}>
-                <div className={styles.notBubbleInner} />
-            </div>
-
-            {/* Input Handles */}
+        
+            {/* Handles */}
             <Handle
                 type="target"
                 position={Position.Left}
                 id={`${id}-input-1`}
                 isConnectable={isConnectable}
-                className={`${styles.handle} ${norStyles.input1Handle}`}
+
+                className={`${styles.handle} ${norStyles.inputHandleTop} ${norStyles.handleEffect}`}
             />
             <Handle
                 type="target"
                 position={Position.Left}
                 id={`${id}-input-2`}
                 isConnectable={isConnectable}
-                className={`${styles.handle} ${norStyles.input2Handle}`}
-            />
 
-            {/* Output Handle */}
+                className={`${styles.handle} ${norStyles.inputHandleBottom} ${norStyles.handleEffect}`}
+            />
             <Handle
                 type="source"
                 position={Position.Right}
                 id={`${id}-output`}
                 isConnectable={isConnectable}
-                className={`${styles.handle} ${norStyles.outputHandle}`}
+
+                className={`${styles.handle} ${norStyles.outputHandle} ${norStyles.handleEffect}`}
             />
         </div>
     );
 };
 
-export default NorGate;
+
+export default NorGateCanvas;

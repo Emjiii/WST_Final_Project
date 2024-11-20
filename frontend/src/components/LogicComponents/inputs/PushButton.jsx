@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Handle, Position } from '@xyflow/react';
-import styles from '../../styles/components/inputs/PushButton.module.css';
+import styles from "../../../styles/LogicComponents/inputs/PushButton.module.css";
 
-export const PushButton = ({ isConnectable, id }) => {
+export const PushButton = ({ data, isConnectable, id }) => {
     const [isPressed, setIsPressed] = useState(false);
 
-    //modify hereeee
     const handleClick = (e) => {
         e.stopPropagation();
-        setIsPressed(!isPressed);
+        const newValue = !isPressed;
+        setIsPressed(newValue);
+        if (data.setValue) {
+            data.setValue(newValue);
+        }
     };
 
     return (

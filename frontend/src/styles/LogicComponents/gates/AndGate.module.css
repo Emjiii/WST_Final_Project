@@ -1,0 +1,378 @@
+.andGate {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+/* Modern Connection Lines */
+.connectionLine {
+    position: absolute;
+    height: 4px;
+    background: var(--connection-bg);
+    border-radius: 6px;
+    z-index: 1;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.4),
+        inset 0 1px 2px var(--highlight-color);
+}
+
+/* Enhanced Line Effects */
+.lineShadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    box-shadow: 
+        0 2px 4px rgba(0,0,0,0.3),
+        0 4px 8px rgba(0,0,0,0.2),
+        inset 0 1px 2px rgba(255,255,255,0.15);
+}
+
+.lineGlow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* Input Lines with Enhanced Styling */
+.inputLineTop, .inputLineBottom {
+    composes: connectionLine;
+    left: -4px;
+    width: 30px;
+}
+
+.inputLineTop {
+    top: 30%;
+}
+
+.inputLineBottom {
+    top: 70%;
+}
+
+/* Output Line with Enhanced Styling */
+.outputLine {
+    composes: connectionLine;
+    right: 100px;
+    top: 50%;
+    width: 30px;
+}
+
+/* Modern Handle Styling */
+.handleEffect {
+    width: 16px !important;
+    height: 16px !important;
+    background: var(--handle-bg) !important;
+    border: 2px solid var(--handle-border) !important;
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 2px 4px var(--highlight-color) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    overflow: hidden;
+}
+
+.handleInner {
+    position: absolute;
+    inset: 1px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, 
+        rgba(255,255,255,0.15),
+        rgba(255,255,255,0) 60%
+    );
+}
+
+.handleGlow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(
+        circle at center,
+        var(--glow-color) 0%,
+        transparent 70%
+    );
+}
+
+/* Handle Positions with Better Alignment */
+.inputHandleTop {
+    left: -10px !important;
+    top: 30% !important;
+    transform: translateY(-50%);
+}
+
+.inputHandleBottom {
+    left: -10px !important;
+    top: 70% !important;
+    transform: translateY(-50%);
+}
+
+.outputHandle {
+    right: 85px !important;
+    top: 50% !important;
+    transform: translateY(-50%);
+}
+
+/* Enhanced Gate Body Effects */
+.baseLayer {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--base-color);
+    box-shadow: 
+        0 4px 8px rgba(0,0,0,0.2),
+        0 8px 16px rgba(0,0,0,0.15);
+}
+
+.metalEffect {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--metal-effect);
+    opacity: 1;
+    box-shadow: 
+        0 8px 16px var(--shadow-color),
+        0 4px 8px rgba(0, 0, 0, 0.4),
+        inset 0 -4px 8px var(--inner-shadow);
+}
+
+.gradientOverlay {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--gradient-overlay);
+    opacity: 0.7;
+}
+
+.innerShadow {
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    box-shadow: 
+        inset 0 2px 4px var(--inner-shadow),
+        inset 0 -1px 2px var(--highlight-color);
+}
+
+.highlight {
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background: linear-gradient(145deg, 
+        var(--highlight-color) 0%,
+        rgba(255, 255, 255, 0.05) 30%,
+        rgba(255, 255, 255, 0) 60%
+    );
+}
+
+.bevel {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 
+        -1px -1px 2px rgba(255,255,255,0.15),
+        1px 1px 2px rgba(0,0,0,0.25);
+}
+
+.edgeLight {
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(145deg,
+        rgba(255,255,255,0.1),
+        rgba(255,255,255,0) 70%
+    );
+}
+
+.topHighlight {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 30%;
+    background: linear-gradient(180deg,
+        rgba(255,255,255,0.15),
+        rgba(255,255,255,0)
+    );
+    border-radius: inherit;
+}
+
+.label {
+    position: relative;
+    z-index: 2;
+    color: var(--text-color);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        0 -1px 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Light Mode Theme with darker colors (previously dark mode colors) */
+:global(.light) .andGate {
+    --base-color: #000000;  /* Pure black base */
+    --primary-color: #020617;  /* Almost black */
+    --secondary-color: #0F172A;  /* Very dark blue */
+    --accent-color: #3B82F6;  /* Bright blue */
+    --connection-bg: linear-gradient(to right, #020617, #0F172A);
+    --handle-bg: linear-gradient(145deg, #0F172A, #020617);
+    --handle-border: #000000;
+    --glow-color: rgba(59, 130, 246, 0.5);  /* Blue glow */
+    --metal-effect: linear-gradient(
+        145deg,
+        #020617,
+        #000000 30%,
+        #020617 60%,
+        #000000
+    );
+    --gradient-overlay: linear-gradient(
+        165deg,
+        rgba(2, 6, 23, 0.95),
+        rgba(0, 0, 0, 0.8)
+    );
+    --text-color: #FFFFFF;  /* Pure white text */
+    --highlight-color: rgba(255, 255, 255, 0.12);
+    --shadow-color: rgba(0, 0, 0, 0.7);
+    --inner-shadow: rgba(0, 0, 0, 0.6);
+}
+
+/* Dark Mode Theme with lighter colors (previously light mode colors) */
+:global(.dark) .andGate {
+    --base-color: #f1f5f9;
+    --primary-color: #e2e8f0;
+    --secondary-color: #cbd5e1;
+    --accent-color: #0ea5e9;
+    
+    /* Enhanced gradients for more depth */
+    --metal-effect: linear-gradient(
+        145deg,
+        #f8fafc,
+        #e2e8f0 35%,
+        #f1f5f9 65%,
+        #e2e8f0
+    );
+    
+    --gradient-overlay: linear-gradient(
+        165deg,
+        rgba(241, 245, 249, 0.95),
+        rgba(226, 232, 240, 0.85)
+    );
+    
+    /* Refined colors */
+    --connection-bg: linear-gradient(to right, #0ea5e9, #38bdf8);
+    --handle-bg: linear-gradient(145deg, #0ea5e9, #0284c7);
+    --handle-border: #0ea5e9;
+    --glow-color: rgba(14, 165, 233, 0.4);
+    --text-color: #0f172a;
+    --highlight-color: rgba(255, 255, 255, 0.7);
+    --shadow-color: rgba(51, 65, 85, 0.2);
+    --inner-shadow: rgba(51, 65, 85, 0.15);
+}
+
+/* Enhanced shadow effects for dark mode */
+:global(.dark) .metalEffect {
+    box-shadow: 
+        0 8px 16px var(--shadow-color),
+        0 4px 8px rgba(51, 65, 85, 0.1),
+        inset 0 -2px 4px var(--inner-shadow);
+}
+
+/* Refined highlight for dark mode */
+:global(.dark) .highlight {
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    opacity: 0.15;
+}
+
+/* Enhanced handle effect for dark mode */
+:global(.dark) .handleEffect {
+    background: var(--handle-bg) !important;
+    border: 2px solid var(--handle-border) !important;
+    box-shadow: 
+        0 4px 6px rgba(14, 165, 233, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Enhanced Hover Effects for both modes */
+.andGate:hover {
+    transform: translateY(-4px) scale(1.02);
+    filter: brightness(1.2) contrast(1.1);
+}
+
+.andGate:hover .metalEffect {
+    background: linear-gradient(
+        145deg,
+        var(--secondary-color),
+        var(--primary-color) 30%,
+        var(--secondary-color) 60%,
+        var(--primary-color)
+    );
+    box-shadow: 
+        0 12px 24px var(--shadow-color),
+        0 8px 16px rgba(0, 0, 0, 0.25),
+        inset 0 -6px 12px var(--inner-shadow);
+}
+
+/* Enhanced Handle Hover Effect */
+.andGate:hover .handleEffect {
+    transform: scale(1.15) translateY(-50%) !important;
+    background: linear-gradient(145deg, var(--accent-color), color-mix(in srgb, var(--accent-color) 80%, black)) !important;
+    border-color: var(--accent-color) !important;
+    box-shadow: 
+        0 8px 16px rgba(var(--accent-color), 0.3),
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Label Enhancement for better visibility in both modes */
+.label {
+    position: relative;
+    z-index: 2;
+    color: var(--text-color);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        0 -1px 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Active State Enhancement */
+.andGate:active {
+    transform: translateY(-2px) scale(0.98);
+    filter: brightness(0.9) contrast(1.1);
+}
+
+.andGate:active .metalEffect {
+    background: linear-gradient(
+        145deg,
+        var(--primary-color),
+        var(--base-color) 30%,
+        var(--primary-color) 60%,
+        var(--base-color)
+    );
+    box-shadow: 
+        0 4px 8px var(--shadow-color),
+        0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 -2px 4px var(--inner-shadow);
+}
+
+/* Connection Animation */
+.andGate.connected .lineGlow {
+    opacity: 1;
+    animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+    0% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.4; }
+} 

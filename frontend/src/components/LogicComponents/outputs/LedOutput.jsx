@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Handle, Position, useEdges, useNodes } from '@xyflow/react';
-import styles from '../../styles/components/outputs/LedOutput.module.css';
+import styles from "../../../styles/LogicComponents/outputs/LedOutput.module.css";
 
 const LedOutput = ({ data, isConnectable, id }) => {
     const [isLit, setIsLit] = useState(null);

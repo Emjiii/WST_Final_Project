@@ -1,0 +1,236 @@
+/* Header Container - Premium light mode */
+.header {
+  @apply relative z-10 transition-all duration-200;
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  box-shadow: 
+    0 8px 20px rgba(37, 99, 235, 0.25),
+    0 4px 8px rgba(37, 99, 235, 0.15),
+    0 2px 4px rgba(37, 99, 235, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+/* Optional hover effect to make it even more dynamic */
+.header:hover {
+  box-shadow: 
+    0 12px 24px rgba(37, 99, 235, 0.3),
+    0 6px 12px rgba(37, 99, 235, 0.2),
+    0 2px 4px rgba(37, 99, 235, 0.1);
+}
+
+/* Header Title/Logo - Premium light mode */
+.header-title {
+  @apply text-xl sm:text-2xl font-bold;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: -0.01em;
+}
+
+
+/* Header Buttons - Premium light mode */
+.header-button,
+.save-button,
+.menu-button,
+.header-right button {
+  @apply p-1.5 sm:p-2 md:p-2.5 lg:p-3
+    rounded-lg 
+    transition-all duration-200
+    flex items-center justify-center
+    w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 lg:w-12 lg:h-12;  /* Fixed dimensions for all buttons */
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.header-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+/* Save/Primary Button - Premium light mode */
+.save-button {
+  background: white;
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 
+    0 2px 4px rgba(37, 99, 235, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.save-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Menu Button - Premium light mode */
+.menu-button {
+  @apply p-2 
+    rounded-lg 
+    transition-all duration-200;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.menu-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+/* Dropdown Menu - Premium light mode */
+.dropdown-menu {
+  @apply mt-2 py-2 rounded-lg min-w-[200px];
+  background: white;
+  border: 1px solid rgba(37, 99, 235, 0.1);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(12px);
+}
+
+.dropdown-item {
+  @apply px-4 py-2 text-sm transition-all duration-200;
+  color: #1e293b;
+}
+
+.dropdown-item:hover {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: white;
+}
+
+/* Divider */
+.dropdown-divider {
+  border-color: rgba(37, 99, 235, 0.1);
+}
+
+.dark .header {
+  background: var(--gradient-primary);
+}
+
+.header-container {
+  @apply w-full pl-1 pr-4 sm:pl-2 sm:pr-4 md:pl-3 md:pr-6 lg:pl-0 lg:pr-8 py-4;
+}
+
+.header-content {
+  @apply flex items-center justify-between
+    max-w-7xl mx-auto
+    gap-2 sm:gap-4;
+}
+
+/* Left section with logo and title */
+.header-left {
+  @apply flex items-center gap-1.5 sm:gap-2 md:gap-3;
+}
+
+/* Logo and title container */
+.logo-title-container {
+  @apply flex items-center gap-2 sm:gap-3;
+}
+
+/* Logo styles */
+.header-logo {
+  @apply w-6 h-6 sm:w-8 sm:h-8;
+}
+
+/* Right section */
+.header-right {
+  @apply flex items-center gap-1.5 sm:gap-2 md:gap-3;
+}
+
+/* Button styles */
+.header-button {
+  @apply p-1.5 sm:p-2 md:p-2.5 lg:p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200;
+}
+
+/* Icon styles */
+.header-icon {
+  @apply w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7;
+} 
+
+.dark .header-button {
+    border: 1px solid var(--brandeis-blue);
+}
+
+/* Header buttons container */
+.header-right {
+  @apply flex items-center gap-2 sm:gap-3 md:gap-4;
+}
+
+/* Save Button - Responsive */
+.save-button {
+  @apply px-2 sm:px-3 md:px-4 lg:px-5
+    py-1.5 sm:py-2 md:py-2.5
+    rounded-lg 
+    font-medium 
+    transition-all duration-200
+    flex items-center gap-1.5 sm:gap-2;
+  background: white;
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 
+    0 2px 4px rgba(37, 99, 235, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Save button text - Hide on small screens */
+.save-button-text {
+  @apply hidden sm:inline-block
+    text-xs sm:text-sm md:text-base font-medium;
+}
+
+/* Header icon - Responsive size */
+.header-icon {
+  @apply w-4 h-4 sm:w-5 sm:h-5;
+}
+
+/* Header button - Responsive */
+.header-button {
+  @apply p-1.5 sm:p-2 
+    rounded-lg 
+    transition-all duration-200
+    flex items-center justify-center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.header-right button {
+  @apply p-1.5 sm:p-2 
+    rounded-lg 
+    transition-all duration-200
+    flex items-center justify-center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Header title - Responsive */
+.header-title {
+  @apply text-lg sm:text-xl md:text-2xl 
+    font-bold 
+    ml-2 sm:ml-3 md:ml-4;
+}
+
+/* Header container - Responsive padding */
+.header-container {
+  @apply px-2 sm:px-4 md:px-6 
+    py-2 sm:py-3 md:py-4;
+}
+
+/* Header content - Responsive spacing */
+.header-content {
+  @apply flex items-center justify-between
+    max-w-7xl mx-auto
+    gap-2 sm:gap-4;
+}

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Handle, Position, useEdges, useNodes } from '@xyflow/react';
 import axios from 'axios';
-import styles from '../../styles/components/gates/OrGate.module.css';
-import gateStyles from '../../styles/components/gates/GateStyles.module.css';
+import orStyles from "../../../styles/LogicComponents/gates/OrGate.module.css";
+import styles from "../../../styles/LogicComponents/gates/GateStyles.module.css";
 
-export const OrGate = ({ isConnectable, id, data }) => {
+export const OrGateCanvas = ({ isConnectable, id, data }) => {
 
     const [input1, setInput1] = useState(null); 
     const [input2, setInput2] = useState(null); 
@@ -55,51 +55,65 @@ export const OrGate = ({ isConnectable, id, data }) => {
         }, [input1, input2, data]);
 
     return (
-        <div className={gateStyles.gateContainer}>
-            {/* Input Connection Lines */}
-            <div className={styles.inputLine1} />
-            <div className={styles.inputLine2} />
-
-            {/* Main Gate Body - Border Background */}
-            <div className={styles.gateBorderBackground} />
-
-            {/* Main Gate Body */}
-            <div className={styles.gateBody}>
-                {/* Gate Label */}
-                <span className={gateStyles.gateLabel}>
-                    OR
-                </span>
+        <div className={`${styles.gateContainer} ${orStyles.orGate}`}>
+             {/* Input Connection Lines with Glowing Effect */}
+             <div className={orStyles.inputLineTop}>
+                <div className={orStyles.lineShadow} />
+                <div className={orStyles.lineGlow} />
+            </div>
+            <div className={orStyles.inputLineBottom}>
+                <div className={orStyles.lineShadow} />
+                <div className={orStyles.lineGlow} />
             </div>
 
             {/* Output Connection Line */}
-            <div className={styles.outputLine} />
+            <div className={orStyles.outputLine}>
+                <div className={orStyles.lineShadow} />
+                <div className={orStyles.lineGlow} />
+            </div>
 
-            {/* Input Handles */}
+            {/* Main Gate Body - Border Background */}
+            <div className={orStyles.gateBorderBackground} />
+
+            {/* Main Gate Body */}
+            <div className={orStyles.gateBody}>
+                {/* Gate Label */}
+                <div className={orStyles.metalEffect} />
+                <div className={orStyles.innerShadow} />
+                <div className={orStyles.highlight} />
+                <div className={orStyles.bevel} />
+                <span className={orStyles.label}>OR</span>
+            </div>
+
+        
+            {/* Handles */}
             <Handle
                 type="target"
                 position={Position.Left}
                 id={`${id}-input-1`}
                 isConnectable={isConnectable}
-                className={`${gateStyles.handle} ${styles.input1Handle}`}
+
+                className={`${styles.handle} ${orStyles.inputHandleTop} ${orStyles.handleEffect}`}
             />
             <Handle
                 type="target"
                 position={Position.Left}
                 id={`${id}-input-2`}
                 isConnectable={isConnectable}
-                className={`${gateStyles.handle} ${styles.input2Handle}`}
-            />
 
-            {/* Output Handle */}
+                className={`${styles.handle} ${orStyles.inputHandleBottom} ${orStyles.handleEffect}`}
+            />
             <Handle
                 type="source"
                 position={Position.Right}
                 id={`${id}-output`}
                 isConnectable={isConnectable}
-                className={`${gateStyles.handle} ${styles.outputHandle}`}
+
+                className={`${styles.handle} ${orStyles.outputHandle} ${orStyles.handleEffect}`}
             />
         </div>
     );
 };
 
-export default OrGate;
+
+export default OrGateCanvas;

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Handle, Position, useEdges, useNodes } from '@xyflow/react';
 import axios from 'axios';
-import styles from '../../styles/components/gates/GateStyles.module.css';
-import nandStyles from '../../styles/components/gates/NandGate.module.css';
+import styles from "../../../styles/LogicComponents/gates/GateStyles.module.css";
+import nandStyles from "../../../styles/LogicComponents/gates/NandGate.module.css";
 
 export const NandGate = ({ isConnectable, id, data }) => {
     
@@ -56,47 +56,64 @@ export const NandGate = ({ isConnectable, id, data }) => {
     }, [input1, input2, data]);
 
     return (
-        <div className={styles.gateContainer}>
-            {/* Input Connection Lines */}
-            <div className={nandStyles.inputLineTop} />
-            <div className={nandStyles.inputLineBottom} />
+        <div className={`${styles.gateContainer} ${nandStyles.nandGate}`}>
+            {/* Input Connection Lines with Glowing Effect */}
+            <div className={nandStyles.inputLineTop}>
+                <div className={nandStyles.lineShadow} />
+                <div className={nandStyles.lineGlow} />
+            </div>
+            <div className={nandStyles.inputLineBottom}>
+                <div className={nandStyles.lineShadow} />
+                <div className={nandStyles.lineGlow} />
+            </div>
             
-            {/* Output Connection Line */}
-            <div className={nandStyles.outputLine} />
+            {/* NOT Bubble with Enhanced Effects - Moved before output line */}
+            <div className={nandStyles.notBubble}>
+                <div className={nandStyles.notBubbleInner}>
+                    <div className={nandStyles.bubbleHighlight} />
+                    <div className={nandStyles.bubbleGlow} />
+                </div>
+            </div>
 
-            {/* NAND Gate Body */}
+            {/* Output Connection Line - After NOT bubble */}
+            <div className={nandStyles.outputLine}>
+                <div className={nandStyles.lineShadow} />
+                <div className={nandStyles.lineGlow} />
+            </div>
+
+            {/* NAND Gate Body with Enhanced 3D Effects */}
             <div className={styles.andGateShape}>
-                <span className={styles.gateLabel}>NAND</span>
+                <div className={nandStyles.metalEffect} />
+                <div className={nandStyles.innerShadow} />
+                <div className={nandStyles.highlight} />
+                <div className={nandStyles.bevel} />
+                <span className={nandStyles.label}>NAND</span>
             </div>
 
-            {/* NOT Bubble */}
-            <div className={styles.notBubble}>
-                <div className={styles.notBubbleInner} />
-            </div>
-
-            {/* Input Handles */}
+            {/* Handles */}
             <Handle
                 type="target"
                 position={Position.Left}
                 id={`${id}-input-1`}
                 isConnectable={isConnectable}
-                className={`${styles.handle} ${nandStyles.inputHandleTop}`}
+
+                className={`${styles.handle} ${nandStyles.inputHandleTop} ${nandStyles.handleEffect}`}
             />
             <Handle
                 type="target"
                 position={Position.Left}
                 id={`${id}-input-2`}
                 isConnectable={isConnectable}
-                className={`${styles.handle} ${nandStyles.inputHandleBottom}`}
-            />
 
-            {/* Output Handle */}
+                className={`${styles.handle} ${nandStyles.inputHandleBottom} ${nandStyles.handleEffect}`}
+            />
             <Handle
                 type="source"
                 position={Position.Right}
                 id={`${id}-output`}
                 isConnectable={isConnectable}
-                className={`${styles.handle} ${nandStyles.outputHandle}`}
+
+                className={`${styles.handle} ${nandStyles.outputHandle} ${nandStyles.handleEffect}`}
             />
         </div>
     );

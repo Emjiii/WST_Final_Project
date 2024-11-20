@@ -1,0 +1,168 @@
+.container {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    padding: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.15));
+    pointer-events: all;
+    z-index: 1;
+}
+
+.switchWrapper {
+    position: relative;
+    width: 50px;
+    margin-right: 25px;
+}
+
+.baseBorder {
+    width: 50px;
+    height: 90px;
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 
+        0 15px 25px -5px rgba(0, 0, 0, 0.5),
+        0 10px 15px -5px rgba(0, 0, 0, 0.3),
+        0 5px 8px -2px rgba(0, 0, 0, 0.2),
+        inset 0 -2px 4px rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 1;
+}
+
+.mainBase {
+    width: 46px;
+    height: 86px;
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+    border-radius: 10px;
+    position: relative;
+    border: 1.5px solid rgba(0, 0, 0, 0.6);
+    box-shadow: 
+        inset 2px 2px 4px rgba(255, 255, 255, 0.05),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.4),
+        0 0 15px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+.toggleLever {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 60px;
+    border-radius: 15px;
+    cursor: pointer;
+    z-index: 3;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.toggleLever.on {
+    background: linear-gradient(145deg, #ef4444, #dc2626);
+    transform: translate(-50%, -50%) translateY(-15px);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 12px 20px -5px rgba(239, 68, 68, 0.4),
+        0 8px 12px -3px rgba(239, 68, 68, 0.3),
+        0 4px 6px -2px rgba(239, 68, 68, 0.2);
+}
+
+.toggleLever.off {
+    background: linear-gradient(145deg, #374151, #1f2937);
+    transform: translate(-50%, -50%) translateY(15px);
+    border: 2px solid #1f2937;
+    box-shadow:
+        0 8px 16px rgba(0,0,0,0.25),
+        0 4px 8px rgba(0,0,0,0.2),
+        inset 2px 2px 4px rgba(255,255,255,0.1),
+        inset -2px -2px 4px rgba(0,0,0,0.2);
+}
+
+.leverLine {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 3px;
+    border-radius: 1.5px;
+}
+
+.leverLine.on {
+    background: #fca5a5;
+    box-shadow: 
+        0 1px 2px rgba(220, 38, 38, 0.3),
+        0 0 4px rgba(220, 38, 38, 0.2);
+}
+
+.leverLine.off {
+    background: #4b5563;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.label {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+    z-index: 4;
+}
+
+.labelOn {
+    top: 8px;
+}
+
+.labelOff {
+    bottom: 8px;
+}
+
+.handle {
+    position: absolute !important;
+    right: 15px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 12px !important;
+    height: 12px !important;
+    background: linear-gradient(145deg, #3d4b66, #2a364d) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 50% !important;
+    z-index: 1000 !important;
+    pointer-events: all !important;
+    cursor: crosshair !important;
+}
+
+/* Handle inner effects */
+.handleInner {
+    position: absolute;
+    inset: 1px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, 
+        rgba(255,255,255,0.15),
+        rgba(255,255,255,0) 60%
+    );
+}
+
+.handleGlow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(
+        circle at center,
+        var(--glow-color) 0%,
+        transparent 70%
+    );
+}
+
+/* Add these CSS variables */
+:root {
+    --handle-bg: linear-gradient(145deg, #1e293b, #0f172a);
+    --handle-border: #020617;
+    --glow-color: rgba(239, 68, 68, 0.5);
+    --highlight-color: rgba(255, 255, 255, 0.08);
+}
+

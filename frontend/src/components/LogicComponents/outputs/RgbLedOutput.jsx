@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Handle } from '@xyflow/react';
-import styles from '../../styles/components/outputs/RgbLedOutput.module.css';
+import styles from "../../../styles/LogicComponents/outputs/RgbLedOutput.module.css";
 
 const RgbLedOutput = ({ data, isConnectable, id }) => {
     const [isLit, setIsLit] = useState(true);
 
-    //modify hereee
     useEffect(() => {
         setIsLit(Boolean(data?.value));
     }, [data?.value]);
@@ -13,16 +12,13 @@ const RgbLedOutput = ({ data, isConnectable, id }) => {
     return (
         <div className={styles.container}>
             <div className={styles.mainContainer}>
-                {/* LED Dome */}
+
                 <div className={`${styles.ledDome} ${isLit ? styles.lit : styles.unlit}`}>
-                    {/* Inner angular pattern */}
                     <div className={`${styles.innerPattern} ${isLit ? styles.lit : styles.unlit}`} />
                 </div>
 
-                {/* Base Ring */}
                 <div className={`${styles.baseRing} ${isLit ? styles.lit : styles.unlit}`} />
 
-                {/* LED Legs with Handles */}
                 <div className={styles.legsContainer}>
                     {/* Left Leg */}
                     <div className={styles.leg}>
@@ -31,7 +27,8 @@ const RgbLedOutput = ({ data, isConnectable, id }) => {
                             type="target"
                             position="bottom"
                             id="left"
-                            className={styles.handle}
+
+                            className={styles.hiddenHandle}
                             isConnectable={isConnectable}
                         />
                     </div>
@@ -43,7 +40,8 @@ const RgbLedOutput = ({ data, isConnectable, id }) => {
                             type="target"
                             position="bottom"
                             id="right"
-                            className={styles.handle}
+
+                            className={styles.hiddenHandle}
                             isConnectable={isConnectable}
                         />
                     </div>

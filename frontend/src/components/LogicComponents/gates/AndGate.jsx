@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Handle, Position, useEdges, useNodes } from '@xyflow/react';
 import axios from 'axios';
-import styles from '../../styles/components/gates/GateStyles.module.css';
-import andStyles from '../../styles/components/gates/AndGate.module.css';
+import styles from "../../../styles/LogicComponents/gates/GateStyles.module.css";
+import andStyles from "../../../styles/LogicComponents/gates/AndGate.module.css";
 
 export const AndGate = ({ isConnectable, id, data }) => {
 
@@ -61,42 +61,57 @@ export const AndGate = ({ isConnectable, id, data }) => {
     }, [input1, input2, data]);
 
     return (
-        <div className={styles.gateContainer}>
-            {/* Input Connection Lines */}
-            <div className={andStyles.inputLineTop} />
-            <div className={andStyles.inputLineBottom} />
+        <div className={`${styles.gateContainer} ${andStyles.andGate}`}>
+            {/* Input Connection Lines with Glowing Effect */}
+            <div className={andStyles.inputLineTop}>
+                <div className={andStyles.lineShadow} />
+                <div className={andStyles.lineGlow} />
+            </div>
+            <div className={andStyles.inputLineBottom}>
+                <div className={andStyles.lineShadow} />
+                <div className={andStyles.lineGlow} />
+            </div>
             
-            {/* Output Connection Line */}
-            <div className={andStyles.outputLine} />
-
-            {/* AND Gate Body */}
-            <div className={styles.andGateShape}>
-                <span className={styles.gateLabel}>AND</span>
+            {/* Output Connection Line with Glowing Effect */}
+            <div className={andStyles.outputLine}>
+                <div className={andStyles.lineShadow} />
+                <div className={andStyles.lineGlow} />
             </div>
 
-            {/* Input Handles */}
+            {/* AND Gate Body with Enhanced 3D Effects */}
+            <div className={styles.andGateShape}>
+                <div className={andStyles.metalEffect} />
+                <div className={andStyles.innerShadow} />
+                <div className={andStyles.highlight} />
+                <div className={andStyles.bevel} />
+                <span className={`${styles.gateLabel} ${andStyles.label}`}>AND</span>
+            </div>
+
+            {/* Handles moved to root level, just like NAND gate */}
             <Handle
                 type="target"
                 position={Position.Left}
                 id={`${id}-input-1`}
                 isConnectable={isConnectable}
-                className={`${styles.handle} ${andStyles.inputHandleTop}`}
+
+                className={`${styles.handle} ${andStyles.inputHandleTop} ${andStyles.handleEffect}`}
             />
             <Handle
                 type="target"
                 position={Position.Left}
                 id={`${id}-input-2`}
                 isConnectable={isConnectable}
-                className={`${styles.handle} ${andStyles.inputHandleBottom}`}
-            />
 
-            {/* Output Handle */}
+                className={`${styles.handle} ${andStyles.inputHandleBottom} ${andStyles.handleEffect}`}
+            />
             <Handle
                 type="source"
                 position={Position.Right}
                 id={`${id}-output`}
                 isConnectable={isConnectable}
-                className={`${styles.handle} ${andStyles.outputHandle}`}
+
+                className={`${styles.handle} ${andStyles.outputHandle} ${andStyles.handleEffect}`}
+                style={{ right: 0, top: '50%', transform: 'translateY(-50%)' }}
             />
         </div>
     );
