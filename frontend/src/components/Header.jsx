@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon } from './icons/HeaderIcons';
+import { TableIcon, SunIcon, MoonIcon, MenuIcon } from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
+import SaveButton from './SaveButton';
 import '../styles/header.css';
 
 const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const handleSave = (option) => {
+    console.log(`Selected save option: ${option}`);
+  };
 
   return (
     <>
@@ -36,13 +41,7 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick }) =
 
             {/* Right section */}
             <div className="header-right">
-              <button 
-                className="save-button"
-                aria-label="Save Project"
-                onClick={() => {/* Add save logic */}}
-              >
-                <SaveIcon className="header-icon" />
-              </button>
+              <SaveButton onSave={handleSave} />
 
               <button 
                 className="header-button"

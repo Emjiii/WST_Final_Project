@@ -1,0 +1,170 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 20, 47, 0.85); /* Darker overlay for better contrast */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(12px);
+    animation: fadeIn 0.2s ease-out;
+    min-height: 100vh; /* Ensure full height */
+  }
+  
+  .modalContent {
+    background: linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(255, 255, 255, 0.9)
+    );
+    border-radius: 20px;
+    padding: 32px;
+    width: 400px; /* Increased width */
+    text-align: center;
+    box-shadow: 
+      0 8px 32px rgba(0, 111, 252, 0.2),
+      0 4px 16px rgba(0, 187, 249, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: translateY(0);
+    animation: slideUp 0.3s ease-out;
+    position: relative; /* Ensure proper stacking */
+    margin: auto; /* Center horizontally */
+  }
+  
+  .modalHeader {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(0, 111, 252, 0.1);
+  }
+  
+  .modalTitle {
+    font-size: 2rem; /* Larger title */
+    font-weight: 700;
+    background: linear-gradient(
+      135deg,
+      #0022FF,    /* Blue */
+      #006FFC,    /* Brandeis Blue */
+      #00BBF9     /* Deep Sky Blue */
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: center;
+    margin: 0;
+  }
+  
+  .modalBody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Increased gap between buttons */
+    width: 100%; /* Full width */
+    padding: 0 16px; /* Add some padding */
+  }
+  
+  .modalButton {
+    padding: 16px 24px; /* Increased padding */
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 1.1rem; /* Larger font */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-width: 100%; /* Full width buttons */
+    min-height: 54px; /* Minimum height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modalButton.saveFileBtn,
+  .modalButton.saveImageBtn {
+    background: linear-gradient(
+      135deg,
+      #0022FF,    /* Blue */
+      #006FFC     /* Brandeis Blue */
+    ) !important;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
+  }
+  
+  .modalButton.saveFileBtn:hover,
+  .modalButton.saveImageBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 8px 20px rgba(0, 111, 252, 0.25),
+      0 4px 12px rgba(0, 187, 249, 0.15);
+    background: linear-gradient(
+      135deg,
+      #006FFC,    /* Brandeis Blue */
+      #00BBF9     /* Deep Sky Blue */
+    ) !important;
+  }
+  
+  .closeButton {
+    background: rgba(0, 20, 47, 0.15) !important;  /* Increased opacity for better visibility */
+    color: #00142F !important;  /* Darker text color */
+    border: 1px solid rgba(0, 111, 252, 0.2);  /* More visible border */
+    font-weight: 600;  /* Make text bolder */
+  }
+  
+  .closeButton:hover {
+    background: rgba(0, 20, 47, 0.25) !important;  /* Darker on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 20, 47, 0.1);
+  }
+  
+  /* Dark mode adjustments */
+  :global(.dark) .modalContent {
+    background: linear-gradient(
+      165deg,
+      rgba(0, 20, 47, 0.95),
+      rgba(0, 20, 47, 0.9)
+    );
+    border-color: rgba(0, 111, 252, 0.2);
+  }
+  
+  :global(.dark) .modalTitle {
+    background: linear-gradient(
+      135deg,
+      #00BBF9,    /* Deep Sky Blue */
+      #00F5D4     /* Aquamarine */
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  :global(.dark) .closeButton {
+    background: rgba(255, 255, 255, 0.15) !important;  /* Increased opacity for better visibility */
+    color: rgba(255, 255, 255, 0.9) !important;  /* Brighter text color */
+    border: 1px solid rgba(255, 255, 255, 0.2);  /* More visible border */
+    font-weight: 600;
+  }
+  
+  :global(.dark) .closeButton:hover {
+    background: rgba(255, 255, 255, 0.25) !important;  /* Brighter on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
