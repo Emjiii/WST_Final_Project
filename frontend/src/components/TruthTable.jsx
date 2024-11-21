@@ -28,6 +28,9 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
     return { inputNodes: inputs, outputNodes: outputs };
   }, [nodes]);
 
+
+  // part to add the logic of truth table
+  //just added sample for testing 
   const generateTruthTable = () => {
     // For testing AND gate
     const testInputNodes = [
@@ -114,6 +117,10 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
         ${isExiting ? styles.slideOut : styles.slideIn}
         ${isDarkMode ? 'dark' : ''}
       `}
+      style={{ 
+        transformStyle: 'preserve-3d',
+        perspective: '2000px'
+      }}
     >
       <div className={styles.titleWrapper}>
         <h3 className={styles.title}>Truth Table</h3>

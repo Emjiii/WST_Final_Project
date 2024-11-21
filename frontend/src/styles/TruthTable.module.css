@@ -18,19 +18,19 @@
     0 4px 8px rgba(0, 0, 0, 0.1);
   transform-style: preserve-3d;
   perspective: 2000px;
-  animation: slideIn 0.6s ease-out;
 }
 
 .tableWrapper {
-  @apply rounded-2xl overflow-x-auto
+  @apply overflow-x-auto
     backdrop-filter backdrop-blur-lg
     transition-all duration-500
-    w-full;
+    w-full
+    rounded-lg;
   min-width: min-content;
   background: linear-gradient(
     165deg,
-    rgba(255, 255, 255, 0.08),
-    rgba(255, 255, 255, 0.02)
+    rgba(0, 20, 47, 0.95),    
+    rgba(0, 20, 47, 0.9)
   );
   box-shadow: 
     0 4px 24px -6px rgba(0, 0, 0, 0.12),
@@ -71,22 +71,23 @@
     relative;
   background: linear-gradient(
     to bottom right,
-    #0022FF 0%,    /* Blue */
-    #006FFC 50%,   /* Brandeis Blue */
-    #00BBF9 100%   /* Deep Sky Blue */
+    #0022FF 0%,    
+    #006FFC 50%,   
+    #00BBF9 100%   
   );
-  text-shadow: 0 2px 4px rgba(0, 20, 47, 0.2);  /* Oxford Blue with opacity */
+  border-bottom: 2px solid rgba(0, 245, 212, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 20, 47, 0.2);  
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
     background: linear-gradient(
       to bottom right,
-      #006FFC 0%,    /* Brandeis Blue */
-      #00BBF9 50%,   /* Deep Sky Blue */
-      #00F5D4 100%   /* Aquamarine */
+      #006FFC 0%,   
+      #00BBF9 50%,   
+      #00F5D4 100%   
     );
     transform: translateZ(10px);
-    text-shadow: 0 4px 8px rgba(0, 20, 47, 0.3);  /* Oxford Blue with opacity */
+    text-shadow: 0 4px 8px rgba(0, 20, 47, 0.3); 
   }
 
   &::before {
@@ -108,24 +109,27 @@
 
 .tableRow {
   @apply transition-all duration-300;
+  background: rgba(255, 255, 255, 0.1);  
+  
+  &:nth-child(even) {
+    background: rgba(255, 255, 255, 0.15);  
+  }
   
   &:hover {
-    @apply bg-blue-50/80 dark:bg-blue-900/20;
+    background: rgba(255, 255, 255, 0.2);  
     transform: translateZ(15px) scale(1.01);
     box-shadow: 
-      0 8px 24px -6px rgba(0, 0, 0, 0.1),
-      0 0 8px rgba(0, 0, 0, 0.05);
+      0 8px 24px -6px rgba(0, 111, 252, 0.15),
+      0 2px 12px -2px rgba(0, 187, 249, 0.1);
   }
 }
 
 .valueCell {
   @apply px-4 py-3 sm:px-6 sm:py-4
-    text-center text-gray-700 dark:text-gray-300
-    border-b border-gray-200/30 dark:border-gray-700/30
-    font-mono text-sm
+    text-center font-mono text-sm
     transition-all duration-300
-    whitespace-nowrap
-    relative;
+    whitespace-nowrap relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
   &::after {
     content: '';
@@ -144,38 +148,45 @@
   }
 }
 
-/* Enhanced value cell states */
+
 .valueCell[data-value="1"] {
-    color: #00F5D4; /* Aquamarine */
+  color: #006FFC !important; 
+  text-shadow: 
+    0 0 12px rgba(0, 245, 212, 0.4),
+    0 0 24px rgba(0, 245, 212, 0.2);
+  animation: pulseGlow 2s infinite;
+  font-weight: 600;
+}
+
+.valueCell[data-value="0"] {
+  color: #006FFC !important; 
+  text-shadow: 
+    0 0 12px rgba(0, 111, 252, 0.4),
+    0 0 24px rgba(0, 111, 252, 0.2);
+  animation: pulseGlow 2s infinite reverse;
+  font-weight: 600;
+}
+
+
+.valueCell:not([data-value]) {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+
+@keyframes pulseGlow {
+  0%, 100% { 
+    opacity: 1;
     text-shadow: 
-      0 0 12px rgba(0, 245, 212, 0.4),
-      0 0 24px rgba(0, 245, 212, 0.2);
-    animation: pulseGlow 2s infinite;
+      0 0 12px currentColor,
+      0 0 24px currentColor;
   }
-  
-  .valueCell[data-value="0"] {
-    color: #006FFC; /* Brandeis Blue */
+  50% { 
+    opacity: 0.8;
     text-shadow: 
-      0 0 12px rgba(0, 111, 252, 0.4),
-      0 0 24px rgba(0, 111, 252, 0.2);
-    animation: pulseGlow 2s infinite reverse;
+      0 0 8px currentColor,
+      0 0 16px currentColor;
   }
-  
-  /* New animation for glowing effect */
-  @keyframes pulseGlow {
-    0%, 100% { 
-      opacity: 1;
-      text-shadow: 
-        0 0 12px currentColor,
-        0 0 24px currentColor;
-    }
-    50% { 
-      opacity: 0.8;
-      text-shadow: 
-        0 0 8px currentColor,
-        0 0 16px currentColor;
-    }
-  }
+}
 
 .title {
   @apply text-2xl sm:text-3xl md:text-4xl 
@@ -188,19 +199,43 @@
     dark:from-[#006FFC] dark:via-[#00BBF9] dark:to-[#00F5D4]
     hover:from-[#006FFC] hover:via-[#00BBF9] hover:to-[#00F5D4]
     transition-all duration-300;
-  text-shadow: 0 2px 4px rgba(0, 20, 47, 0.1);  /* Oxford Blue with opacity */
+  text-shadow: 0 2px 4px rgba(0, 20, 47, 0.1);  
   animation: titleGradient 6s infinite linear;
 }
 
-/* Enhanced Animations */
+
+.slideIn {
+  animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-style: preserve-3d;
+  perspective: 2000px;
+}
+
+.slideOut {
+  animation: slideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+  transform-style: preserve-3d;
+  perspective: 2000px;
+}
+
+
 @keyframes slideIn {
-  from {
+  0% {
     opacity: 0;
     transform: translateX(100%) rotateY(-20deg);
   }
-  to {
+  100% {
     opacity: 1;
     transform: translateX(0) rotateY(0);
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0) rotateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%) rotateY(-20deg);
   }
 }
 
@@ -228,7 +263,7 @@
   }
 }
 
-/* Scrollbar Styling */
+
 .tableWrapper::-webkit-scrollbar {
   @apply h-2 w-2;
 }
@@ -237,13 +272,14 @@
   @apply bg-transparent rounded-full;
 }
 
+
 .tableWrapper::-webkit-scrollbar-thumb {
   @apply bg-blue-500/50 dark:bg-blue-400/50 
-    rounded-full
+    rounded-full 
     hover:bg-blue-600/50 dark:hover:bg-blue-500/50;
 }
 
-/* Glass morphism enhancement */
+
 .truthTableContainer::before {
   content: '';
   @apply absolute inset-0;
@@ -263,7 +299,7 @@
   100% { background-position: 0% 50%; }
 }
 
-/* Responsive enhancements */
+
 @media (max-width: 640px) {
   .truthTableContainer {
     @apply p-2;
@@ -275,65 +311,93 @@
   }
 }
 
-/* Dark mode enhancements */
+
 :global(.dark) .truthTableContainer {
   background: linear-gradient(
     165deg,
-    #00142F,  /* Oxford Blue */
+    #00142F, 
     rgba(0, 20, 47, 0.95)
   );
   box-shadow: 
     /* Inner shadows */
-    inset 4px 0 12px -4px rgba(0, 34, 255, 0.15),  /* Blue */
-    inset 0 0 20px rgba(0, 111, 252, 0.1),         /* Brandeis Blue */
+    inset 4px 0 12px -4px rgba(0, 34, 255, 0.15),  
+    inset 0 0 20px rgba(0, 111, 252, 0.1),         
     /* Outer glowing shadows */
-    0 8px 24px -6px rgba(0, 187, 249, 0.2),        /* Deep Sky Blue */
-    0 4px 16px -4px rgba(0, 245, 212, 0.15),       /* Aquamarine */
+    0 8px 24px -6px rgba(0, 187, 249, 0.2),        
+    0 4px 16px -4px rgba(0, 245, 212, 0.15),       
     /* Ambient shadow */
-    0 0 32px rgba(0, 20, 47, 0.4);                 /* Oxford Blue */
+    0 0 32px rgba(0, 20, 47, 0.4);                 
 }
 
-/* Update table wrapper dark mode */
+
 :global(.dark) .tableWrapper {
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.95),    
+    rgba(255, 255, 255, 0.9)
+  );
   box-shadow: 
-    0 4px 24px -6px rgba(0, 111, 252, 0.15),       /* Brandeis Blue */
-    0 2px 12px -2px rgba(0, 187, 249, 0.1);        /* Deep Sky Blue */
+    0 4px 24px -6px rgba(0, 111, 252, 0.2),
+    0 2px 12px -2px rgba(0, 187, 249, 0.15);
 }
 
-/* Update header row dark mode glow */
+
 :global(.dark) .headerRow::after {
   box-shadow: 
-    0 0 12px rgba(0, 187, 249, 0.3),               /* Deep Sky Blue */
-    0 0 20px rgba(0, 245, 212, 0.2);               /* Aquamarine */
+    0 0 12px rgba(0, 187, 249, 0.3),             
+    0 0 20px rgba(0, 245, 212, 0.2);               
 }
 
 /* Update glass morphism for dark mode */
 :global(.dark) .truthTableContainer::before {
   background: linear-gradient(
     145deg,
-    rgba(0, 34, 255, 0.08),    /* Blue */
-    rgba(0, 111, 252, 0.04)    /* Brandeis Blue */
+    rgba(0, 34, 255, 0.08),    
+    rgba(0, 111, 252, 0.04)   
   );
   box-shadow: 
-    0 8px 32px rgba(0, 187, 249, 0.1),             /* Deep Sky Blue */
-    0 4px 16px rgba(0, 245, 212, 0.05);            /* Aquamarine */
+    0 8px 32px rgba(0, 187, 249, 0.1),            
+    0 4px 16px rgba(0, 245, 212, 0.05);         
 }
 
 /* Update value cells glow in dark mode */
 :global(.dark) .valueCell[data-value="1"] {
-  text-shadow: 0 0 12px rgba(0, 245, 212, 0.4);    /* Aquamarine glow */
+  text-shadow: 0 0 12px rgba(0, 245, 212, 0.4);   
 }
 
 :global(.dark) .valueCell[data-value="0"] {
-  text-shadow: 0 0 12px rgba(0, 111, 252, 0.4);    /* Brandeis Blue glow */
+  text-shadow: 0 0 12px rgba(0, 111, 252, 0.4);    
 }
 
-/* Update scrollbar for dark mode */
+
 :global(.dark) .tableWrapper::-webkit-scrollbar-thumb {
   background: linear-gradient(
     to right,
-    rgba(0, 111, 252, 0.5),    /* Brandeis Blue */
-    rgba(0, 187, 249, 0.5)     /* Deep Sky Blue */
+    rgba(0, 111, 252, 0.5),    
+    rgba(0, 187, 249, 0.5)     
   );
-  box-shadow: 0 0 8px rgba(0, 245, 212, 0.2);      /* Aquamarine */
+  box-shadow: 0 0 8px rgba(0, 245, 212, 0.2);      
+}
+
+/* Dark mode value cells */
+:global(.dark) .valueCell {
+  color: rgba(0, 20, 47, 0.9);  
+  border-bottom: 1px solid rgba(0, 20, 47, 0.1);
+}
+
+/* Dark mode value cells */
+:global(.dark) .tableRow {
+  background: rgba(0, 20, 47, 0.1);  
+  
+  &:nth-child(even) {
+    background: rgba(0, 20, 47, 0.15);  
+  }
+  
+  &:hover {
+    background: rgba(0, 20, 47, 0.2);  
+    transform: translateZ(15px) scale(1.01);
+    box-shadow: 
+      0 8px 24px -6px rgba(0, 187, 249, 0.2),
+      0 2px 12px -2px rgba(0, 245, 212, 0.15);
+  }
 }
