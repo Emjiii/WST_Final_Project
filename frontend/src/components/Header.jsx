@@ -4,7 +4,7 @@ import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon } from './icons/Header
 import LogicGateDrawer from './LogicGateDrawer';
 import '../styles/header.css';
 
-const Header = ({ addGateNode, isDarkMode, setIsDarkMode }) => {
+const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
@@ -47,6 +47,7 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode }) => {
               <button 
                 className="header-button"
                 aria-label="Truth Table"
+                onClick={onTruthTableClick}
               >
                 <TableIcon className="header-icon" />
               </button>
@@ -79,6 +80,7 @@ Header.propTypes = {
   addGateNode: PropTypes.func.isRequired,
   isDarkMode: PropTypes.bool.isRequired,
   setIsDarkMode: PropTypes.func.isRequired,
+  onTruthTableClick: PropTypes.func.isRequired,
 };
 
 export default Header;

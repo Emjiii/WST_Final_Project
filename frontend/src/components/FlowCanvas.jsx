@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import Header from './Header';
 import { useDarkMode } from '../utils/useDarkMode';
 import {
@@ -31,6 +31,7 @@ import ControlPanel from './ControlPanel';
 
 import '@xyflow/react/dist/style.css';
 import '../styles/flow.css';
+import TruthTable from './TruthTable';
 
 
 const nodeTypes = {
@@ -52,6 +53,7 @@ const FlowCanvas = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [isDarkMode, setIsDarkMode] = useDarkMode();
+  const [showTruthTable, setShowTruthTable] = useState(false);
 
   // Connection callback
   const onConnect = useCallback((params) => {
@@ -146,9 +148,9 @@ const FlowCanvas = () => {
 
   return (
     <div className="flow-wrapper">
-      <Header addGateNode={addGateNode} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+      <Header addGateNode={addGateNode} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} onTruthTableClick={() => setShowTruthTable(prev => !prev)} />
       <ControlPanel addGateNode={addGateNode} setNodes={setNodes} />
-      <div className="flow-container">
+      <div className={`flow-container ${showTruthTable ? 'with-truth-table' : ''}`}>
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -159,7 +161,7 @@ const FlowCanvas = () => {
           onNodesDelete={onNodesDelete}
           deleteKeyCode={['Backspace', 'Delete']}
           fitView
-          className="flow-canvas"
+          className={`flow-canvas ${showTruthTable ? 'shrunk' : ''}`}
           snapToGrid={false}
           elevateNodesOnSelect={true}
           panOnDrag={true}
@@ -199,6 +201,11 @@ const FlowCanvas = () => {
             />
           ))}
         </ReactFlow>
+        <TruthTable 
+          isVisible={showTruthTable}
+          nodes={nodes}
+          edges={edges}
+        />
       </div>
     </div>
   );
