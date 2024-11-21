@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const gateRoutes = require('./src/gateRoutes');
+const gateRoutes = require('./src/gates/gateRoutes');
 const app = express();
 const PORT = 3000;
 
