@@ -1,3 +1,7 @@
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@200;300;400;500;600;700&display=swap');
+
+/* Root styles */
 :root {
   /* Color Palette */
   --oxford-blue: #00142F;
@@ -5,6 +9,10 @@
   --brandeis-blue: #006FFC;
   --sky-blue: #00BBF9;
   --aquamarine: #00F5D4;
+
+  /* Font families */
+  --font-display: 'Exo 2', sans-serif;
+  --font-mono: 'Orbitron', sans-serif;
 }
 
 /* Hide scrollbars but keep functionality */
@@ -23,7 +31,7 @@
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font-display);
   background-color: var(--oxford-blue);
   color: #ffffff;
   overflow-x: hidden;
@@ -75,8 +83,10 @@ body {
 }
 
 .nav-brand {
-  font-size: 1.8rem;
+  font-family: var(--font-mono);
   font-weight: 700;
+  letter-spacing: -0.5px;
+  font-size: 1.8rem;
   background: linear-gradient(45deg, var(--sky-blue), var(--aquamarine));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -88,9 +98,11 @@ body {
 }
 
 .nav-links a {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  letter-spacing: 0.5px;
   color: #ffffff;
   text-decoration: none;
-  font-size: 1.1rem;
   transition: all 0.3s ease;
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -101,16 +113,18 @@ body {
   color: var(--aquamarine);
 }
 
-/* Hero Section */
+/* Hero Section - Made shorter and wider */
 .hero {
   position: relative;
-  min-height: 90vh;
-  display: flex;
+  min-height: 45vh; /* Significantly reduced height */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  justify-content: center;
+  gap: 2rem;
   overflow: hidden;
-  padding-top: 80px;
-  margin: 2rem 0;
+  padding: 100px 4rem 2rem 4rem; /* Increased top padding to avoid navbar overlap */
+  margin: 0; /* Removed margin */
+  width: 100%;
 }
 
 .hero-animation {
@@ -171,23 +185,23 @@ body {
   }
 }
 
+/* Hero Content - Adjusted for shorter height */
 .hero-content {
   position: relative;
   z-index: 4;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem; /* Reduced gap */
   text-align: center;
-  padding: 3rem;
+  padding: 2.5rem; /* Reduced padding */
   background: rgba(0, 20, 47, 0.7);
   backdrop-filter: blur(10px);
   border-radius: 30px;
   border: 1px solid rgba(0, 245, 212, 0.1);
-  max-width: 900px;
-  margin: 0 2rem;
-  animation: contentFade 1s ease-out;
+  max-width: 600px;
+  margin: 0 auto;
   box-shadow: 0 0 50px rgba(0, 245, 212, 0.1);
-  pointer-events: auto;
+  grid-column: 1;
 }
 
 @keyframes contentFade {
@@ -202,6 +216,9 @@ body {
 }
 
 .hero-text h1 {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: -1px;
   font-size: 5rem;
   line-height: 1.2;
   margin-bottom: 1rem;
@@ -222,6 +239,9 @@ body {
 }
 
 .hero-subtitle {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: 0.5px;
   font-size: 1.8rem;
   color: #ffffff;
   opacity: 0.9;
@@ -238,11 +258,13 @@ body {
 }
 
 .cta-button {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.5px;
   padding: 1.2rem 2.5rem;
   font-size: 1.2rem;
   border: none;
   border-radius: 30px;
-  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   display: inline-flex;
@@ -317,6 +339,9 @@ body {
 }
 
 .features h2 {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: -0.5px;
   font-size: 3rem;
   margin-bottom: 3rem;
   background: linear-gradient(45deg, var(--sky-blue), var(--aquamarine));
@@ -357,12 +382,16 @@ body {
 }
 
 .feature-card h3 {
+  font-family: var(--font-mono);
+  letter-spacing: 0px;
   font-size: 1.8rem;
   margin-bottom: 1rem;
   color: var(--aquamarine);
 }
 
 .feature-card p {
+  font-family: var(--font-display);
+  font-weight: 400;
   color: #cccccc;
   line-height: 1.6;
 }
@@ -391,6 +420,9 @@ body {
 }
 
 .about h2 {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: -0.5px;
   font-size: 3rem;
   margin-bottom: 2rem;
   background: linear-gradient(45deg, var(--sky-blue), var(--aquamarine));
@@ -399,6 +431,9 @@ body {
 }
 
 .about p {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: 0.3px;
   font-size: 1.2rem;
   line-height: 1.6;
   color: #cccccc;
@@ -525,6 +560,8 @@ body {
 }
 
 .footer-brand h3 {
+  font-family: var(--font-mono);
+  letter-spacing: -0.5px;
   font-size: 1.8rem;
   margin-bottom: 1rem;
   background: linear-gradient(45deg, var(--sky-blue), var(--aquamarine));
@@ -544,6 +581,8 @@ body {
 }
 
 .footer-section h4 {
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
   color: #ffffff;
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
@@ -642,35 +681,61 @@ body {
   }
 }
 
-/* Spline Container */
+/* Spline Container - Matched to hero height */
 .spline-container {
   position: absolute;
+  right: -3%;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
+  transform: translateY(-50%);
+  width: 48%;
+  height: calc(100% - 100px); /* Match hero height minus top padding */
   z-index: 2;
   pointer-events: all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 spline-viewer {
   width: 100%;
   height: 100%;
+  transform: scale(1.25);
 }
 
-/* Remove Spline watermark */
-spline-viewer::part(logo) {
-  display: none !important;
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .spline-container {
+    right: -2%;
+    width: 45%;
+    height: calc(100% - 90px); /* Adjusted for smaller padding */
+  }
+  
+  spline-viewer {
+    transform: scale(1.2);
+  }
 }
 
-/* Make Spline background transparent */
-spline-viewer::part(canvas) {
-  background: transparent !important;
+@media (max-width: 968px) {
+  .spline-container {
+    position: relative;
+    right: auto;
+    width: 100%;
+    height: 40vh;
+    margin-top: 1rem;
+    transform: none;
+  }
+  
+  spline-viewer {
+    transform: scale(1.1);
+  }
 }
 
-/* Loading Animation for Spline */
-spline-viewer[loading-anim-type="spinner-small-dark"]::part(spinner) {
-  border-color: var(--aquamarine) !important;
-  border-right-color: transparent !important;
+@media (max-width: 480px) {
+  .spline-container {
+    height: 35vh;
+  }
+  
+  spline-viewer {
+    transform: scale(0.9);
+  }
 } 
