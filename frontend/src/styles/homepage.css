@@ -113,18 +113,19 @@ body {
   color: var(--aquamarine);
 }
 
-/* Hero Section - Made shorter and wider */
+/* Hero Section */
 .hero {
   position: relative;
-  min-height: 45vh; /* Significantly reduced height */
+  min-height: 45vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 2rem;
   overflow: hidden;
-  padding: 100px 4rem 2rem 4rem; /* Increased top padding to avoid navbar overlap */
-  margin: 0; /* Removed margin */
+  padding: 100px 4rem 2rem 4rem;
+  margin: 0;
   width: 100%;
+  animation: heroFadeIn 1s ease-out;
 }
 
 .hero-animation {
@@ -185,15 +186,15 @@ body {
   }
 }
 
-/* Hero Content - Adjusted for shorter height */
+/* Hero Content */
 .hero-content {
   position: relative;
   z-index: 4;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* Reduced gap */
+  gap: 1.5rem;
   text-align: center;
-  padding: 2.5rem; /* Reduced padding */
+  padding: 2.5rem;
   background: rgba(0, 20, 47, 0.7);
   backdrop-filter: blur(10px);
   border-radius: 30px;
@@ -202,14 +203,26 @@ body {
   margin: 0 auto;
   box-shadow: 0 0 50px rgba(0, 245, 212, 0.1);
   grid-column: 1;
+  animation: contentFade 1.2s ease-out;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes contentFade {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
-  to {
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
