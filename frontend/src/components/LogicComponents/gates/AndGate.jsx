@@ -20,22 +20,27 @@ export const AndGate = ({ isConnectable, id, data }) => {
 
             if (incomingEdge1) {
                 const sourceNode1 = nodes.find(node => node.id === incomingEdge1.source);
-                const inputValue1 = sourceNode1?.data?.value ?? null;
+                const inputValue1 = sourceNode1?.data?.value ?? false;
                 setInput1(inputValue1);
+                console.log('Input 1 Connected:', inputValue1);
             } else {
                 setInput1(null);
+                console.log('Input 1 Not Connected');
             }
 
             if (incomingEdge2) {
                 const sourceNode2 = nodes.find(node => node.id === incomingEdge2.source);
-                const inputValue2 = sourceNode2?.data?.value ?? null;
-                setInput2(inputValue2);
+                const inputValue2 = sourceNode2?.data?.value ?? false;
+                setInput2(inputValue2); 
+                console.log('Input 2 Connected:', inputValue2);   
             } else {
                 setInput2(null);
+                console.log('Input 2 Not Connected');
             }
         };
 
         updateInputs();
+
     }, [edges, nodes, id]);
 
     // Separate useEffect for output calculation
@@ -56,17 +61,18 @@ export const AndGate = ({ isConnectable, id, data }) => {
                         input2,
                         output: newOutput
                     });
-                
+                    console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
                 } catch (error) {
-                    console.error('Error updating AND gate state:', error);
+                    console.error('Error syncing with backend:', error);
                 }
             };
 
             andGateState();
-            console.log('Inputs:', Boolean(input1), Boolean(input2), 'Output:', newOutput);
-
+            
+            console.log('Inputs:', input1, input2, 'Output:', newOutput);
         }else{
             setOutput(null);
+            console.log('Incomplete Inputs, Output set to null');
         }
     }, [input1, input2, data]);
 
