@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const gateRoutes = require('./src/gates/gateRoutes');
+const truthTableRoutes = require('./src/truthTable/truthTableRoutes');
 const app = express();
 const PORT = 3000;
 
@@ -18,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/gates', gateRoutes);
-
+app.use('/truth-table', truthTableRoutes);
 // Endpoint to get the current state of a power switch
 app.get('/api/power-switch/:id', (req, res) => {
     const { id } = req.params;
@@ -27,7 +28,7 @@ app.get('/api/power-switch/:id', (req, res) => {
 });
 
 //use gateRoutes
-app.use('/gates', gateRoutes);
+//app.use('/gates', gateRoutes);
 
 app.post('/api/input-switch', (req, res) => {
     const { id, state } = req.body;
