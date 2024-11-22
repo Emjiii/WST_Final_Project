@@ -150,9 +150,17 @@ const FlowCanvas = () => {
 
   return (
     <div className="flow-wrapper">
-      <Header addGateNode={addGateNode} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} onTruthTableClick={() => setShowTruthTable(prev => !prev)} />
+      <Header 
+        addGateNode={addGateNode} 
+        isDarkMode={isDarkMode} 
+        setIsDarkMode={setIsDarkMode}
+        onTruthTableClick={() => setShowTruthTable(prev => !prev)}
+        getNodes={() => nodes} 
+        getEdges={() => edges} 
+      />
       <ControlPanel addGateNode={addGateNode} setNodes={setNodes} />
-      <div className={`flow-container ${showTruthTable ? 'with-truth-table' : ''}`}>
+      <div id="circuitCanvas" className="flow-container"  className={`flow-container ${showTruthTable ? 'with-truth-table' : ''}`}>
+
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -182,8 +190,8 @@ const FlowCanvas = () => {
             return !existingEdge;
           }}
         >
-          <Controls className="flow-controls" />
-          <MiniMap className="flow-minimap" />
+          <Controls id="flow-controls" className="flow-controls" />
+          <MiniMap id="flow-minimap" className="flow-minimap" />
           <Background 
             variant="dots" 
             gap={12} 
