@@ -86,7 +86,7 @@
   @apply text-sm sm:text-base 
     font-semibold
     tracking-wide;
-  color: var(--primary-blue);
+  color: var(--brandeis-blue);
 }
 
 .dark .section-title {

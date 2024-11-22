@@ -7,27 +7,45 @@
 
 /* Container for ReactFlow */
 .flow-container {
-  @apply w-full 
-    h-[calc(100vh-4rem)]  /* Subtract header height */
-    sm:h-[calc(100vh-4.5rem)]
-    md:h-[calc(100vh-5rem)]
-    lg:h-[calc(100vh-5.5rem)]
-    overflow-hidden;
+  @apply w-full h-[calc(100vh-4rem)] overflow-hidden;
+  display: flex;
+  transition: all 0.3s ease;
 }
 
 /* ReactFlow canvas */
 .flow-canvas {
-  @apply bg-white dark:bg-gray-900
-    w-full h-full
-    transition-colors duration-200;
+  @apply bg-white dark:bg-gray-900 transition-all duration-300;
+  width: 100%;
+}
+
+.flow-canvas.shrunk {
+  width: 75%;
 }
 
 .flow-controls {
-    @apply scale-75 sm:scale-90 md:scale-100  /* Responsive scaling */
-    origin-bottom-right  /* Correct Tailwind class for transform-origin */
-    transition-transform duration-200;  /* Smooth transition */
+    @apply scale-75 sm:scale-90 md:scale-100; /* Responsive scaling */
+    transform-origin: bottom right; /* Correct Tailwind class for transform-origin */
+    transition: transform 0.2s ease; /* Smooth transition */
+    border: 2px solid #3b82f6; /* Add border */
+    border-radius: 8px; /* Optional: Add rounded corners */
+    padding: 4px; /* Optional: Add padding */
+    background-color: rgba(255, 255, 255, 0.8); /* Optional: Add background for contrast */
+    margin-bottom: 24px; /* Add space below controls */
+}
+/* Flow Controls */
+.flow-controls button {
+  color: #1e293b; /* Dark color for light mode */
+  background-color: transparent; /* Ensure background is transparent */
+  transition: color 0.3s ease;
 }
 
+.dark .flow-controls button {
+  color: #f1f5f9; /* Light color for dark mode */
+}
+
+.flow-controls button:hover {
+  color: #3b82f6; /* Hover color */
+}
 
 /* Background */
 .flow-background {
@@ -36,12 +54,57 @@
     transition-colors duration-200;
 }
 
-/* Base node styles */
+/* Override React Flow's default node styles - Updated */
 .react-flow__node {
-  @apply transition-all duration-200;
+    position: absolute !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    transform-origin: center !important;
+    pointer-events: none !important;
 }
 
+.react-flow__node-default {
+    position: absolute !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: fit-content !important;
+    height: fit-content !important;
+    transform: none !important;
+    pointer-events: none !important;
+}
 
+/* Enable pointer events only for the actual gate content */
+.react-flow__node * {
+    pointer-events: auto !important;
+}
+
+/* Remove any selection styling */
+.react-flow__node.selected,
+.react-flow__node:focus,
+.react-flow__node:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Remove the node wrapper completely */
+.react-flow__node-default > div:first-child {
+    position: static !important;
+    transform: none !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+/* Ensure handles are visible and clickable */
+.react-flow__handle {
+    pointer-events: auto !important;
+    z-index: 1000 !important;
+}
 
 /* Edge styles */
 .react-flow__edge {
@@ -50,16 +113,37 @@
 
 /* MiniMap */
 .react-flow__minimap {
-  @apply w-[25%] sm:w-[20%] md:w-[18%] lg:w-[15%]  /* Responsive width */
-    min-w-[100px]         /* Prevent from getting too small */
-    max-w-[250px]         /* Prevent from getting too large */
-    transition-all duration-200;
+  @apply w-[25%] sm:w-[20%] md:w-[18%] lg:w-[15%]; /* Responsive width */
+  @apply transition-all duration-200; /* Tailwind transition classes */
+  @apply overflow-hidden; /* Ensure content doesn't overflow */
+  aspect-ratio: 16/9; /* Maintain proportions */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  margin-bottom: 24px; /* Add space below MiniMap */
+  
 
-  aspect-ratio: 16/9;     /* Maintain proportions */
+  /* Regular CSS properties */
+  min-width: 100px; /* Prevent from getting too small */
+  max-width: 250px; /* Prevent from getting too large */
+}
+
+.flow-minimap {
+  background-color: rgba(200, 200, 200, 0.9); /* Light gray background for better visibility */
+  border: 1px solid #3b82f6; /* Light mode border */
+  margin-bottom: 24px; /* Add space below MiniMap */
+}
+
+.dark .flow-minimap {
+  background-color: rgba(50, 50, 50, 0.9); /* Dark gray background for dark mode */
+  border: 1px solid #f1f5f9; /* Dark mode border */
 }
 
 /* Hide ReactFlow attribution */
 .react-flow__attribution {
   @apply hidden;
+}
+
+.dark .flow-controls {
+  border-color: #f1f5f9; /* Light border color for dark mode */
+  background-color: rgba(30, 41, 59, 0.8); /* Optional: Dark background for contrast */
 }
 
