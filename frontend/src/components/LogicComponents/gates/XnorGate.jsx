@@ -67,28 +67,42 @@ export const XnorGateCanvas = ({ isConnectable, id, data }) => {
             </div>
 
             {/* Output Connection Line */}
-            <div className={xorStyles.outputLine}>
-                <div className={xorStyles.lineShadow} />
-                <div className={xorStyles.lineGlow} />
+            <div className={xnorStyles.outputLine}>
+                <div className={xnorStyles.lineShadow} />
+                <div className={xnorStyles.lineGlow} />
             </div>
+
             
-            
-            {/* First Curved Line (XOR Part) */}
-            <div className={xnorStyles.firstCurveBorder} />
-            <div className={xnorStyles.firstCurveBody} />
+             {/* First Curved Line (XOR Part) */}
+            <div className={xnorStyles.firstCurveBody}> 
+                {/* Gate Label */}
+                <div className={xnorStyles.metalEffect} />
+                <div className={xnorStyles.innerShadow} />
+                <div className={xnorStyles.highlight} />
+                <div className={xnorStyles.bevel} />
+                <div className={xnorStyles.firstCurveBorder} />
+            </div>
 
             {/* Main Gate Body */}
             <div className={xnorStyles.gateBorderBackground} />
+
             <div className={xnorStyles.gateBody}>
+                {/* Gate Label */}
+                <div className={xnorStyles.metalEffect} />
+                <div className={xnorStyles.innerShadow} />
+                <div className={xnorStyles.highlight} />
+                <div className={xnorStyles.bevel} />
                 <span className={xnorStyles.label}>XNOR</span>
             </div>
 
-            {/* NOT Bubble */}
+            {/* NOT Bubble with Enhanced Effects - Moved before output line */}
             <div className={xnorStyles.notBubble}>
-                <div className={xnorStyles.notBubbleInner} />
+                <div className={xnorStyles.notBubbleInner}>
+                    <div className={xnorStyles.bubbleHighlight} />
+                    <div className={xnorStyles.bubbleGlow} />
+                </div>
             </div>
 
-            
 
             {/* Handles */}
             <Handle
@@ -97,7 +111,7 @@ export const XnorGateCanvas = ({ isConnectable, id, data }) => {
                 id={`${id}-input-1`}
                 isConnectable={isConnectable}
 
-                className={`${styles.handle} ${xnorStyles.inputHandleTop}`}
+                className={`${styles.handle} ${xnorStyles.inputHandleTop} ${xnorStyles.handleEffect}`}
             />
             <Handle
                 type="target"
@@ -105,7 +119,7 @@ export const XnorGateCanvas = ({ isConnectable, id, data }) => {
                 id={`${id}-input-2`}
                 isConnectable={isConnectable}
 
-                className={`${styles.handle} ${xnorStyles.inputHandleBottom}`}
+                className={`${styles.handle} ${xnorStyles.inputHandleBottom} ${xnorStyles.handleEffect}`}
             />
             <Handle
                 type="source"
@@ -113,7 +127,7 @@ export const XnorGateCanvas = ({ isConnectable, id, data }) => {
                 id={`${id}-output`}
                 isConnectable={isConnectable}
 
-                className={`${styles.handle} ${xnorStyles.outputHandle}`}
+                className={`${styles.handle} ${xnorStyles.outputHandle} ${xnorStyles.handleEffect}`}
             />
         </div>
     );
