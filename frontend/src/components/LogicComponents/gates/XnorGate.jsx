@@ -57,8 +57,21 @@ export const XnorGateCanvas = ({ isConnectable, id, data }) => {
     return (
         <div className={`${styles.gateContainer} ${xnorStyles.xnorGate}`}>
             {/* Input Connection Lines */}
-            <div className={xnorStyles.inputLineTop} />
-            <div className={xnorStyles.inputLineBottom} />
+            <div className={xnorStyles.inputLineTop}>
+                <div className={xnorStyles.lineShadow} />
+                <div className={xnorStyles.lineGlow} />
+            </div>
+            <div className={xnorStyles.inputLineBottom}> 
+                <div className={xnorStyles.lineShadow} />
+                <div className={xnorStyles.lineGlow} />
+            </div>
+
+            {/* Output Connection Line */}
+            <div className={xorStyles.outputLine}>
+                <div className={xorStyles.lineShadow} />
+                <div className={xorStyles.lineGlow} />
+            </div>
+            
             
             {/* First Curved Line (XOR Part) */}
             <div className={xnorStyles.firstCurveBorder} />
@@ -75,8 +88,7 @@ export const XnorGateCanvas = ({ isConnectable, id, data }) => {
                 <div className={xnorStyles.notBubbleInner} />
             </div>
 
-            {/* Output Connection Line */}
-            <div className={xnorStyles.outputLine} />
+            
 
             {/* Handles */}
             <Handle

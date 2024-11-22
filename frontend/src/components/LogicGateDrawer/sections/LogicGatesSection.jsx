@@ -1,5 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  AndGateIcon,
+  NandGateIcon,
+  OrGateIcon,
+  NorGateIcon,
+  XorGateIcon,
+  XnorGateIcon,
+  NotGateIcon,
+  BufferGateIcon
+} from '../../icons/HeaderIcons';
 
 const LogicGatesSection = ({ expandedSections, toggleSection, handleGateClick }) => (
   <div className="drawer-section">
@@ -18,7 +28,7 @@ const LogicGatesSection = ({ expandedSections, toggleSection, handleGateClick })
       <div onClick={() => handleGateClick('and')}>
         <div className="logic-gate-card" role="button" tabIndex={0}>
           <div className="gate-icon-container">
-            {/* Add AND gate SVG or image here */}
+            <AndGateIcon className="h-8 w-8" />
           </div>
           <span className="gate-label">AND Gate</span>
         </div>
@@ -27,7 +37,7 @@ const LogicGatesSection = ({ expandedSections, toggleSection, handleGateClick })
       <div onClick={() => handleGateClick('nand')}>
         <div className="logic-gate-card" role="button" tabIndex={0}>
           <div className="gate-icon-container">
-            {/* Add NAND gate SVG or image here */}
+            <NandGateIcon className="h-8 w-8" />
           </div>
           <span className="gate-label">NAND Gate</span>
         </div>
@@ -36,7 +46,7 @@ const LogicGatesSection = ({ expandedSections, toggleSection, handleGateClick })
       <div onClick={() => handleGateClick('or')}>
         <div className="logic-gate-card" role="button" tabIndex={0}>
           <div className="gate-icon-container">
-            {/* Add OR gate SVG or image here */}
+            <OrGateIcon className="h-8 w-8" />
           </div>
           <span className="gate-label">OR Gate</span>
         </div>
@@ -45,7 +55,7 @@ const LogicGatesSection = ({ expandedSections, toggleSection, handleGateClick })
       <div onClick={() => handleGateClick('nor')}>
         <div className="logic-gate-card" role="button" tabIndex={0}>
           <div className="gate-icon-container">
-            {/* Add NOR gate SVG or image here */}
+            <NorGateIcon className="h-8 w-8" />
           </div>
           <span className="gate-label">NOR Gate</span>
         </div>
@@ -54,7 +64,7 @@ const LogicGatesSection = ({ expandedSections, toggleSection, handleGateClick })
       <div onClick={() => handleGateClick('xor')}>
         <div className="logic-gate-card" role="button" tabIndex={0}>
           <div className="gate-icon-container">
-            {/* Add XOR gate SVG or image here */}
+            <XorGateIcon className="h-8 w-8" />
           </div>
           <span className="gate-label">XOR Gate</span>
         </div>
@@ -63,7 +73,7 @@ const LogicGatesSection = ({ expandedSections, toggleSection, handleGateClick })
       <div onClick={() => handleGateClick('xnor')}>
         <div className="logic-gate-card" role="button" tabIndex={0}>
           <div className="gate-icon-container">
-            {/* Add XNOR gate SVG or image here */}
+            <XnorGateIcon className="h-8 w-8" />
           </div>
           <span className="gate-label">XNOR Gate</span>
         </div>
@@ -72,7 +82,7 @@ const LogicGatesSection = ({ expandedSections, toggleSection, handleGateClick })
       <div onClick={() => handleGateClick('not')}>
         <div className="logic-gate-card" role="button" tabIndex={0}>
           <div className="gate-icon-container">
-            {/* Add NOT gate SVG or image here */}
+            <NotGateIcon className="h-8 w-8" />
           </div>
           <span className="gate-label">NOT Gate</span>
         </div>
@@ -81,7 +91,7 @@ const LogicGatesSection = ({ expandedSections, toggleSection, handleGateClick })
       <div onClick={() => handleGateClick('buffer')}>
         <div className="logic-gate-card" role="button" tabIndex={0}>
           <div className="gate-icon-container">
-            {/* Add BUFFER gate SVG or image here */}
+            <BufferGateIcon className="h-8 w-8" />
           </div>
           <span className="gate-label">BUFFER Gate</span>
         </div>
