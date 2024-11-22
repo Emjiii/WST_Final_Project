@@ -27,6 +27,7 @@ import InputSwitch from '../components/LogicComponents/inputs/InputSwitch';
 import PushButton from '../components/LogicComponents/inputs/PushButton';
 import LedOutput from '../components/LogicComponents/outputs/LedOutput';
 import RgbLedOutput from '../components/LogicComponents/outputs/RgbLedOutput';
+import SpeakerOutput from '../components/LogicComponents/outputs/SpeakerOutput';
 import ControlPanel from './ControlPanel';
 
 import '@xyflow/react/dist/style.css';
@@ -47,6 +48,7 @@ const nodeTypes = {
   button: PushButton,
   ledOutput: LedOutput,
   rgbLedOutput: RgbLedOutput,
+  speakerOutput: SpeakerOutput,
 }
 
 const FlowCanvas = () => {

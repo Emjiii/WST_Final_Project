@@ -1,0 +1,263 @@
+.container {
+    position: relative;
+    width: 160px;
+    height: 220px;
+    padding: 15px;
+    background: linear-gradient(
+        145deg,
+        #1e293b 0%,
+        #334155 35%,
+        #1e293b 100%
+    );
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transform-style: preserve-3d;
+    perspective: 1200px;
+    transform: perspective(1200px) rotateX(12deg) rotateY(-5deg);
+    box-shadow: 
+        0 25px 30px -12px rgba(0, 0, 0, 0.6),
+        0 18px 20px -15px rgba(0, 0, 0, 0.5),
+        inset 0 2px 4px rgba(255, 255, 255, 0.1);
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
+}
+
+/* High-quality metallic chassis */
+.chassis {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(145deg, #334155, #1e293b);
+    overflow: hidden;
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+            repeating-linear-gradient(
+                45deg,
+                transparent 0px,
+                transparent 1px,
+                rgba(255, 255, 255, 0.02) 1px,
+                rgba(255, 255, 255, 0.02) 2px
+            ),
+            repeating-linear-gradient(
+                -45deg,
+                transparent 0px,
+                transparent 1px,
+                rgba(255, 255, 255, 0.01) 1px,
+                rgba(255, 255, 255, 0.01) 2px
+            );
+        background-size: 4px 4px;
+        opacity: 0.5;
+    }
+}
+
+/* Enhanced frame with detailed texture */
+.frame {
+    width: 140px;
+    height: 190px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #475569, #334155);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 15px;
+    transform-style: preserve-3d;
+    box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: 
+            repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                transparent 2px,
+                rgba(255, 255, 255, 0.02) 2px,
+                rgba(255, 255, 255, 0.02) 4px
+            );
+        background-size: 8px 8px;
+        opacity: 0.3;
+    }
+}
+
+/* Professional woofer with enhanced detail */
+.speakerCone {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #475569, #334155);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateZ(15px);
+    box-shadow: 
+        0 10px 20px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* High-quality cone texture */
+.speakerCone::before {
+    content: '';
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: 
+        linear-gradient(145deg, #334155, #1e293b),
+        repeating-radial-gradient(
+            circle at center,
+            #1e293b 0px,
+            #1e293b 1px,
+            #2a3441 1px,
+            #2a3441 2px
+        );
+    background-size: 100% 100%, 4px 4px;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.4),
+        inset 0 -1px 2px rgba(255, 255, 255, 0.05);
+}
+
+/* Enhanced suspension ring */
+.suspensionRing {
+    position: absolute;
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    background: 
+        repeating-radial-gradient(
+            circle at center,
+            transparent 0px,
+            transparent 1px,
+            rgba(0, 0, 0, 0.1) 1px,
+            rgba(0, 0, 0, 0.1) 2px
+        );
+    background-size: 4px 4px;
+}
+
+/* Detailed dust cap */
+.dustCap {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: 
+        linear-gradient(145deg, #1e293b, #0f172a),
+        repeating-radial-gradient(
+            circle at center,
+            transparent 0px,
+            transparent 1px,
+            rgba(0, 0, 0, 0.2) 1px,
+            rgba(0, 0, 0, 0.2) 2px
+        );
+    background-size: 100% 100%, 3px 3px;
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.4),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.05);
+    transform: translateZ(4px);
+}
+
+/* Enhanced tweeter with dome */
+.tweeterAssembly {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    transform-style: preserve-3d;
+}
+
+.tweeterDome {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #64748b, #475569);
+    transform: translateZ(5px);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        inset 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+/* Professional bass port with mesh */
+.bassPort {
+    width: 50px;
+    height: 10px;
+    border-radius: 5px;
+    background: 
+        linear-gradient(145deg, #334155, #1e293b),
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 1px
+        );
+    position: relative;
+    transform: translateZ(8px);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.05);
+}
+
+/* Corner screws with enhanced detail */
+.screw {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #64748b, #475569);
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        inset 1px 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.screw::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: linear-gradient(145deg, #475569, #334155);
+    border-radius: 50%;
+    transform: rotate(45deg);
+    clip-path: polygon(0 45%, 45% 45%, 45% 0, 55% 0, 55% 45%, 100% 45%, 100% 55%, 55% 55%, 55% 100%, 45% 100%, 45% 55%, 0 55%);
+}
+
+.screwTopLeft { composes: screw; top: 10px; left: 10px; }
+.screwTopRight { composes: screw; top: 10px; right: 10px; }
+.screwBottomLeft { composes: screw; bottom: 10px; left: 10px; }
+.screwBottomRight { composes: screw; bottom: 10px; right: 10px; }
+
+/* Active state with enhanced effects */
+.active .speakerCone {
+    box-shadow:
+        0 0 30px rgba(56, 189, 248, 0.4),
+        0 0 60px rgba(56, 189, 248, 0.2),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.active .speakerCone::before {
+    box-shadow:
+        0 0 20px rgba(56, 189, 248, 0.3),
+        inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Enhanced connection handle */
+.handle {
+    right: -5px;
+    width: 12px !important;
+    height: 12px !important;
+    background: linear-gradient(145deg, #475569, #334155) !important;
+    border: 2px solid rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.4),
+        inset 1px 1px 1px rgba(255, 255, 255, 0.1) !important;
+    transform: translateZ(5px);
+}

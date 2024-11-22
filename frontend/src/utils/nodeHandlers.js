@@ -39,6 +39,11 @@ export const createOutputNode = (type) => {
       id: `rgb-${Date.now()}`,
       type: 'rgbLedOutput',
       label: 'RGB LED'
+    },
+    'speaker': {
+      id: `speaker-${Date.now()}`,
+      type: 'speakerOutput',
+      label: 'Speaker Output'
     }
   };
 

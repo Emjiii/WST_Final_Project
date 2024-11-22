@@ -40,6 +40,19 @@ const OutputComponentsSection = ({ expandedSections, toggleSection, handleGateCl
         </div>
         <span className="gate-label">RGB LED</span>
       </div>
+
+      {/* Speaker Output */}
+      <div 
+        className="logic-gate-card"
+        onClick={() => handleGateClick('speakerOutput')}
+        role="button"
+        tabIndex={0}
+      >
+        <div className="gate-icon-container">
+          {/* Add Speaker SVG or image here */}
+        </div>
+        <span className="gate-label">Speaker</span>
+      </div>
     </div>
   </div>
 );
