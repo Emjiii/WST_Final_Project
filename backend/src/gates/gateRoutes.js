@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const gateController = require('./gateController');
+const gateController = require('./gates/gateController');
 
 //AND Gate Route
 router.post('/and', (req, res) => {
