@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import Header from './Header';
 import { useDarkMode } from '../utils/useDarkMode';
 import {
@@ -27,10 +27,12 @@ import InputSwitch from '../components/LogicComponents/inputs/InputSwitch';
 import PushButton from '../components/LogicComponents/inputs/PushButton';
 import LedOutput from '../components/LogicComponents/outputs/LedOutput';
 import RgbLedOutput from '../components/LogicComponents/outputs/RgbLedOutput';
+import SpeakerOutput from '../components/LogicComponents/outputs/SpeakerOutput';
 import ControlPanel from './ControlPanel';
 
 import '@xyflow/react/dist/style.css';
 import '../styles/flow.css';
+import TruthTable from './TruthTable';
 
 
 const nodeTypes = {
@@ -46,12 +48,14 @@ const nodeTypes = {
   button: PushButton,
   ledOutput: LedOutput,
   rgbLedOutput: RgbLedOutput,
+  speakerOutput: SpeakerOutput,
 }
 
 const FlowCanvas = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [isDarkMode, setIsDarkMode] = useDarkMode();
+  const [showTruthTable, setShowTruthTable] = useState(false);
 
   // Connection callback
   const onConnect = useCallback((params) => {
@@ -149,12 +153,14 @@ const FlowCanvas = () => {
       <Header 
         addGateNode={addGateNode} 
         isDarkMode={isDarkMode} 
-        setIsDarkMode={setIsDarkMode} 
+        setIsDarkMode={setIsDarkMode}
+        onTruthTableClick={() => setShowTruthTable(prev => !prev)}
         getNodes={() => nodes} 
         getEdges={() => edges} 
       />
       <ControlPanel addGateNode={addGateNode} setNodes={setNodes} />
-      <div id="circuitCanvas" className="flow-container">
+      <div id="circuitCanvas" className="flow-container"  className={`flow-container ${showTruthTable ? 'with-truth-table' : ''}`}>
+
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -165,7 +171,7 @@ const FlowCanvas = () => {
           onNodesDelete={onNodesDelete}
           deleteKeyCode={['Backspace', 'Delete']}
           fitView
-          className="flow-canvas"
+          className={`flow-canvas ${showTruthTable ? 'shrunk' : ''}`}
           snapToGrid={false}
           elevateNodesOnSelect={true}
           panOnDrag={true}
@@ -205,6 +211,11 @@ const FlowCanvas = () => {
             />
           ))}
         </ReactFlow>
+        <TruthTable 
+          isVisible={showTruthTable}
+          nodes={nodes}
+          edges={edges}
+        />
       </div>
     </div>
   );

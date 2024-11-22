@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon } from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
+import SaveButton from './SaveButton';
 import '../styles/header.css';
 import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuitOperations';
 
-const Header = ({ addGateNode, isDarkMode, setIsDarkMode, getNodes, getEdges }) => {
+  const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, getNodes, getEdges }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isSavePopupOpen, setIsSavePopupOpen] = useState(false);
   const [nodes, setNodes] = useState([]);
@@ -28,6 +29,10 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, getNodes, getEdges }) 
   const handleImportCircuit = () => {
     importCircuit(setNodes, setEdges);
     //setIsSavePopupOpen(false);
+  };
+
+  const handleSave = (option) => {
+    console.log(`Selected save option: ${option}`);
   };
 
   return (
@@ -65,8 +70,7 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, getNodes, getEdges }) 
                 onClick={() => setIsSavePopupOpen(true)}
               >
                 <SaveIcon className="header-icon" />
-              </button>
-
+              </button> 
               <button
                 className="import-button"
                 aria-label="Import Circuit"
@@ -79,6 +83,7 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, getNodes, getEdges }) 
               <button 
                 className="header-button"
                 aria-label="Truth Table"
+                onClick={onTruthTableClick}
               >
                 <TableIcon className="header-icon" />
               </button>
@@ -124,6 +129,7 @@ Header.propTypes = {
   setIsDarkMode: PropTypes.func.isRequired,
   getNodes: PropTypes.func.isRequired,
   getEdges: PropTypes.func.isRequired,
+  onTruthTableClick: PropTypes.func.isRequired,
 };
 
 export default Header;

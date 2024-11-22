@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ToggleSwitchIcon, PushButtonIcon } from '../../icons/HeaderIcons';
 
 const InputComponentsSection = ({ expandedSections, toggleSection, handleGateClick }) => (
   <div className="drawer-section">
@@ -20,7 +21,7 @@ const InputComponentsSection = ({ expandedSections, toggleSection, handleGateCli
       <div onClick={() => handleGateClick('switch')}>
         <div className="logic-gate-card" role="button" tabIndex={0}>
           <div className="gate-icon-container">
-            {/* Add Toggle Switch SVG or image here */}
+            <ToggleSwitchIcon className="h-8 w-8" />
           </div>
           <span className="gate-label">Toggle Switch</span>
         </div>
@@ -29,7 +30,7 @@ const InputComponentsSection = ({ expandedSections, toggleSection, handleGateCli
       <div onClick={() => handleGateClick('button')}>
         <div className="logic-gate-card" role="button" tabIndex={0}>
           <div className="gate-icon-container">
-            {/* Add Push Button SVG or image here */}
+            <PushButtonIcon className="h-8 w-8" />
           </div>
           <span className="gate-label">Push Button</span>
         </div>

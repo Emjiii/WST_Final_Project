@@ -212,19 +212,6 @@
 }
 
 
-/* First Curved Line (XOR Part) */
-/*.firstCurveBorder {
-    position: absolute;
-    left: 6px;     
-    top: 0px;      
-    height: 150px; 
-    width: 30px;   
-    background: #111;
-    clip-path: path("M 0 0 C 45 0, 50 35, 50 60 C 50 85, 45 120, 0 120 C 25 90, 25 30, 0 0");
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-    z-index: 1;
-}*/
-
 .firstCurveBody {
     position: absolute;
     left: 10px;
@@ -256,66 +243,6 @@
 /* Main Gate Body */
 .gateBorderBackground {
     position: absolute;
-    left: 35px;
-    top: 15px;
-    width: 100px;
-    height: 120px;
-    background: #111;
-    clip-path: path("M 0 0 C 30 0, 100 35, 100 60 C 100 85, 30 120, 0 120 C 15 90, 15 30, 0 0");
-    transform: scale(1.09);
-    z-index: 1;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-}
-
-.gateBody {
-    position: absolute;
-    left: 35px;
-    top: 15px;
-    width: 100px;
-    height: 120px;
-    background: linear-gradient(145deg, #444, #222);
-    clip-path: path("M 0 0 C 30 0, 100 35, 100 60 C 100 85, 30 120, 0 120 C 15 90, 15 30, 0 0");
-    box-shadow: 
-        inset 3px 3px 6px rgba(255,255,255,0.1),
-        inset -3px -3px 6px rgba(0,0,0,0.3),
-        0 6px 12px rgba(0,0,0,0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-}
-
-/* Label Enhancement for better visibility in both modes */
-.label {
-    position: relative;
-    z-index: 2;
-    color: var(--text-color);
-    font-size: 24px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-shadow: 
-        0 2px 4px rgba(0, 0, 0, 0.3),
-        0 -1px 1px rgba(255, 255, 255, 0.1);
-}
-
-/* Ensure label is visible in light mode */
-:global(.light) .label {
-    color: var(--text-color);
-    text-shadow: 
-        0 2px 4px rgba(0, 0, 0, 0.3),
-        0 -1px 1px rgba(255, 255, 255, 0.1);
-}
-
-/* Ensure label is visible in dark mode */
-:global(.dark) .label {
-    color: var(--text-color);
-    text-shadow: 
-        0 2px 4px rgba(0, 0, 0, 0.2),
-        0 -1px 1px rgba(255, 255, 255, 0.2);
-}
-  
-.gateBorderBackground {
-    position: absolute;
     left: 25px;
     top: 15px;
     width: 100px;
@@ -345,4 +272,34 @@
     justify-content: center;
     align-items: center;
     z-index: 2;
+}
+
+
+/* Label Enhancement for better visibility in both modes */
+.label {
+    position: relative;
+    z-index: 2;
+    color: var(--text-color);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        0 -1px 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Ensure label is visible in light mode */
+:global(.light) .label {
+    color: var(--text-color);
+    text-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        0 -1px 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Ensure label is visible in dark mode */
+:global(.dark) .label {
+    color: var(--text-color);
+    text-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.2),
+        0 -1px 1px rgba(255, 255, 255, 0.2);
 }

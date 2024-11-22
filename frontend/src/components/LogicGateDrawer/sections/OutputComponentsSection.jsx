@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { LedIcon, RgbLedIcon, SpeakerIcon } from '../../icons/HeaderIcons';
 
 const OutputComponentsSection = ({ expandedSections, toggleSection, handleGateClick }) => (
   <div className="drawer-section">
@@ -16,29 +17,33 @@ const OutputComponentsSection = ({ expandedSections, toggleSection, handleGateCl
     
     <div className={`gates-grid ${expandedSections.outputComponents ? 'expanded' : 'collapsed'}`}>
       {/* LED Light */}
-      <div 
-        className="logic-gate-card"
-        onClick={() => handleGateClick('ledOutput')}
-        role="button"
-        tabIndex={0}
-      >
-        <div className="gate-icon-container">
-          {/* Add LED Light SVG or image here */}
+      <div onClick={() => handleGateClick('ledOutput')}>
+        <div className="logic-gate-card" role="button" tabIndex={0}>
+          <div className="gate-icon-container">
+            <LedIcon className="h-8 w-8" />
+          </div>
+          <span className="gate-label">LED Light</span>
         </div>
-        <span className="gate-label">LED Light</span>
       </div>
 
       {/* RGB LED */}
-      <div 
-        className="logic-gate-card"
-        onClick={() => handleGateClick('rgbLedOutput')}
-        role="button"
-        tabIndex={0}
-      >
-        <div className="gate-icon-container">
-          {/* Add RGB LED SVG or image here */}
+      <div onClick={() => handleGateClick('rgbLedOutput')}>
+        <div className="logic-gate-card" role="button" tabIndex={0}>
+          <div className="gate-icon-container">
+            <RgbLedIcon className="h-8 w-8" />
+          </div>
+          <span className="gate-label">RGB LED</span>
         </div>
-        <span className="gate-label">RGB LED</span>
+      </div>
+
+      {/* Speaker Output */}
+      <div onClick={() => handleGateClick('speakerOutput')}>
+        <div className="logic-gate-card" role="button" tabIndex={0}>
+          <div className="gate-icon-container">
+            <SpeakerIcon className="h-8 w-8" />
+          </div>
+          <span className="gate-label">Speaker</span>
+        </div>
       </div>
     </div>
   </div>
