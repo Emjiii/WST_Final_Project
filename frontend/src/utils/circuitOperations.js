@@ -5,7 +5,6 @@ export const saveCircuit = (getNodes, getEdges) => {
     const circuitData = {
         nodes: getNodes(),
         edges: getEdges(),
-        timestamp: new Date().toISOString(),
     };
 
     // Save circuit data as a JSON file
@@ -26,6 +25,7 @@ export const saveCircuit = (getNodes, getEdges) => {
  * @param {string} elementId - The ID of the DOM element to capture.
  * @param {string} format - The image format ('png', 'jpeg', 'svg').
  */
+
 export const saveCircuitAsImage = async (elementId, format = 'png') => {
     try {
         const element = document.getElementById(elementId);
@@ -93,4 +93,47 @@ export const saveCircuitAsImage = async (elementId, format = 'png') => {
             console.error('CORS issue detected. Ensure all stylesheets are loaded with appropriate CORS headers.');
         }
     }
+};
+
+// Function to import circuit data from a JSON file
+export const importCircuit = async (setNodes, setEdges) => {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.json';
+
+    fileInput.onchange = async (event) => {
+        console.log('File input changed'); // Debug log
+        const file = event.target.files[0];
+        console.log('Selected file:', file); // Debug log
+        if (!file) {
+            console.error('No file selected.');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            console.log('File read successfully'); // Debug log
+            try {
+                const circuitData = JSON.parse(e.target.result);
+                console.log('Parsed circuit data:', circuitData); // Debug log
+
+                // Ensure the structure includes nodes and edges
+                if (Array.isArray(circuitData.nodes) && Array.isArray(circuitData.edges)) {
+                    // Update nodes and edges directly in React Flow state
+                    setNodes(circuitData.nodes); // Update nodes directly
+                    setEdges(circuitData.edges); // Update edges directly
+                    console.log('Nodes:', circuitData.nodes);
+                    console.log('Edges:', circuitData.edges);
+                    console.log('Circuit data imported successfully.');
+                } else {
+                    console.error('Invalid circuit data structure. Ensure nodes and edges are arrays.');
+                }
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+            }
+        };
+        reader.readAsText(file);
+    };
+
+    fileInput.click(); // Trigger the file input dialog
 }; 

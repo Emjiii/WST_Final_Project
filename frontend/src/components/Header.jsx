@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon } from './icons/HeaderIcons';
+import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon } from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
 import '../styles/header.css';
-import { saveCircuit, saveCircuitAsImage } from '../utils/circuitOperations';
+import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuitOperations';
 
 const Header = ({ addGateNode, isDarkMode, setIsDarkMode, getNodes, getEdges }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isSavePopupOpen, setIsSavePopupOpen] = useState(false);
+  const [nodes, setNodes] = useState([]);
+  const [edges, setEdges] = useState([]);
+
+  useEffect(() => {
+    console.log('Nodes or edges have changed:', { nodes, edges });
+  }, [nodes, edges]);
 
   const handleSaveAsFile = () => {
     saveCircuit(getNodes, getEdges);
@@ -17,6 +23,11 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, getNodes, getEdges }) 
   const handleSaveAsImage = () => {
     saveCircuitAsImage('circuitCanvas');
     setIsSavePopupOpen(false);
+  };
+
+  const handleImportCircuit = () => {
+    importCircuit(setNodes, setEdges);
+    //setIsSavePopupOpen(false);
   };
 
   return (
@@ -55,6 +66,15 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, getNodes, getEdges }) 
               >
                 <SaveIcon className="header-icon" />
               </button>
+
+              <button
+                className="import-button"
+                aria-label="Import Circuit"
+                onClick={handleImportCircuit}
+              >
+                <ImportIcon className="header-icon" />
+              </button>
+
 
               <button 
                 className="header-button"
