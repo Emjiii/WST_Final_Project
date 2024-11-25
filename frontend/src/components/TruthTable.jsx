@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import axios from 'axios';
 import styles from '../styles/TruthTable.module.css';
 import { useDarkMode } from '../utils/useDarkMode';
 
@@ -6,11 +7,15 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
   const [isDarkMode] = useDarkMode();
   const [isExiting, setIsExiting] = useState(false);
   const [shouldRender, setShouldRender] = useState(isVisible);
+  const [truthTableData, setTruthTableData] = useState({ inputs: [], outputs: [], rows: [] });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (isVisible) {
       setShouldRender(true);
       setIsExiting(false);
+      fetchTruthTable();
     } else {
       setIsExiting(true);
       const timer = setTimeout(() => {
@@ -18,42 +23,42 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
       }, 300);
       return () => clearTimeout(timer);
     }
-  }, [isVisible]);
+  }, [isVisible, nodes, edges]);
 
-  const { inputNodes, outputNodes } = useMemo(() => {
-    const inputs = nodes.filter(node => node.type?.includes('Input'))
-      .sort((a, b) => (a.data.label || '').localeCompare(b.data.label || ''));
-    const outputs = nodes.filter(node => node.type?.includes('Output'))
-      .sort((a, b) => (a.data.label || '').localeCompare(b.data.label || ''));
-    return { inputNodes: inputs, outputNodes: outputs };
-  }, [nodes]);
-
-
-  // part to add the logic of truth table
-  //just added sample for testing 
+  const fetchTruthTable = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.post('http://localhost:3000/truth-table/circuit', { nodes, edges });
+      const truthTable = response.data;
+      console.log('Fetched Truth Table:', truthTable);
+  
+      if (truthTable.length > 0) {
+        setTruthTableData({
+          inputs: nodes.filter(node => node.type.includes('Input')).map(node => node.id), // Corrected line
+          outputs: nodes.filter(node => node.type.includes('Output')).map(node => node.id),
+          rows: truthTable.map(entry => ({
+            inputs: entry.inputs,
+            outputs: entry.outputs
+          }))
+        });
+      } else {
+        setTruthTableData({ inputs: [], outputs: [], rows: [] });
+      }
+    } catch (error) {
+      console.error('Error fetching truth table from backend:', error);
+      setError('Failed to fetch truth table data.');
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   const generateTruthTable = () => {
-    // For testing AND gate
-    const testInputNodes = [
-      { id: '1', type: 'inputNode', data: { label: 'A' } },
-      { id: '2', type: 'inputNode', data: { label: 'B' } }
-    ];
-    
-    const testOutputNodes = [
-      { id: '3', type: 'andGate', data: { label: 'AND_OUT' } }
-    ];
-
-    // Generate all possible input combinations for 2 inputs
-    const combinations = [
-      [0, 0],
-      [0, 1],
-      [1, 0],
-      [1, 1]
-    ];
-
-    // Function to calculate AND gate output
-    const calculateANDOutput = (inputs) => {
-      return inputs[0] && inputs[1] ? 1 : 0;
-    };
+    const { inputs = [], outputs = [], rows = [] } = truthTableData;
+  
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+    if (!rows.length) return <p>No data available</p>;
 
     return (
       <div className={`${styles.tableWrapper} ${isDarkMode ? 'dark' : ''}`}>
@@ -62,43 +67,34 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
             <thead>
               <tr className={styles.headerRow}>
                 {/* Input Headers */}
-                {testInputNodes.map(node => (
-                  <th key={node.id} className={styles.headerCell}>
-                    {node.data.label}
+                {inputs.map((input, idx) => (
+                  <th key={idx} className={styles.headerCell}>
+                    {input}
                   </th>
                 ))}
-                {/* Output Header */}
-                {testOutputNodes.map(node => (
-                  <th key={node.id} className={styles.headerCell}>
-                    {node.data.label}
+                {/* Output Headers */}
+                {outputs.map((output, idx) => (
+                  <th key={idx} className={styles.headerCell}>
+                    {output}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {combinations.map((combination, idx) => (
-                <tr 
-                  key={idx} 
-                  className={styles.tableRow}
-                  style={{ animationDelay: `${idx * 0.05}s` }}
-                >
+              {rows.map((row, idx) => (
+                <tr key={idx} className={styles.tableRow}>
                   {/* Input Values */}
-                  {combination.map((value, valueIdx) => (
-                    <td 
-                      key={valueIdx}
-                      className={styles.valueCell}
-                      data-value={value}
-                    >
+                  {row.inputs.map((value, valueIdx) => (
+                    <td key={valueIdx} className={styles.valueCell}>
                       {value}
                     </td>
                   ))}
-                  {/* Output Value */}
-                  <td 
-                    className={styles.valueCell}
-                    data-value={calculateANDOutput(combination)}
-                  >
-                    {calculateANDOutput(combination)}
-                  </td>
+                  {/* Output Values */}
+                  {row.outputs.map((value, valueIdx) => (
+                    <td key={valueIdx} className={styles.valueCell}>
+                      {value}
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>
@@ -125,9 +121,9 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
       <div className={styles.titleWrapper}>
         <h3 className={styles.title}>Truth Table</h3>
       </div>
-      {generateTruthTable()}
+      {loading ? <p>Loading...</p> : error ? <p>{error}</p> : generateTruthTable()}
     </div>
   );
 };
 
-export default TruthTable; 
+export default TruthTable;
