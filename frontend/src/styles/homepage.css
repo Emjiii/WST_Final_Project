@@ -1,3 +1,4 @@
+
 /* Import fonts */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@200;300;400;500;600;700&display=swap');
 
@@ -29,31 +30,19 @@
   display: none;
 }
 
+/* Global Styles */
 body {
-  margin: 0;
+  @apply overflow-x-hidden bg-oxford-blue text-white; /* Tailwind utility classes */
   font-family: var(--font-display);
-  background-color: var(--oxford-blue);
-  color: #ffffff;
-  overflow-x: hidden;
 }
 
 .landing-page {
-  position: relative;
-  min-height: 100vh;
-  z-index: 1;
+  @apply relative min-h-screen z-10; /* Tailwind utility classes */
 }
 
 /* Content Wrapper */
 .content-wrapper {
-  position: relative;
-  z-index: 1;
-  height: 100vh;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-  pointer-events: none;
-  padding: 0 2rem;
-  max-width: 1440px;
-  margin: 0 auto;
+  @apply relative z-10 h-screen overflow-y-auto scroll-smooth pointer-events-none px-8 max-w-screen-xl mx-auto; /* Tailwind utility classes */
 }
 
 /* Make specific sections interactive but transparent to pointer events */
@@ -62,113 +51,75 @@ body {
 .features,
 .about,
 .footer {
-  pointer-events: auto;
-  background: transparent;
+  @apply pointer-events-auto bg-transparent; /* Tailwind utility classes */
 }
 
 /* Navbar */
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 1.5rem 2rem;
-  background: rgba(0, 20, 47, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 245, 212, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
+  @apply fixed top-0 left-0 right-0 py-2 px-3 bg-[rgba(0,20,47,0.95)] backdrop-blur-md border-b border-[rgba(0,245,212,0.1)] flex justify-between items-center z-50; /* Default styles */
+  @apply sm:py-5 sm:px-8 md:py-6 md:px-10 lg:py-6 lg:px-12; /* Responsive adjustments for larger screens */
 }
 
 .nav-brand {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  font-size: 1.8rem;
-  background: linear-gradient(45deg, var(--sky-blue), var(--aquamarine));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  @apply font-mono font-bold text-sm sm:text-xl md:text-lg lg:text-xl xl:text-2xl leading-tight bg-gradient-to-r from-sky-blue to-aquamarine bg-clip-text text-transparent; /* Tailwind utility classes */
 }
 
 .nav-links {
-  display: flex;
-  gap: 2rem;
+  @apply flex flex-row gap-y-9 sm:gap-4 md:gap-4; /* Keep links in a row and adjust gap */
 }
 
 .nav-links a {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  color: #ffffff;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  @apply font-mono text-xs sm:text-sm md:text-base leading-normal text-white no-underline transition-all duration-300 py-2 px-4 rounded-full; /* Adjust font size for responsiveness */
 }
 
 .nav-links a:hover {
-  background: rgba(0, 187, 249, 0.1);
-  color: var(--aquamarine);
+  @apply bg-[rgba(0,187,249,0.1)] text-aquamarine; /* Tailwind utility classes */
 }
-
 /* Hero Section */
 .hero {
-  position: relative;
-  min-height: 45vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 2rem;
-  overflow: hidden;
-  padding: 100px 4rem 2rem 4rem;
-  margin: 0;
-  width: 100%;
-  animation: heroFadeIn 1s ease-out;
+  @apply relative min-h-screen grid grid-cols-1 items-center gap-8 overflow-hidden; /* Full viewport height */
+  animation: heroFadeIn 1s ease-out; 
+  width: 100%; /* Make the hero section full width */
+  max-width: 1200px; /* Match the max width of the content wrapper */
+  margin: 0 auto; /* Center the hero section */
+  padding-top: 80px; /* Space between navbar and hero */
 }
 
+/* Hero Content */
+.hero-content {
+  @apply relative z-40 flex flex-col gap-6 text-center bg-[rgba(0,20,47,0.7)] backdrop-blur-[10px] rounded-[30px] border border-[rgba(0,245,212,0.1)]
+  w-full sm:w-[100%] md:w-[100%] lg:w-[100%] xl:w-[100%] 2xl:w-[130%] 
+  mx-auto shadow-[0_0_50px_rgba(0,245,212,0.1)]; /* Tailwind utility classes */
+  animation: contentFade 1.2s ease-out; 
+  max-width: 600px; /* Set a max width for the hero content */
+  position: absolute; /* Position it absolutely */
+  left: 0; /* Align to the left */
+  padding: 2rem; /* Add padding for spacing */
+}
+
+/* Hero Animation */
 .hero-animation {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: grid;
+  @apply absolute top-0 left-0 w-full h-full grid bg-[rgba(26,26,26,0.9)] filter saturate-150 z-10;
   grid-template-columns: repeat(20, 1fr);
   grid-template-rows: repeat(20, 1fr);
-  background: rgba(26, 26, 26, 0.9);
-  filter: saturate(1.5);
-  z-index: 1;
+ /* Tailwind utility classes */
 }
 
 .hero-animation .colorBox {
-  z-index: 2;
-  filter: brightness(1.1);
-  transition: 1.5s ease;
-  position: relative;
-  margin: 1px;
-  background: rgba(26, 26, 26, 0.8);
+  @apply z-20 filter brightness-110 transition duration-150 relative m-px bg-[rgba(26,26,26,0.8)]; /* Tailwind utility classes */
 }
 
 .hero-animation .colorBox:hover {
-  background: linear-gradient(45deg, var(--brandeis-blue), var(--aquamarine));
-  transition-duration: 0s;
-  box-shadow: 0 0 10px rgba(0, 187, 249, 0.3);
+  background: linear-gradient(45deg, var(--brandeis-blue), var(--aquamarine)); /* Retained custom style */
+  transition-duration: 0s; /* Retained custom style */
+  @apply shadow-lg; /* Tailwind utility class for shadow */
 }
 
 .hero-gradient {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: linear-gradient(45deg, var(--royal-blue), var(--aquamarine));
-  filter: blur(80px);
-  animation: heroGradient 8s linear infinite;
-  z-index: 1;
+  @apply absolute top-0 left-0 w-full h-[60px] bg-gradient-to-r from-royal-blue to-aquamarine filter blur-[80px] animate-[heroGradient_8s_linear_infinite] z-10; /* Tailwind utility classes */
 }
 
+/* Keyframes for heroGradient */
 @keyframes heroGradient {
   0% {
     top: -60px;
@@ -186,26 +137,25 @@ body {
   }
 }
 
-/* Hero Content */
-.hero-content {
-  position: relative;
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  text-align: center;
-  padding: 2.5rem;
-  background: rgba(0, 20, 47, 0.7);
-  backdrop-filter: blur(10px);
-  border-radius: 30px;
-  border: 1px solid rgba(0, 245, 212, 0.1);
-  max-width: 600px;
-  margin: 0 auto;
-  box-shadow: 0 0 50px rgba(0, 245, 212, 0.1);
-  grid-column: 1;
-  animation: contentFade 1.2s ease-out;
+/* Keyframes for heroFadeIn */
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
+/* Hero Subtitle */
+.hero-subtitle {
+  @apply text-[1.6rem]; /* Default for larger screens */
+  @apply sm:text-[1.6rem]; /* Small screens */
+  @apply md:text-[1.3rem]; /* Medium screens */
+  @apply lg:text-[2.5rem]; /* Large screens */
+}
+
+  
 @keyframes heroFadeIn {
   from {
     opacity: 0;
@@ -229,17 +179,12 @@ body {
 }
 
 .hero-text h1 {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  letter-spacing: -1px;
-  font-size: 5rem;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-  background: linear-gradient(45deg, var(--sky-blue), var(--aquamarine));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 30px rgba(0, 187, 249, 0.3);
-  animation: titlePulse 3s ease-in-out infinite;
+  @apply font-mono font-bold tracking-normal text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl leading-[1.2] mb-4; /* Tailwind utility classes */
+  background: linear-gradient(45deg, var(--sky-blue), var(--aquamarine)); /* Retained custom style */
+  -webkit-background-clip: text; /* Retained custom style */
+  -webkit-text-fill-color: transparent; /* Retained custom style */
+  text-shadow: 0 0 30px rgba(0, 187, 249, 0.3); /* Retained custom style */
+  animation: titlePulse 3s ease-in-out infinite; /* Retained custom style */
 }
 
 @keyframes titlePulse {
@@ -252,69 +197,57 @@ body {
 }
 
 .hero-subtitle {
-  font-family: var(--font-display);
-  font-weight: 300;
-  letter-spacing: 0.5px;
-  font-size: 1.8rem;
-  color: #ffffff;
-  opacity: 0.9;
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.6;
+  @apply font-display font-light tracking-[0.5px] text-base opacity-90 leading-[1.6]; /* Base styles */
+  @apply sm:text-lg; /* Small screens */
+  @apply md:text-xl; /* Medium screens */
+  @apply lg:text-2xl; /* Large screens */
+  @apply xl:text-3xl; /* Extra large screens */
+  @apply 2xl:text-4xl; /* 2XL screens */
+  @apply max-w-[800px]; /* Max width */
+  @apply mx-auto; /* Centering */
 }
 
 .hero-cta {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  margin-top: 1rem;
+  @apply flex gap-6 justify-center mt-4; /* Base styles */
+  @apply sm:flex-col; /* Stack buttons on small screens */
+  @apply md:flex-row; /* Row layout on medium screens and up */
 }
 
 .cta-button {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  padding: 1.2rem 2.5rem;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
+  @apply font-mono font-medium tracking-[0.5px] py-[1rem] px-[2rem] text-[1rem] border-none rounded-[30px] cursor-pointer transition-all duration-300 inline-flex items-center gap-2; /* Base styles */
+  @apply w-full sm:w-auto; /* Full width on small screens, auto on larger screens */
 }
 
 .cta-button.primary {
-  background: linear-gradient(45deg, var(--brandeis-blue), var(--aquamarine));
-  color: var(--oxford-blue);
-  animation: buttonPulse 2s infinite;
+  background: linear-gradient(45deg, var(--brandeis-blue), var(--aquamarine)); /* Retained custom style */
+  color: var(--oxford-blue); /* Retained custom style */
+  animation: buttonPulse 2s infinite; /* Retained custom style */
 }
 
 .cta-button.secondary {
-  background: transparent;
+  @apply bg-transparent text-[var(--aquamarine)];
   border: 2px solid var(--aquamarine);
-  color: var(--aquamarine);
 }
 
 .cta-button:hover {
-  transform: translateY(-2px);
+  @apply translate-y-[-2px]; /* Tailwind utility class for transform */
 }
 
 .cta-button.primary:hover {
-  box-shadow: 0 0 30px rgba(0, 187, 249, 0.4);
+  @apply shadow-lg; /* Tailwind utility class for shadow */
+  box-shadow: 0 0 30px rgba(0, 187, 249, 0.4); /* Retained custom style */
 }
 
 .cta-button.secondary:hover {
-  background: rgba(0, 245, 212, 0.1);
+  background: rgba(0, 245, 212, 0.1); /* Retained custom style */
 }
 
 .button-arrow {
-  transition: transform 0.3s ease;
+  @apply transition-transform duration-300 ease-in; /* Tailwind utility classes */
 }
 
 .cta-button:hover .button-arrow {
-  transform: translateX(5px);
+  @apply translate-x-[5px]; /* Tailwind utility class for transform */
 }
 
 @keyframes buttonPulse {
@@ -333,80 +266,79 @@ body {
 .features {
   position: relative;
   z-index: 2;
-  padding: 4rem 2rem;
+  @apply py-16 px-4; /* Base padding */
   text-align: center;
   margin: 2rem auto;
-  min-height: 90vh;
-  max-width: 1200px;
+  height: auto;
+  min-height: auto;
+  max-width: 1200px; /* Set a maximum width */
 }
 
 .features::before {
   content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(26, 26, 26, 0.7);
-  backdrop-filter: blur(5px);
-  z-index: -1;
-  pointer-events: none;
-  border-radius: 30px;
+  @apply absolute inset-0 bg-[rgba(26,26,26,0.7)] backdrop-blur-[5px] z-[-1] pointer-events-none rounded-[30px]; /* Tailwind utility classes */
 }
 
+/* Features Heading */
 .features h2 {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  font-size: 3rem;
-  margin-bottom: 3rem;
-  background: linear-gradient(45deg, var(--sky-blue), var(--aquamarine));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  @apply font-mono font-bold tracking-normal text-[2rem] mb-8; /* Base styles */
+  background: linear-gradient(45deg, var(--sky-blue), var(--aquamarine)); /* Retained custom style */
+  -webkit-background-clip: text; /* Retained custom style */
+  -webkit-text-fill-color: transparent; /* Retained custom style */
+
+  @apply sm:text-[2rem]; /* Small screens */
+  @apply md:text-[2.5rem]; /* Medium screens */
+  @apply lg:text-[3rem]; /* Large screens */
+  @apply xl:text-[3.5rem]; /* Extra large screens */
+  @apply 2xl:text-[4rem]; /* 2XL screens */
 }
 
+/* Feature Grid */
 .feature-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  @apply grid grid-cols-1 gap-8; /* Default for small screens */
+  @apply md:grid-cols-2; /* Two columns for medium screens */
+  @apply lg:grid-cols-3; /* Three columns for large screens */
+
 }
 
+/* Feature Card */
 .feature-card {
-  background: rgba(0, 34, 255, 0.1);
-  backdrop-filter: blur(5px);
-  padding: 2.5rem;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 245, 212, 0.1);
-  position: relative;
-  z-index: 3;
+  @apply bg-[rgba(0,34,255,0.1)] backdrop-blur-[5px] p-6 rounded-[20px] transition-all duration-300 border border-[rgba(0,245,212,0.1)] relative z-30; /* Base styles */
+  max-width: 100%; /* Ensure cards do not exceed the width of the grid */
+  max-height: 300px; /* Increased max height for better content fit */
+  display: flex; /* Use flexbox for alignment */
+  flex-direction: column; /* Stack content vertically */
+  justify-content: space-between; /* Space out content */
+  align-items: center; /* Center content horizontally */
+  overflow: hidden; /* Prevent overflow */
 }
 
-.feature-card:hover {
-  transform: translateY(-10px);
-  border-color: rgba(0, 245, 212, 0.3);
-  box-shadow: 0 10px 30px rgba(0, 187, 249, 0.1);
-  background: rgba(255, 255, 255, 0.08);
+/* Feature Card Content */
+.feature-card h3,
+.feature-card p {
+  @apply text-center w-full; /* Center the heading and paragraph, full width */
+  overflow: hidden; /* Prevent overflow */
+  line-height: 1.4; /* Increase line height for better readability */
 }
 
-.feature-icon {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-}
-
+/* Responsive adjustments for feature card text */
 .feature-card h3 {
-  font-family: var(--font-mono);
-  letter-spacing: 0px;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: var(--aquamarine);
+  @apply text-[1.20rem] sm:text-[1.40rem] md:text-[1.75rem] lg:text-[1.80rem] xl:text-[2rem] 2xl:text-[2.25rem]; /* Responsive heading sizes */
 }
 
 .feature-card p {
-  font-family: var(--font-display);
-  font-weight: 400;
-  color: #cccccc;
-  line-height: 1.6;
+  @apply text-[0.875rem] sm:text-[1rem] md:text-[1.125rem] lg:text-[1.25rem]; /* Responsive paragraph sizes */
+  flex-grow: 1; /* Allow paragraph to grow and take available space */
+}
+
+/* Feature Icon */
+.feature-icon {
+  @apply text-[3rem] mb-4; /* Base styles */
+}
+
+/* Feature Card Hover Effect */
+.feature-card:hover {
+  @apply translate-y-[-10px] border-[rgba(0,245,212,0.3)] shadow-lg bg-[rgba(255,255,255,0.08)]; /* Tailwind utility classes */
 }
 
 /* About Section - background handled by pseudo-element */
@@ -455,300 +387,178 @@ body {
   padding-bottom: 2rem;
 }
 
-/* Circuit Background Animation */
-.circuit-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0.1;
-  pointer-events: none;
+
+/* Spline Container */
+.spline-container {
+  @apply right-[-2%] w-[45%]; /* Default for larger screens */
+  @apply sm:right-[-1%] sm:w-[42%]; /* Small screens */
+  @apply md:relative md:order-[-1] md:right-auto md:w-full md:h-[40vh] md:my-4; /* Medium screens */
+  @apply lg:h-[40vh]; /* Large screens */
 }
 
-.circuit-line {
-  position: absolute;
-  background: linear-gradient(90deg, transparent, #00ff87, transparent);
-  height: 2px;
-  width: 100%;
-  animation: circuit-flow 8s linear infinite;
+
+/* Features and About Sections */
+.features,
+.about {
+  @apply my-8 mx-4; /* Default for smaller screens */
 }
 
-.circuit-line:nth-child(1) { top: 20%; animation-delay: 0s; }
-.circuit-line:nth-child(2) { top: 50%; animation-delay: -2s; }
-.circuit-line:nth-child(3) { top: 80%; animation-delay: -4s; }
-
-@keyframes circuit-flow {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+/* Hero CTA */
+.hero-cta {
+  @apply flex-col gap-4; /* Default for medium screens */
+  @apply md:flex-row; /* Medium screens and up */
 }
 
-/* Responsive Design */
+/* CTA Button */
+.cta-button {
+  @apply w-full p-4 text-[1.1rem]; /* Default for medium screens */
+}
+
+
+/* Features and About Headings */
+.features h2,
+.about h2 {
+  @apply text-[2rem]; /* Default for medium screens */
+  @apply md:text-[2.5rem]; /* Medium screens */
+  @apply lg:text-[2.5rem]; /* Large screens */
+}
+
+/* Feature Card */
+.feature-card {
+  @apply p-8; /* Default for medium screens */
+}
+
+
+/* Spline Container */
+.spline-container {
+  @apply h-[30vh]; /* Default for small screens */
+  @apply md:h-[35vh]; /* Medium screens */
+  @apply lg:h-[40vh]; /* Large screens */
+  @apply xl:h-[50vh]; /* Extra large screens */
+}
+
+
+/* Fix background animation responsiveness */
 @media (max-width: 768px) {
-  .hero-animation {
+  .bgAnimation {
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
   }
 
-  .hero-content {
-    padding: 1.5rem;
-    margin: 0 1rem;
+  .colorBox {
+    margin: 1px;
   }
+}
 
-  .hero-text h1 {
-    font-size: 3rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.2rem;
-  }
-
-  .hero-cta {
-    flex-direction: column;
-  }
-
-  .cta-button {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  .hero {
-    padding: 6rem 2rem 2rem;
-  }
-
-  .spline-container {
-    opacity: 0.8;
-  }
-
-  .hero-content {
-    padding: 2rem;
-    margin: 0 1rem;
-    background: rgba(0, 20, 47, 0.8);
-  }
-
-  .content-wrapper {
-    padding: 0 1rem;
-  }
-
-  .features,
-  .about {
-    padding: 3rem 1rem;
-    margin: 1rem;
-  }
-
-  .about h2 {
-    font-size: 2rem;
-  }
+/* Ensure smooth transitions */
+.hero,
+.hero-content,
+.spline-container,
+.hero-text h1,
+.hero-subtitle,
+.feature-card,
+.cta-button {
+  @apply transition-all duration-300 ease-in-out; /* Tailwind utility classes */
 }
 
 /* Footer */
 .footer {
-  position: relative;
-  width: 100vw; /* Full viewport width */
-  background: rgba(0, 20, 47, 0.95);
-  backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(0, 245, 212, 0.1);
-  padding: 4rem 0 2rem;
-  margin-top: 2rem;
-  z-index: 3;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw; /* Negative margin to extend full width */
-  margin-right: -50vw; /* Negative margin to extend full width */
+  @apply relative w-full bg-[rgba(0,20,47,0.95)] backdrop-blur-[10px] border-t border-[rgba(0,245,212,0.1)] py-2; /* Smaller padding for small screens */
+  margin-top: auto; /* Push the footer to the bottom */
 }
 
-/* Footer content container */
+/* Footer Content */
 .footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 4rem;
-  margin-bottom: 3rem;
-  padding: 0 2rem;
+  @apply max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-4; /* Smaller gap for small screens */
 }
 
+/* Footer Brand */
 .footer-brand h3 {
-  font-family: var(--font-mono);
-  letter-spacing: -0.5px;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  background: linear-gradient(45deg, var(--sky-blue), var(--aquamarine));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  @apply font-mono tracking-normal text-[1.5rem] mb-2; /* Adjusted size for smaller screens */
+  background: linear-gradient(45deg, var(--sky-blue), var(--aquamarine)); /* Retained custom style */
+  -webkit-background-clip: text; /* Retained custom style */
+  -webkit-text-fill-color: transparent; /* Retained custom style */
 }
 
 .footer-brand p {
-  color: #cccccc;
-  font-size: 1.1rem;
+  @apply text-[#cccccc] text-[0.8rem]; /* Smaller size for small screens */
 }
 
+/* Footer Links */
 .footer-links {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  @apply grid grid-cols-2 gap-4; /* Smaller gap for small screens */
 }
 
 .footer-section h4 {
-  font-family: var(--font-mono);
-  letter-spacing: 0.5px;
-  color: #ffffff;
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
+  @apply font-mono tracking-[0.5px] text-white text-[1rem] mb-2; /* Adjusted size for smaller screens */
 }
 
 .footer-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  @apply flex flex-col gap-2; /* Adjusted gap for smaller screens */
 }
 
 .footer-section a {
-  color: #cccccc;
-  text-decoration: none;
-  transition: color 0.3s ease;
+  @apply text-[#cccccc] no-underline transition-colors duration-300 text-[0.8rem]; /* Smaller size for links */
 }
 
 .footer-section a:hover {
-  color: var(--aquamarine);
+  color: var(--aquamarine); /* Retained custom style */
 }
 
-/* Footer bottom */
+/* Footer Bottom */
 .footer-bottom {
-  text-align: center;
-  padding: 2rem 2rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  @apply text-center py-2 border-t border-[rgba(255,255,255,0.1)]; /* Smaller padding for small screens */
 }
 
 .footer-bottom p {
-  color: #888888;
-  font-size: 0.9rem;
+  @apply text-[#888888] text-[0.7rem]; /* Smaller size for small screens */
 }
 
-/* Responsive Footer */
-@media (max-width: 768px) {
-  .footer {
-    padding: 3rem 0 1.5rem;
-  }
+/* Responsive Adjustments Using Tailwind Breakpoints */
+.footer {
+  @apply py-2 md:py-4; /* Smaller padding for the footer on small screens */
+}
 
-  .footer-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 0 1.5rem;
-  }
+.footer-content {
+  @apply gap-2 md:gap-8; /* Adjusted gap for smaller screens */
+  @apply px-4 md:px-8; /* Adjust padding for small screens */
 }
 
 /* Add more styles as needed */
 
 /* Background Animation */
 .bgAnimation {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  display: grid;
+  @apply fixed top-0 left-0 w-full h-screen grid bg-[var(--oxford-blue)] filter saturate-200 overflow-hidden z-0;
   grid-template-columns: repeat(20, 1fr);
-  grid-template-rows: repeat(20, 1fr);
-  background: var(--oxford-blue);
-  filter: saturate(2);
-  overflow: hidden;
-  z-index: 0;
+  grid-template-rows: repeat(20, 1fr); /* Tailwind utility classes */
 }
 
 .colorBox {
-  z-index: 2;
-  filter: brightness(1.1);
-  transition: 2s ease;
-  position: relative;
-  margin: 2px;
-  background: var(--oxford-blue);
+  @apply z-20 filter brightness-110 transition-all relative m-[2px] bg-[var(--oxford-blue)]; /* Tailwind utility classes */
 }
 
 .colorBox:hover {
-  background: var(--brandeis-blue);
-  transition-duration: 0s;
+  @apply bg-[var(--brandeis-blue)]; /* Tailwind utility class */
+  transition-duration: 0s; /* Retained custom style */
 }
 
 .backgroundAnim {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  background: linear-gradient(45deg, var(--royal-blue), var(--aquamarine));
-  filter: blur(60px);
-  animation: animBack 6s linear infinite;
-}
-
-@keyframes animBack {
-  0% {
-    top: -60px;
-  }
-  100% {
-    top: 120%;
-  }
+  @apply absolute top-0 left-0 w-full h-[40px] bg-gradient-to-r from-[var(--royal-blue)] to-[var(--aquamarine)] filter blur-[60px] animate-[animBack_6s_linear_infinite]; /* Tailwind utility classes */
 }
 
 /* Spline Container - Matched to hero height */
 .spline-container {
-  position: absolute;
-  right: -3%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 48%;
-  height: calc(100% - 100px); /* Match hero height minus top padding */
-  z-index: 2;
-  pointer-events: all;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-spline-viewer {
-  width: 100%;
-  height: 100%;
-  transform: scale(1.25);
-}
-
+  @apply absolute right-[-3%] top-1/2 transform -translate-y-1/2 w-[48%] h-[calc(100%-100px)] z-20 pointer-events-auto flex items-center justify-center; /* Base Tailwind utility classes */
 /* Responsive adjustments */
-@media (max-width: 1200px) {
-  .spline-container {
-    right: -2%;
-    width: 45%;
-    height: calc(100% - 90px); /* Adjusted for smaller padding */
-  }
-  
-  spline-viewer {
-    transform: scale(1.2);
+}
+spline-viewer {
+  @apply w-full h-full scale-[1.25]; 
+}
+
+@media (max-width: 640px) {
+  .hero {
+    @apply p-[30px_1rem_1rem_1rem]; /* Adjust padding for smaller screens */
+    padding-top: 60px; /* Adjust top padding for smaller screens if needed */
   }
 }
 
-@media (max-width: 968px) {
-  .spline-container {
-    position: relative;
-    right: auto;
-    width: 100%;
-    height: 40vh;
-    margin-top: 1rem;
-    transform: none;
-  }
-  
-  spline-viewer {
-    transform: scale(1.1);
-  }
-}
-
-@media (max-width: 480px) {
-  .spline-container {
-    height: 35vh;
-  }
-  
-  spline-viewer {
-    transform: scale(0.9);
-  }
-} 

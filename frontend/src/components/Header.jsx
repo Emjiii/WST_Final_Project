@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { TableIcon, SunIcon, MoonIcon, MenuIcon } from './icons/HeaderIcons';
+import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon } from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
 import SaveButton from './SaveButton';
 import '../styles/header.css';
 
 const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
 
   const handleSave = (option) => {
     console.log(`Selected save option: ${option}`);
@@ -41,7 +42,20 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick }) =
 
             {/* Right section */}
             <div className="header-right">
-              <SaveButton onSave={handleSave} />
+              <button 
+                className="header-button"
+                aria-label="Save"
+                onClick={() => setIsSaveModalOpen(true)}
+              >
+                <SaveIcon className="header-icon" />
+              </button>
+
+              {isSaveModalOpen && (
+                <SaveButton 
+                  onSave={handleSave} 
+                  onClose={() => setIsSaveModalOpen(false)}
+                />
+              )}
 
               <button 
                 className="header-button"
@@ -52,9 +66,9 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick }) =
               </button>
 
               <button 
-                onClick={() => setIsDarkMode(!isDarkMode)}
                 className="header-button"
                 aria-label="Toggle Theme"
+                onClick={() => setIsDarkMode(!isDarkMode)}
               >
                 {isDarkMode ? 
                   <SunIcon className="header-icon" /> : 
