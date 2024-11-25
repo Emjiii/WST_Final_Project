@@ -19,10 +19,10 @@ export const MenuIcon = ({ className }) => (
 
 
 
-export const TableIcon = () => (
+export const TableIcon = ({className}) => (
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
-    className="h-6 w-6 text-gray-600 dark:text-gray-300" 
+    className={`text-gray-600 dark:text-gray-300 ${className}`}
     fill="none" 
     viewBox="0 0 24 24" 
     stroke="currentColor"
@@ -36,10 +36,10 @@ export const TableIcon = () => (
   </svg>
 );
 
-export const SunIcon = () => (
+export const SunIcon = ({className}) => (
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
-    className="h-6 w-6 text-gray-600 dark:text-gray-300" 
+    className={`text-gray-600 dark:text-gray-300 ${className}`}
     fill="none" 
     viewBox="0 0 24 24" 
     stroke="currentColor"
@@ -53,10 +53,10 @@ export const SunIcon = () => (
   </svg>
 );
 
-export const MoonIcon = () => (
+export const MoonIcon = ({className}) => (
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
-    className="h-6 w-6 text-gray-600 dark:text-gray-300" 
+    className={`text-gray-600 dark:text-gray-300 ${className}`}
     fill="none" 
     viewBox="0 0 24 24" 
     stroke="currentColor"
@@ -73,7 +73,7 @@ export const MoonIcon = () => (
 export const SaveIcon = ({ className }) => (
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
-    className={className}
+    className={`text-gray-600 dark:text-gray-300 ${className}`}
     width="24" 
     height="24" 
     viewBox="0 0 24 24" 

@@ -25,8 +25,8 @@
 
 /* Header Layout */
 .header-container {
-  @apply w-full px-0 sm:px-1 md:px-2 lg:px-3 xl:px-4 2xl:px-0
-  py-2 sm:py-4 md:py-6 lg:py-8 xl:py-2 2xl:py-0;
+  @apply w-full px-0 sm:px-1 md:px-2 lg:px-2.5 xl:px-3 2xl:px-0
+  py-0 sm:py-1 md:py-1.5 lg:py-2 xl:py-2.5 2xl:py-0;
 }
 
 .header-content {
@@ -61,25 +61,32 @@
 /* Common Button Styles */
 .header-button {
   @apply p-2 rounded-lg transition-all duration-200 flex items-center justify-center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.15); /* Semi-transparent white background */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
   height: 40px;
   width: 40px;
+  backdrop-filter: blur(4px);
 }
 
-/* Hover effects for all buttons */
+.dark .header-button {
+  background: var(--brandeis-blue); /* Dark mode background */
+  border: 1px solid var(--sky-blue);
+}
+
+/* Light mode hover effects */
 .header-button:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   transform: translateY(-1px);
   box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
+    0 4px 12px rgba(255, 255, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
+/* Dark mode hover effects */
 .dark .header-button:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--oxford-blue); /* Dark mode hover background */
   border-color: var(--brandeis-blue);
   box-shadow: 
     0 4px 12px rgba(0, 0, 0, 0.2),
@@ -89,10 +96,16 @@
 /* Icon Styles */
 .header-icon {
   @apply w-5 h-5;
-  color: rgba(255, 255, 255, 0.9);
+  color: white;
 }
 
-/* Icon hover effect */
+/* Light mode icon hover effect */
 .header-button:hover .header-icon {
-  color: white;
+  color: white; /* Keep icon white for better contrast */
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Dark mode icon hover effect */
+.dark .header-button:hover .header-icon {
+  color: rgba(255, 255, 255, 0.9); /* Keep icon color consistent */
 }
