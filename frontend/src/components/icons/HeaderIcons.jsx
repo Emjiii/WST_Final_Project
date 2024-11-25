@@ -17,8 +17,6 @@ export const MenuIcon = ({ className }) => (
     </svg>
   );
 
-
-
 export const TableIcon = () => (
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
@@ -104,7 +102,6 @@ export const ImportIcon = ({ className }) => (
   >
     <path d="M12 19V5M5 12l7-7 7 7" />
   </svg>
-);
 );
 
 export const ToggleSwitchIcon = ({ className = "h-6 w-6 text-gray-600 dark:text-gray-300" }) => (
