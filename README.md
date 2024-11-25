@@ -72,3 +72,33 @@ These gates form the foundation for constructing intricate circuits powering eve
    ```bash
    git clone https://github.com/yourusername/logic-gates-simulator.git
    ```
+2. **Navigate to the Project Directory**:
+   ```bash
+   cd logic-gates-simulator
+   ```
+3. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+4. **Run the Project**:
+   ```bash
+   npm start
+   ```
+
+## Contributors
+
+- [@yourusername](https://github.com/yourusername) - Project Manager
+- [@Your Name](https://github.com/YourName) - Developer
+
+## Acknowledgment
+
+We would like to express our gratitude to the contributors of the libraries and frameworks used in this project.
+
+- [React Flow](https://reactflow.dev/) - For the logic gate visualizer.
+- [React](https://reactjs.org/) - The library used for building the frontend.
+- [Node.js](https://nodejs.org/) - The runtime environment for the backend.
+- [Express](https://expressjs.com/) - The web framework used for the backend.
+- [filesaver.js](https://github.com/eligrey/FileSaver.js/) - For saving the circuit diagram as an image.
+- [html-to-image](https://github.com/bubkoo/html-to-image/) - For converting the circuit diagram to an image.
+- [tailwindcss](https://tailwindcss.com/) - For styling the frontend.
+- [axios](https://axios-http.com/) - For making HTTP requests to the backend.
