@@ -217,7 +217,7 @@ body {
 }
 
 .cta-button {
-  @apply font-mono font-medium tracking-[0.5px] py-[1rem] px-[2rem] text-[1rem] border-none rounded-[30px] cursor-pointer transition-all duration-300 inline-flex items-center gap-2; 
+  @apply font-mono font-medium tracking-[0.5px] py-[1rem] px-[2rem] text-[1rem] border-none rounded-[30px] cursor-pointer transition-all duration-300 inline-flex items-center justify-center gap-2; 
   @apply w-full sm:w-auto; 
 }
 
@@ -247,6 +247,7 @@ body {
 
 .button-arrow {
   @apply transition-transform duration-300 ease-in; 
+  display: inline-block; /* Ensure it's treated as an inline element */
 }
 
 .cta-button:hover .button-arrow {
