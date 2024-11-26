@@ -29,19 +29,36 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
     setLoading(true);
     setError(null);
     try {
+      console.log('Sending nodes:', nodes);
+      console.log('Sending edges:', edges);
+      console.log('Payload:', { nodes, edges });
+
+      const inputNodes = nodes
+        .filter(node => node.type.includes('input'))
+        .map(({ id, type, data}) => ({ id, type, data}));
+
+      const outputNodes = nodes
+        .filter(node => node.type.includes('Output'))
+        .map(({ id, type, value }) => ({ id, type, value }));
+      console.log('Input Nodes:', inputNodes);
+      console.log('Output Nodes:', outputNodes);
+
+      
+
       const response = await axios.post('http://localhost:3000/truth-table/circuit', { nodes, edges });
       const truthTable = response.data;
       console.log('Fetched Truth Table:', truthTable);
   
       if (truthTable.length > 0) {
         setTruthTableData({
-          inputs: nodes.filter(node => node.type.includes('Input')).map(node => node.id), // Corrected line
+          inputs: nodes.filter(node => node.type.includes('input')).map(node => node.id), // Corrected line
           outputs: nodes.filter(node => node.type.includes('Output')).map(node => node.id),
           rows: truthTable.map(entry => ({
             inputs: entry.inputs,
             outputs: entry.outputs
           }))
         });
+        console.log('Truth Table Data:', truthTableData);
       } else {
         setTruthTableData({ inputs: [], outputs: [], rows: [] });
       }
@@ -125,5 +142,6 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
     </div>
   );
 };
+
 
 export default TruthTable;

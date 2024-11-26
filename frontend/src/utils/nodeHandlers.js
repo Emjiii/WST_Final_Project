@@ -3,7 +3,7 @@ export const createInputNode = (type, setNodes) => {
   
   const inputTypes = {
     switch: {
-      nodeType: 'switch',
+      nodeType: 'inputNode',
       label: 'Toggle Switch',
       initialState: false,
       setValue: (newValue) => updateNodeValue(nodeId, newValue, setNodes)
