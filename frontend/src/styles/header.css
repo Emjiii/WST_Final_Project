@@ -61,8 +61,7 @@
 /* Common Button Styles */
 .header-button {
   @apply p-2 rounded-lg transition-all duration-200 flex items-center justify-center;
-  background: rgba(255, 255, 255, 0.15); /* Semi-transparent white background */
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15); 
   color: white;
   height: 40px;
   width: 40px;
@@ -70,7 +69,7 @@
 }
 
 .dark .header-button {
-  background: var(--brandeis-blue); /* Dark mode background */
+  background: var(--brandeis-blue); 
   border: 1px solid var(--sky-blue);
 }
 

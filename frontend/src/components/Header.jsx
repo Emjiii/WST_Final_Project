@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon } from './icons/HeaderIcons';
+import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon } from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
 import SaveButton from './SaveButton';
 import '../styles/header.css';
@@ -42,6 +42,13 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick }) =
 
             {/* Right section */}
             <div className="header-right">
+              <button 
+                className="header-button"
+                aria-label="Import"
+              >
+                <ImportIcon className="header-icon" />
+              </button>
+
               <button 
                 className="header-button"
                 aria-label="Save"
