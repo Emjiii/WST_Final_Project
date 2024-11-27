@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon } from './icons/HeaderIcons';
-import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon } from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
 import SaveButton from './SaveButton';
 import '../styles/header.css';
@@ -76,7 +75,7 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
               <button 
                 className="header-button"
                 aria-label="Save"
-                onClick={() => setIsSaveModalOpen(true)}
+                onClick={() => setIsSavePopupOpen(true)}
               >
                 <SaveIcon className="header-icon" />
               </button>
