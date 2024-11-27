@@ -8,6 +8,7 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
 
   const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, getNodes, getEdges }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   const [isSavePopupOpen, setIsSavePopupOpen] = useState(false);
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
@@ -79,7 +80,6 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
                 <ImportIcon className="header-icon" />
               </button>
 
-
               <button 
                 className="header-button"
                 aria-label="Truth Table"
@@ -89,9 +89,9 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
               </button>
 
               <button 
-                onClick={() => setIsDarkMode(!isDarkMode)}
                 className="header-button"
                 aria-label="Toggle Theme"
+                onClick={() => setIsDarkMode(!isDarkMode)}
               >
                 {isDarkMode ? 
                   <SunIcon className="header-icon" /> : 
