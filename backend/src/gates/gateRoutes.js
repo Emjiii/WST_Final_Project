@@ -51,6 +51,13 @@ router.post('/xnor', (req, res) => {
     res.json({ input: { a, b }, output: result });
 });
 
+//BUFFER Gate Route
+router.post('/buffer', (req, res) => {
+    const { a } = req.body;
+    const result = gateController.bufferGate(a);
+    res.json({ input: { a }, output: result });
+});
+
 module.exports = router;
 
 

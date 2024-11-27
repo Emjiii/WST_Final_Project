@@ -109,3 +109,58 @@
 .dark .header-button:hover .header-icon {
   color: rgba(255, 255, 255, 0.9); /* Keep icon color consistent */
 }
+
+.save-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 20px;
+  border-radius: 12px;
+  width: 300px;
+  text-align: center;
+}
+
+.save-popup-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.save-popup-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.save-option-button {
+  padding: 10px;
+  border: none;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-option-button:hover {
+  background-color: #2563eb;
+}
+
+.close-button {
+  padding: 8px;
+  border: none;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.close-button:hover {
+  background-color: #e5e7eb;
+}

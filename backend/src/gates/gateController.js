@@ -35,8 +35,11 @@ function xnorGate(a, b) {
     return !(Boolean(a) !== Boolean(b));
 }
 
+//BUFFER Gate
+function bufferGate(a) {
+    return Boolean(a);
+}
 
 
-
-module.exports = { andGate, orGate, notGate, nandGate, norGate, xorGate, xnorGate };
+module.exports = { andGate, orGate, notGate, nandGate, norGate, xorGate, xnorGate, bufferGate };
 
