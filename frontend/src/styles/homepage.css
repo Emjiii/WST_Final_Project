@@ -65,7 +65,7 @@ body {
 }
 
 .nav-links {
-  @apply flex flex-row gap-y-9 sm:gap-4 md:gap-4; 
+  @apply flex flex-row items-center justify-between gap-4; 
 }
 
 .nav-links a {
@@ -75,6 +75,33 @@ body {
 .nav-links a:hover {
   @apply bg-[rgba(0,187,249,0.1)] text-aquamarine; 
 }
+
+.nav-icon {
+  @apply cursor-pointer transition-all duration-300; 
+  color: white; 
+}
+
+.nav-icon:hover {
+  @apply text-aquamarine;
+}
+.icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
+  background-color: rgba(0, 20, 47, 0.7);
+  border: 2px solid white; 
+  cursor: pointer; 
+  transition: background-color 0.3s, border-color 0.3s; 
+}
+
+.icon-circle:hover {
+  background-color: rgba(0, 187, 249, 0.1); 
+  border-color: rgba(0, 245, 212, 1); 
+}
+
 /* Hero Section */
 .hero {
   @apply relative min-h-screen flex flex-col items-center justify-center overflow-hidden; 
@@ -247,7 +274,7 @@ body {
 
 .button-arrow {
   @apply transition-transform duration-300 ease-in; 
-  display: inline-block; /* Ensure it's treated as an inline element */
+  display: inline-block; 
 }
 
 .cta-button:hover .button-arrow {
@@ -266,18 +293,17 @@ body {
   }
 }
 
-/* Base styles for Spline Container */
 .spline-container {
   @apply absolute right-[-3%] top-1/2 transform -translate-y-1/2 z-20 pointer-events-auto 
    flex items-center justify-center w-[48%] h-[calc(100%-100px)];
 }
 
-/* Small Screens (default) */
+
 .spline-container {
   @apply w-full max-w-[120%] mx-auto max-h-[200%] aspect-[16/9]; 
 }
 
-/* Tailwind's responsive adjustments */
+
 .spline-container {
   @apply sm:w-[400px] sm:h-[400px] sm:top-[45%]; 
 
@@ -465,7 +491,7 @@ body {
   }
 }
 
-/* Ensure smooth transitions */
+
 .hero,
 .hero-content,
 .spline-container,
@@ -529,7 +555,6 @@ body {
   @apply text-[#888888] text-[0.7rem]; 
 }
 
-/* Responsive Adjustments Using Tailwind Breakpoints */
 .footer {
   @apply py-2 md:py-4; 
 }
@@ -566,5 +591,235 @@ body {
     @apply p-[30px_1rem_1rem_1rem]; 
     padding-top: 60px; 
   }
+}
+
+/* Modal Styles */
+.modal-overlay {
+  @apply fixed inset-0 flex justify-center items-center z-[9999] min-h-screen px-4;
+  background: rgba(0, 20, 47, 0.85);
+  backdrop-filter: blur(12px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  @apply bg-[rgba(0,20,47,0.7)] 
+         rounded-[20px] border border-[rgba(0,245,212,0.1)]
+         w-full sm:w-[90%] md:w-[400px] lg:w-[450px]
+         p-4 sm:p-4 relative mx-auto
+         shadow-[0_0_30px_rgba(0,245,212,0.1)];
+  animation: slideUp 0.3s ease-out;
+
+  @apply sm:max-w-md;
+}
+
+.close-button {
+  @apply absolute top-2 right-2; 
+  z-index: 10; 
+}
+
+
+@media (min-width: 768px) {
+  .modal-content {
+    @apply w-[90%]; 
+    max-width: 600px; 
+  }
+
+  .form-input {
+    @apply w-full; 
+  }
+}
+
+@media (max-width: 640px) {
+  .modal-content {
+    @apply w-[90%] max-w-[90%]; 
+    padding: 15px; 
+    max-height: 80vh; 
+    overflow-y: auto; 
+  }
+
+  .auth-tabs {
+    @apply mt-10; 
+  }
+}
+
+
+.auth-tabs {
+  @apply flex gap-4 mb-6 p-1.5 rounded-2xl mx-auto
+         w-full sm:w-[80%]
+         bg-[rgba(0,245,212,0.05)] border border-[rgba(0,245,212,0.1)]
+         relative;
+  font-family: var(--font-mono);
+}
+
+
+.auth-tabs::before {
+  content: '';
+  @apply absolute top-1.5 left-0
+         h-[calc(100%-12px)] w-[calc(50%-8px)]
+         bg-gradient-to-r from-[#0022FF] via-[#006FFC] to-[#00BBF9]
+         rounded-xl transition-transform duration-300 ease-in-out;
+}
+
+
+.auth-tabs.login::before {
+  transform: translateX(0);
+}
+
+.auth-tabs.signup::before {
+  transform: translateX(calc(100% + 16px));
+}
+
+/* Tab Buttons */
+.tab-button {
+  @apply flex-1 py-2 px-6 rounded-xl font-medium text-sm sm:text-base
+         transition-all duration-300 text-white/80
+         relative z-10;  
+  min-width: 100px; 
+
+  @apply md:py-3;
+}
+
+
+.tab-button.active {
+  @apply text-white shadow-none bg-transparent;
+}
+
+.tab-button::after {
+  content: '';
+  @apply absolute inset-0 bg-white/10 opacity-0 transition-opacity duration-200;
+}
+
+.tab-button:active::after {
+  @apply opacity-100;
+}
+
+.form-group {
+  @apply mt-0;
+  @apply md:mt-3;
+}
+
+.form-group label {
+  @apply block mb-2 text-sm font-medium text-white/90
+         ml-1 tracking-wide;
+  font-family: var(--font-display);
+}
+
+.form-input {
+  @apply w-full px-4 py-3;
+  @apply bg-[rgba(255,255,255,0.05)]
+         rounded-xl border-2 border-[rgba(0,245,212,0.1)]
+         text-white placeholder-white/30
+         focus:outline-none transition-colors duration-200;
+  font-family: var(--font-mono);
+  max-height: 40px;
+  max-width: 100%;
+}
+
+.form-input{
+  @apply md:max-h-14;
+}
+
+.form-input:focus {
+  @apply border-[#00F5D4] bg-[rgba(255,255,255,0.08)];
+}
+
+.auth-submit-button {
+  @apply w-full py-3 px-6 rounded-xl
+         font-medium text-white text-sm sm:text-base
+         transition-all duration-200
+         bg-gradient-to-r from-[#0022FF] via-[#006FFC] to-[#00BBF9]
+         border border-[rgba(0,245,212,0.2)] mt-6
+         relative overflow-hidden;
+  font-family: var(--font-mono);
+}
+
+.auth-submit-button:active {
+  @apply transform scale-[0.98] brightness-90;
+}
+
+.auth-submit-button::after {
+  content: '';
+  @apply absolute inset-0 bg-white/20 opacity-0 transition-opacity duration-200;
+}
+
+.auth-submit-button:active::after {
+  @apply opacity-100;
+}
+
+.auth-switch {
+  @apply text-sm text-center mt-4 text-white/70;
+  font-family: var(--font-display);
+}
+
+.switch-button {
+  @apply font-medium text-[#00F5D4]
+         transition-all duration-200 ml-1
+         relative;
+  font-family: var(--font-mono);
+}
+
+.switch-button::after {
+  content: '';
+  @apply absolute left-0 bottom-0 w-0 h-[2px]
+         bg-[#00F5D4] transition-all duration-200;
+}
+
+.switch-button:hover::after {
+  @apply w-full;
+}
+
+.switch-button:active {
+  @apply transform scale-95 brightness-75;
+}
+
+.close-button {
+  @apply absolute top-6 right-6
+         text-2xl font-light
+         text-white/50 hover:text-white
+         transition-colors duration-200;
+  font-family: var(--font-mono);
+}
+
+.modal-title {
+  @apply text-xl sm:text-2xl font-bold mb-6
+         bg-gradient-to-r from-[#0022FF] via-[#006FFC] to-[#00BBF9]
+         bg-clip-text text-transparent text-center;
+  font-family: var(--font-mono);
+}
+
+/* Two-column layout for signup form */
+.signup-form-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-6;
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+/* Loading state for submit button */
+.auth-submit-button.loading {
+  @apply cursor-wait opacity-75;
+}
+
+.auth-submit-button.loading::before {
+  content: '';
+  @apply absolute left-4 top-1/2 -translate-y-1/2
+         w-4 h-4 border-2 border-white/30 border-t-white
+         rounded-full animate-spin;
 }
 

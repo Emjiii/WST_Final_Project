@@ -1,9 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PersonIcon } from './icons/HeaderIcons';
+import AuthModal from './AuthModal';
 import '../styles/homepage.css';
 
 const Home = () => {
   const navigate = useNavigate();
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleIconClick = () => {
+    console.log('Icon clicked, setting modal to open');
+    setModalOpen(true);
+  };
+
 
   useEffect(() => {
     // Create background animation boxes
@@ -35,8 +44,13 @@ const Home = () => {
         <div className="nav-links">
           <a href="#features">Features</a>
           <a href="#about">About</a>
+          <PersonIcon 
+            className="nav-icon" 
+            onClick={handleIconClick} />
         </div>
       </nav>
+
+      <AuthModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
 
       {/* Content Wrapper */}
       <div className="content-wrapper">

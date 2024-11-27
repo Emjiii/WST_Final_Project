@@ -305,4 +305,23 @@ export const SpeakerIcon = ({ className = "h-6 w-6 text-gray-600 dark:text-gray-
     <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
     <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
   </svg>
+);
+
+export const PersonIcon = ({ className, onClick }) => (
+  <div className="icon-circle" onClick={onClick}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className={`h-8 w-8 text-white ${className}`}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+      />
+    </svg>
+  </div>
 ); 
