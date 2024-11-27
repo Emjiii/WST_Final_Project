@@ -8,51 +8,69 @@ export const XorGateCanvas = ({ isConnectable, id, data }) => {
 
     const [input1, setInput1] = useState(null);
     const [input2, setInput2] = useState(null);
+    const [output, setOutput] = useState(null);
     const edges = useEdges();
     const nodes = useNodes();   
 
     useEffect(() => {
+        const updateInputs = () => {
+            const incomingEdge1 = edges.find(edge => edge.target === id && edge.targetHandle === `${id}-input-1`);
+            const incomingEdge2 = edges.find(edge => edge.target === id && edge.targetHandle === `${id}-input-2`);  
 
-        const incomingEdge1 = edges.find(edge => edge.target === id && edge.targetHandle === `${id}-input-1`);
-        const incomingEdge2 = edges.find(edge => edge.target === id && edge.targetHandle === `${id}-input-2`);  
+            if (incomingEdge1) {
+                const sourceNode1 = nodes.find(node => node.id === incomingEdge1.source);
+                const inputValue1 = sourceNode1?.data?.value ?? false;
+                setInput1(inputValue1);
+                console.log('Input 1 Connected:', inputValue1);
+            } else {
+                setInput1(null);
+                console.log('Input 1 Not Connected');
+            }
 
-        if (incomingEdge1) {
-            const sourceNode1 = nodes.find(node => node.id === incomingEdge1.source);
-            const inputValue1 = sourceNode1?.data?.value ?? null;
-            setInput1(inputValue1);
-        } else {
-            setInput1(null);
-        }
-
-        if (incomingEdge2) {
-            const sourceNode2 = nodes.find(node => node.id === incomingEdge2.source);
-            const inputValue2 = sourceNode2?.data?.value ?? null;
-            setInput2(inputValue2);
-        } else {
-            setInput2(null);
-        }
+            if (incomingEdge2) {
+                const sourceNode2 = nodes.find(node => node.id === incomingEdge2.source);
+                const inputValue2 = sourceNode2?.data?.value ?? false;
+                setInput2(inputValue2);
+                console.log('Input 2 Connected:', inputValue2);
+            } else {
+                setInput2(null);
+                console.log('Input 2 Not Connected');
+            }
+        };
+        
+        updateInputs();
+    
     }, [edges, nodes, id]);
 
     useEffect(() => {
-        const newOutput = input1 !== null && input2 !== null ? Boolean(input1) !== Boolean(input2) : null;
-        if (data?.setValue) {
-            data.setValue(newOutput);
+        if (input1 !== null && input2 !== null) {
+            const newOutput = Boolean(input1) !== Boolean(input2);
+            setOutput(newOutput);
+
+            if (data?.setValue) {
+                data.setValue(newOutput);
         }
 
         const xorGateState = async () => {
             try {
                 await axios.post('http://localhost:3000/gates/xor', {
-                        input1: input1 !== null ? Boolean(input1) : null,
-                        input2: input2 !== null ? Boolean(input2) : null,
-                        output: newOutput
-                    });
+                    input1,
+                    input2,
+                    output: newOutput
+                });
+                console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
                 } catch (error) {
-                    console.error('Error updating XOR gate state:', error);
+                    console.error('Error syncing with backend:', error);
                 }
             };
+
             xorGateState();
-            console.log('Inputs:', Boolean(input1), Boolean(input2), 'Output:', newOutput);
-    }, [input1, input2]);
+            console.log('Inputs:', input1, input2, 'Output:', newOutput);
+        } else {
+            setOutput(null);
+            console.log('Incomplete Inputs, Output set to null');
+        }
+    }, [input1, input2, data]);
 
      return (
         <div className={`${styles.gateContainer} ${xorStyles.xorGate}`}>

@@ -1,13 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon } from './icons/HeaderIcons';
 import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon } from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
 import SaveButton from './SaveButton';
 import '../styles/header.css';
+import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuitOperations';
 
-const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick }) => {
+  const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, getNodes, getEdges }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
+
+  const [isSavePopupOpen, setIsSavePopupOpen] = useState(false);
+  const [nodes, setNodes] = useState([]);
+  const [edges, setEdges] = useState([]);
+
+  useEffect(() => {
+    console.log('Nodes or edges have changed:', { nodes, edges });
+  }, [nodes, edges]);
+
+  const handleSaveAsFile = () => {
+    saveCircuit(getNodes, getEdges);
+    setIsSavePopupOpen(false);
+  };
+
+  const handleSaveAsImage = () => {
+    saveCircuitAsImage('circuitCanvas');
+    setIsSavePopupOpen(false);
+  };
+
+  const handleImportCircuit = () => {
+    importCircuit(setNodes, setEdges);
+    //setIsSavePopupOpen(false);
+  };
 
   const handleSave = (option) => {
     console.log(`Selected save option: ${option}`);
@@ -87,6 +111,17 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick }) =
         </div>
       </header>
 
+      {isSavePopupOpen && (
+        <div className="save-popup">
+          <div className="save-popup-content">
+            <h3 className="save-popup-title">Save Options</h3>
+            <button className="save-option-button" onClick={handleSaveAsFile}>Save as File</button>
+            <button className="save-option-button" onClick={handleSaveAsImage}>Save as Image</button>
+            <button className="close-button" onClick={() => setIsSavePopupOpen(false)}>Close</button>
+          </div>
+        </div>
+      )}
+
       <LogicGateDrawer 
         isOpen={isDrawerOpen} 
         onClose={() => setIsDrawerOpen(false)} 
@@ -100,6 +135,8 @@ Header.propTypes = {
   addGateNode: PropTypes.func.isRequired,
   isDarkMode: PropTypes.bool.isRequired,
   setIsDarkMode: PropTypes.func.isRequired,
+  getNodes: PropTypes.func.isRequired,
+  getEdges: PropTypes.func.isRequired,
   onTruthTableClick: PropTypes.func.isRequired,
 };
 

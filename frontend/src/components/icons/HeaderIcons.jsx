@@ -18,6 +18,7 @@ export const MenuIcon = ({ className }) => (
   );
 
 export const TableIcon = ({className}) => (
+
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
     className={`text-gray-600 dark:text-gray-300 ${className}`}
@@ -341,4 +342,6 @@ export const PersonIcon = ({ className, onClick }) => (
     </svg>
   </div>
 ); 
+
+
 
