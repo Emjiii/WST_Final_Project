@@ -66,14 +66,14 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
             {/* Right section */}
             <div className="header-right">
               <button 
-                className="save-button"
+                className="header-button"
                 aria-label="Save Project"
                 onClick={() => setIsSavePopupOpen(true)}
               >
                 <SaveIcon className="header-icon" />
               </button> 
               <button
-                className="import-button"
+                className="header-button"
                 aria-label="Import Circuit"
                 onClick={handleImportCircuit}
               >
