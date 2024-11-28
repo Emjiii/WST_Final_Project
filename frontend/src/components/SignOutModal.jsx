@@ -13,7 +13,7 @@ const SignOutModal = ({ isOpen, onClose }) => {
       await doSignOut();
       setTimeout(() => {
         onClose(); // Close the modal after "signing out"
-      }, 1000); // Simulate a delay for the sign-out process
+      }, 500); // Simulate a delay for the sign-out process
     } catch (error) {
       // Handle error (e.g., set error message)
     }
