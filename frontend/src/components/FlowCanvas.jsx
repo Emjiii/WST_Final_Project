@@ -22,8 +22,10 @@ import XorGateCanvas from '../components/LogicComponents/gates/XorGate';
 import XnorGateCanvas from '../components/LogicComponents/gates/XnorGate';
 import BufferGateCanvas from '../components/LogicComponents/gates/BufferGate';
 
-// Input and Output components
+// Input components
 import InputSwitch from '../components/LogicComponents/inputs/InputSwitch';
+
+// Output components
 import PushButton from '../components/LogicComponents/inputs/PushButton';
 import LedOutput from '../components/LogicComponents/outputs/LedOutput';
 import RgbLedOutput from '../components/LogicComponents/outputs/RgbLedOutput';
@@ -44,7 +46,7 @@ const nodeTypes = {
   xorNode: XorGateCanvas,
   xnorNode: XnorGateCanvas,
   bufferNode: BufferGateCanvas,
-  switch: InputSwitch,
+  inputNode: InputSwitch,
   button: PushButton,
   ledOutput: LedOutput,
   rgbLedOutput: RgbLedOutput,
@@ -141,7 +143,7 @@ const FlowCanvas = () => {
                     }
                 }
             },
-                className: 'gate-node'
+                className: 'gate-node-input'
             };
             setNodes((nds) => nds.concat(newNode));
         }

@@ -28,14 +28,14 @@ const InputSwitch = ({ data, isConnectable, id }) => {
         if (data.setValue) {
             data.setValue(newState);
         }
-        try {
-            await axios.post('http://localhost:3000/api/input-switch', {
-                id,
-                state: newState
-            });
-        } catch (error) {
-            console.error('Error updating switch state:', error);
-        }
+        // try {
+        //     await axios.post('http://localhost:3000/api/input-switch', {
+        //         id,
+        //         state: newState
+        //     });
+        // } catch (error) {
+        //     console.error('Error updating switch state:', error);
+        // }
     };
 
     return (

@@ -18,7 +18,7 @@ const InputComponentsSection = ({ expandedSections, toggleSection, handleGateCli
     <div className={`gates-grid ${expandedSections.inputComponents ? 'expanded' : 'collapsed'}`}>
       
       {/* Separate click handler from card styling */}
-      <div onClick={() => handleGateClick('switch')}>
+      <div onClick={() => handleGateClick('inputNode')}>
         <div className="logic-gate-card" role="button" tabIndex={0}>
           <div className="gate-icon-container">
             <ToggleSwitchIcon className="h-8 w-8" />
