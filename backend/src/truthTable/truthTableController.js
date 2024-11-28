@@ -78,9 +78,9 @@ function generateCircuitTruthTable(req, res) {
         // });
 
          // Replace the combination generation with current inputs
-         const combinations = [inputNodes.map(node => (node.data.value ? 1 : 0))];
+        const combinations = [inputNodes.map(node => (node.data.value ? 1 : 0))];
          // Log the current inputs
-         console.log('Using current inputs:', combinations);
+        console.log('Using current inputs:', combinations);
         
         console.log('Generated combinations:', combinations);
         // Evaluate circuit for each input combination
