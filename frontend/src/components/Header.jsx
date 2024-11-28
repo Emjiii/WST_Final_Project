@@ -5,6 +5,8 @@ import LogicGateDrawer from './LogicGateDrawer';
 import SaveButton from './SaveButton';
 import '../styles/header.css';
 import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuitOperations';
+import { useAuth } from "./auth/authContext";
+import AuthModal from "./AuthModal";
 
   const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, getNodes, getEdges }) => {
 
@@ -13,6 +15,10 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
+
+  const { userLoggedIn } = useAuth();
+
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     console.log('Nodes or edges have changed:', { nodes, edges });
@@ -66,6 +72,20 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
 
             {/* Right section */}
             <div className="header-right">
+              <button 
+                className="header-button"
+                aria-label="Save Project"
+                onClick={() => {
+                  if (!userLoggedIn) {
+                    alert('Please log in first');
+                    setModalOpen(true);
+                  } else {
+                    setIsSavePopupOpen(true);
+                  }
+                }}
+              >
+                <SaveIcon className="header-icon" />
+              </button> 
               
               <button
                 className="header-button"
@@ -116,8 +136,20 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
         </div>
       </header>
 
-    
-      <LogicGateDrawer 
+      {isSavePopupOpen && (
+        <div className="save-popup">
+          <div className="save-popup-content">
+            <h3 className="save-popup-title">Save Options</h3>
+            <button className="save-option-button" onClick={handleSaveAsFile}>Save as File</button>
+            <button className="save-option-button" onClick={handleSaveAsImage}>Save as Image</button>
+            <button className="close-button" onClick={() => setIsSavePopupOpen(false)}>Close</button>
+          </div>
+        </div>
+      )}
+
+      <AuthModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
+
+          <LogicGateDrawer 
         isOpen={isDrawerOpen} 
         onClose={() => setIsDrawerOpen(false)} 
         addGateNode={addGateNode}

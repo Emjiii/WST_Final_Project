@@ -2,15 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PersonIcon } from './icons/HeaderIcons';
 import AuthModal from './AuthModal';
+import SignOutModal from './signOutModal';
+import { useAuth } from './auth/authContext';
 import '../styles/homepage.css';
+
 
 const Home = () => {
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isSignOutModalOpen, setSignOutModalOpen] = useState(false);
+  const { userLoggedIn } = useAuth();
 
   const handleIconClick = () => {
-    console.log('Icon clicked, setting modal to open');
-    setModalOpen(true);
+    console.log('Icon clicked, checking user login status');
+    if (userLoggedIn) {
+      setSignOutModalOpen(true);
+    } else {
+      setModalOpen(true);
+    }
   };
 
 
@@ -51,6 +60,7 @@ const Home = () => {
       </nav>
 
       <AuthModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
+      <SignOutModal isOpen={isSignOutModalOpen} onClose={() => setSignOutModalOpen(false)} />
 
       {/* Content Wrapper */}
       <div className="content-wrapper">
