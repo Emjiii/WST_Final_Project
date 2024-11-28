@@ -1,10 +1,29 @@
 import React from 'react';
 import styles from '../styles/SaveButton.module.css';
+import PropTypes from 'prop-types';
 
-const SaveButton = ({ onSave, onClose }) => {
-  const handleSaveOption = (option) => {
-    onSave(option);
-    onClose();
+console.log('SaveButton styles:', styles);
+
+const SaveButton = ({ onClose, onSave, getNodes, getEdges }) => {
+  const handleSaveAsFile = () => {
+    console.log('onSave called with file option');
+    try {
+      onSave('file');
+      // Modal will be closed by the onSave function
+    } catch (error) {
+      console.error('Error in handleSaveAsFile:', error);
+      onClose(); // Close modal even if there's an error
+    }
+  };
+
+  const handleSaveAsImage = () => {
+    try {
+      onSave('image');
+      // Modal will be closed by the onSave function
+    } catch (error) {
+      console.error('Error in handleSaveAsImage:', error);
+      onClose(); // Close modal even if there's an error
+    }
   };
 
   return (
@@ -16,13 +35,13 @@ const SaveButton = ({ onSave, onClose }) => {
         <div className={styles.modalBody}>
           <button 
             className={`${styles.modalButton} ${styles.saveFileBtn}`}
-            onClick={() => handleSaveOption('file')}
+            onClick={handleSaveAsFile}
           >
             Save as File
           </button>
           <button 
             className={`${styles.modalButton} ${styles.saveImageBtn}`}
-            onClick={() => handleSaveOption('image')}
+            onClick={handleSaveAsImage}
           >
             Save as Image
           </button>
@@ -36,6 +55,13 @@ const SaveButton = ({ onSave, onClose }) => {
       </div>
     </div>
   );
+};
+
+SaveButton.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  getNodes: PropTypes.func.isRequired,
+  getEdges: PropTypes.func.isRequired
 };
 
 export default SaveButton; 
