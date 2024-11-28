@@ -159,7 +159,7 @@ const FlowCanvas = () => {
         getEdges={() => edges} 
       />
       <ControlPanel addGateNode={addGateNode} setNodes={setNodes} />
-      <div id="circuitCanvas" className="flow-container"  className={`flow-container ${showTruthTable ? 'with-truth-table' : ''}`}>
+      <div id="circuitCanvas" className={`flow-container ${showTruthTable ? 'with-truth-table' : ''}`}>
 
         <ReactFlow
           nodes={nodes}

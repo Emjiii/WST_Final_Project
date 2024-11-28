@@ -5,6 +5,8 @@ import LogicGateDrawer from './LogicGateDrawer';
 import SaveButton from './SaveButton';
 import '../styles/header.css';
 import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuitOperations';
+import { useAuth } from "./auth/authContext";
+import AuthModal from "./AuthModal";
 
   const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, getNodes, getEdges }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -12,6 +14,10 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
   const [isSavePopupOpen, setIsSavePopupOpen] = useState(false);
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
+
+  const { userLoggedIn } = useAuth();
+
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     console.log('Nodes or edges have changed:', { nodes, edges });
@@ -68,7 +74,14 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
               <button 
                 className="header-button"
                 aria-label="Save Project"
-                onClick={() => setIsSavePopupOpen(true)}
+                onClick={() => {
+                  if (!userLoggedIn) {
+                    alert('Please log in first');
+                    setModalOpen(true);
+                  } else {
+                    setIsSavePopupOpen(true);
+                  }
+                }}
               >
                 <SaveIcon className="header-icon" />
               </button> 
@@ -113,6 +126,8 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
           </div>
         </div>
       )}
+
+      <AuthModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
 
       <LogicGateDrawer 
         isOpen={isDrawerOpen} 

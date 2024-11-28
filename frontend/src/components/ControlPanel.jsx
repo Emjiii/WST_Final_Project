@@ -3,6 +3,7 @@ import { createInputNode, createOutputNode } from '../utils/nodeHandlers';
 import { saveCircuit } from '../utils/circuitOperations';
 import LogicGateDrawer from './LogicGateDrawer';
 import PropTypes from 'prop-types';
+//import { useAuth } from "./auth/authContext";
 
 const ControlPanel = ({ addGateNode }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
