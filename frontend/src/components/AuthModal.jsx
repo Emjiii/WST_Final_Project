@@ -7,6 +7,10 @@ const AuthModal = ({ isOpen, onClose }) => {
   
   if (!isOpen) return null;
 
+  const handleLogInSuccess = () => {
+    onClose();
+  }
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -28,7 +32,7 @@ const AuthModal = ({ isOpen, onClose }) => {
         </div>
 
         {isLogin ? (
-          <LoginForm onSwitchToSignup={() => setIsLogin(false)} />
+          <LoginForm onSwitchToSignup={() => setIsLogin(false)} onLogInSuccess={handleLogInSuccess} />
         ) : (
           <SignupForm onSwitchToLogin={() => setIsLogin(true)} />
         )}

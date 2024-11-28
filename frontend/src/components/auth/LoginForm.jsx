@@ -3,7 +3,7 @@ import {Navigate, Link} from 'react-router-dom'
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "./firebase/auth";
 import { useAuth } from "./authContext";
 
-const LoginForm = ({ onSwitchToSignup }) => {
+const LoginForm = ({ onSwitchToSignup, onLogInSuccess }) => {
   const {userLoggedIn} = useAuth()
 
   const [email, setEmail] = useState('');
@@ -13,10 +13,13 @@ const LoginForm = ({ onSwitchToSignup }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const isAuthenticated  = await doSignInWithEmailAndPassword(email, password); 
     if (!isSigningIn) {
       setIsSigningIn(true);
       try {
-        await doSignInWithEmailAndPassword(email, password);
+        if (isAuthenticated){
+          onLogInSuccess();
+        }
       } catch (error) {
         setErrorMessage(error.message);
       } finally {
