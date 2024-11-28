@@ -66,7 +66,8 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
 
             {/* Right section */}
             <div className="header-right">
-              <button 
+              
+              <button
                 className="header-button"
                 aria-label="Import"
                 onClick={handleImportCircuit}
@@ -81,7 +82,7 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
                 onClick={() => setIsSaveModalOpen(true)}
               >
                 <SaveIcon className="header-icon" />
-              </button>
+              </button> 
 
               {isSaveModalOpen && (
                 <SaveButton 
