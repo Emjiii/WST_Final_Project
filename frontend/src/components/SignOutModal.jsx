@@ -10,9 +10,10 @@ const SignOutModal = ({ isOpen, onClose }) => {
   const handleLogOut = async (e) => {
     e.preventDefault();
     try {
-      alert("Signing out...");
       await doSignOut();
-      onClose();
+      setTimeout(() => {
+        onClose(); // Close the modal after "signing out"
+      }, 1000); // Simulate a delay for the sign-out process
     } catch (error) {
       // Handle error (e.g., set error message)
     }
@@ -34,3 +35,4 @@ const SignOutModal = ({ isOpen, onClose }) => {
 };
 
 export default SignOutModal; 
+
