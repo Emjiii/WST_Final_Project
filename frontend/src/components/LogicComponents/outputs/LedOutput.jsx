@@ -18,6 +18,9 @@ const LedOutput = ({ data, isConnectable, id }) => {
             
             // Access the source node's state
             const inputValue = sourceNode?.data?.value;
+            if (data.setValue) {
+                data.setValue(inputValue);
+            }
             console.log('Input Value:', inputValue);
             
             setIsLit(inputValue);

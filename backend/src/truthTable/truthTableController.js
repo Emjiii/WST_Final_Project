@@ -1,11 +1,11 @@
 function evaluateCircuit(inputs, nodes, edges) {
-    const nodeOutputs = {};
+    const nodeOutputs = {};//table raw data
 
     // Initialize input nodes
     nodes.forEach((node, index) => {
         if (node.type.includes('input')) {
-            nodeOutputs[node.id] = inputs[index];
-            console.log(`Initialized input for node ${node.id}:`, inputs[index]);
+            nodeOutputs[node.id] = inputs[index] ? 1 : 0;
+            console.log(`Initialized input for node ${node.id}:`, nodeOutputs[node.id]);
         }
     });
 
@@ -14,8 +14,8 @@ function evaluateCircuit(inputs, nodes, edges) {
         if (node.type.includes('Node')) {
             const inputEdges = edges.filter(edge => edge.target === node.id);
             const inputValues = inputEdges.map(edge => nodeOutputs[edge.source]);
-            console.log('Input edges:', inputEdges);
-            console.log('Input Values-edge: ', inputValues);
+            console.log('Input Edges:', inputEdges);
+            console.log('Input Values: ', inputValues);
             console.log(`Evaluating ${node.type} with inputs:`, inputValues);
 
             let results;
@@ -27,7 +27,7 @@ function evaluateCircuit(inputs, nodes, edges) {
                     results = inputValues.reduce((acc, val) => acc || val, false);
                     break;
                 case 'inputNode':
-                    results = node.data.value;
+                    results = node.data.value ? 1 : 0;
                     break;
                 // Add other gate cases
                 default:
@@ -35,12 +35,19 @@ function evaluateCircuit(inputs, nodes, edges) {
             }
             nodeOutputs[node.id] = results;
             console.log(`Output for ${node.type} (${node.id}):`, nodeOutputs[node.id]);
-        }
+         } 
+        //else if (node.type.includes('input')) {
+            
+        //     // Directly assign input node value to output
+        //     nodeOutputs[node.id].node.type = node.data.value ? 1 : 0;
+        //     console.log(`Direct output for input node (${node.id}):`, nodeOutputs[node.id]);
+        // }
     });
 
-    // Collect results from output nodes
+    //Collect results from output nodes
     const outputNodes = nodes.filter(node => node.type.includes('Output'));
-    const outputs = outputNodes.map(node => nodeOutputs[node.id]);
+    const outputs = outputNodes.map(node => node.data.value ? 1 : 0);
+    console.log('outputNodes: ', outputNodes);
     console.log('Final outputs:', outputs);
     return outputs;
 }
@@ -65,10 +72,15 @@ function generateCircuitTruthTable(req, res) {
         // Log to confirm reaching this point
         console.log('Generating combinations for input nodes:', numInputs);
         
-        const combinations = Array.from({ length: 2 ** numInputs }, (_, i) => {
-            const binaryString = i.toString(2).padStart(numInputs, '0');
-            return binaryString.split('').map(Number);
-        });
+        // const combinations = Array.from({ length: 2 ** numInputs }, (_, i) => {
+        //     const binaryString = i.toString(2).padStart(numInputs, '0');
+        //     return binaryString.split('').map(Number);
+        // });
+
+         // Replace the combination generation with current inputs
+         const combinations = [inputNodes.map(node => (node.data.value ? 1 : 0))];
+         // Log the current inputs
+         console.log('Using current inputs:', combinations);
         
         console.log('Generated combinations:', combinations);
         // Evaluate circuit for each input combination
@@ -76,6 +88,8 @@ function generateCircuitTruthTable(req, res) {
             inputs,
             outputs: evaluateCircuit(inputs, nodes, edges)
         }));
+
+        console.log('sending truthTable: ', truthTable);
 
         res.json(truthTable);
     } catch (error) {
