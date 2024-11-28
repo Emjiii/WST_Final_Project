@@ -8,13 +8,13 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
 import { useAuth } from "./auth/authContext";
 import AuthModal from "./AuthModal";
 
-  const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, getNodes, getEdges }) => {
+  const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, getNodes, getEdges, setNodes, setEdges }) => {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
-  const [nodes, setNodes] = useState([]);
-  const [edges, setEdges] = useState([]);
+  const [nodes, setNodesState] = useState([]);
+  const [edges, setEdgesState] = useState([]);
 
   const { userLoggedIn } = useAuth();
 

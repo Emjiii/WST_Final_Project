@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import Header from './Header';
 import { useDarkMode } from '../utils/useDarkMode';
+import { importCircuit } from "../utils/circuitOperations";
 import {
   ReactFlow,
   MiniMap,
@@ -149,7 +150,6 @@ const FlowCanvas = () => {
         }
     }, [nodes.length, setNodes]);
 
-
   return (
     <div className="flow-wrapper">
       <Header 
@@ -159,6 +159,8 @@ const FlowCanvas = () => {
         onTruthTableClick={() => setShowTruthTable(prev => !prev)}
         getNodes={() => nodes} 
         getEdges={() => edges} 
+        setNodes={setNodes}
+        setEdges={setEdges}
       />
       <ControlPanel addGateNode={addGateNode} setNodes={setNodes} />
       <div id="circuitCanvas" className={`flow-container ${showTruthTable ? 'with-truth-table' : ''}`}>

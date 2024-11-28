@@ -124,7 +124,7 @@ export const importCircuit = async (setNodes, setEdges) => {
                     setEdges(circuitData.edges); // Update edges directly
                     console.log('Nodes:', circuitData.nodes);
                     console.log('Edges:', circuitData.edges);
-                    console.log('Circuit data imported successfully.');
+                    console.log('Circuit data imported successfully.', circuitData);
                 } else {
                     console.error('Invalid circuit data structure. Ensure nodes and edges are arrays.');
                 }
