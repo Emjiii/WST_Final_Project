@@ -9,9 +9,10 @@ import { useAuth } from "./auth/authContext";
 import AuthModal from "./AuthModal";
 
   const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, getNodes, getEdges }) => {
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const [isSavePopupOpen, setIsSavePopupOpen] = useState(false);
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
 
@@ -23,23 +24,23 @@ import AuthModal from "./AuthModal";
     console.log('Nodes or edges have changed:', { nodes, edges });
   }, [nodes, edges]);
 
-  const handleSaveAsFile = () => {
-    saveCircuit(getNodes, getEdges);
-    setIsSavePopupOpen(false);
-  };
-
-  const handleSaveAsImage = () => {
-    saveCircuitAsImage('circuitCanvas');
-    setIsSavePopupOpen(false);
-  };
-
   const handleImportCircuit = () => {
     importCircuit(setNodes, setEdges);
     //setIsSavePopupOpen(false);
   };
 
   const handleSave = (option) => {
-    console.log(`Selected save option: ${option}`);
+    try {
+      if (option === 'file') {
+        saveCircuit(getNodes, getEdges);
+      } else if (option === 'image') {
+        saveCircuitAsImage('circuitCanvas');
+      }
+      // Close modal after save
+      setIsSaveModalOpen(false);
+    } catch (error) {
+      console.error('Error in handleSave:', error);
+    }
   };
 
   return (
@@ -85,13 +86,32 @@ import AuthModal from "./AuthModal";
               >
                 <SaveIcon className="header-icon" />
               </button> 
+              
               <button
                 className="header-button"
-                aria-label="Import Circuit"
+                aria-label="Import"
                 onClick={handleImportCircuit}
               >
                 <ImportIcon className="header-icon" />
               </button>
+
+            {/*Save*/}
+              <button 
+                className="header-button"
+                aria-label="Save Project"
+                onClick={() => setIsSaveModalOpen(true)}
+              >
+                <SaveIcon className="header-icon" />
+              </button> 
+
+              {isSaveModalOpen && (
+                <SaveButton 
+                  onClose={() => setIsSaveModalOpen(false)}
+                  onSave={handleSave}
+                  getNodes={getNodes}
+                  getEdges={getEdges}
+                />
+              )}
 
               <button 
                 className="header-button"
@@ -129,7 +149,7 @@ import AuthModal from "./AuthModal";
 
       <AuthModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
 
-      <LogicGateDrawer 
+          <LogicGateDrawer 
         isOpen={isDrawerOpen} 
         onClose={() => setIsDrawerOpen(false)} 
         addGateNode={addGateNode}

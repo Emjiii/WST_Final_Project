@@ -612,10 +612,6 @@ body {
   @apply sm:max-w-md;
 }
 
-.close-button {
-  @apply absolute top-2 right-2; 
-  z-index: 10; 
-}
 
 
 @media (min-width: 768px) {
@@ -773,12 +769,13 @@ body {
 }
 
 .close-button {
-  @apply absolute top-6 right-6
-         text-2xl font-light
+  @apply absolute top-3 right-4
+         text-2xl font-light z-10
          text-white/50 hover:text-white
          transition-colors duration-200;
   font-family: var(--font-mono);
 }
+
 
 .modal-title {
   @apply text-xl sm:text-2xl font-bold mb-6
