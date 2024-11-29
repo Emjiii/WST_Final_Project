@@ -20,7 +20,7 @@ const LogicGateDrawer = ({ isOpen, onClose, addGateNode }) => {
   };
 
   const handleGateClick = (gateType) => {
-    const isInputOutput = ['inputNode', 'button', 'ledOutput', 'rgbLedOutput','speakerOutput'].includes(gateType);
+    const isInputOutput = ['inputNode', 'inputButton', 'ledOutput', 'rgbLedOutput','speakerOutput'].includes(gateType);
   
     const nodeType = isInputOutput ? gateType : `${gateType}Node`;
     addGateNode(nodeType);

@@ -49,7 +49,7 @@ export const AndGate = ({ isConnectable, id, data }) => {
         if (input1 !== null && input2 !== null) {
             const newOutput = Boolean(input1) && Boolean(input2);
             setOutput(newOutput);
-    
+
             if (data?.setValue) {
                 data.setValue(newOutput);
             }
@@ -70,7 +70,7 @@ export const AndGate = ({ isConnectable, id, data }) => {
             andGateState();
             
             console.log('Inputs:', input1, input2, 'Output:', newOutput);
-        }else{
+        } else {
             setOutput(null);
             console.log('Incomplete Inputs, Output set to null');
         }

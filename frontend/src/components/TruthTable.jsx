@@ -38,8 +38,8 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
         .map(({ id, type, data}) => ({ id, type, data}));
 
       const outputNodes = nodes
-        .filter(node => node.type.includes('Output') || node.type === 'ledOutput')
-        .map(({ id, type, data }) => ({ id, type, data }));
+        .filter(node => node.type.includes('Output'))
+        .map(({ id, type, value }) => ({ id, type, value }));
       console.log('Input Nodes:', inputNodes);
       console.log('Output Nodes:', outputNodes);
 
@@ -52,7 +52,7 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
       if (truthTable.length > 0) {
         setTruthTableData({
           inputs: nodes.filter(node => node.type.includes('input')).map(node => node.id), // Corrected line
-          outputs: nodes.filter(node => node.type.includes('Output') || node.type === 'ledOutput').map(node => node.id),
+          outputs: nodes.filter(node => node.type.includes('Output')).map(node => node.id),
           rows: truthTable.map(entry => ({
             inputs: entry.inputs,
             outputs: entry.outputs

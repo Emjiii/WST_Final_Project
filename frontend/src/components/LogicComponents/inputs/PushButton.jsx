@@ -1,16 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import {memo} from 'react';
 import { Handle, Position } from '@xyflow/react';
 import styles from "../../../styles/LogicComponents/inputs/PushButton.module.css";
 
 export const PushButton = ({ data, isConnectable, id }) => {
     const [isPressed, setIsPressed] = useState(false);
 
+    useEffect(() => {
+        const fetchInitialState = async () => {
+            try{
+                const response = await axios.get(`/api/power-switch/${id}`);
+                setIsPressed(response.data.state);
+                console.log(response.data.state)
+            } catch (error) {
+                console.error('Error fetching initial state:', error);
+            }
+
+        };
+
+        fetchInitialState();
+    }, [id]);
+
     const handleClick = (e) => {
         e.stopPropagation();
-        const newValue = !isPressed;
-        setIsPressed(newValue);
+        const newState = !isPressed;
+        setIsPressed(newState);
         if (data.setValue) {
-            data.setValue(newValue);
+            data.setValue(newState);
         }
     };
 
@@ -45,4 +62,4 @@ export const PushButton = ({ data, isConnectable, id }) => {
     );
 };
 
-export default PushButton; 
+export default memo(PushButton); 

@@ -26,6 +26,25 @@ function evaluateCircuit(inputs, nodes, edges) {
                 case 'orNode':
                     results = inputValues.reduce((acc, val) => acc || val, false);
                     break;
+                    case 'norNode':
+                        results = inputValues.reduce((acc, val) => acc || val, true) ? 0 : 1; // NOR logic
+                        break;
+                    case 'notNode':
+                        results = inputValues[0] ? 0 : 1; // NOT logic, assuming single input
+                        break;
+                    case 'nandNode':
+                        results = inputValues.reduce((acc, val) => acc && val, true) ? 0 : 1; // NAND logic
+                        break;
+                    case 'xorNode':
+                        results = inputValues.reduce((acc, val) => acc ^ val, 0); // XOR logic
+                        break;
+                    case 'xnorNode': // XNOR logic
+                        results = inputValues.reduce((acc, val) => acc ^ val, 0) === 0 ? 1 : 0; // XNOR logic
+                        break;
+                    case 'bufferNode': // Buffer gate case
+                        results = inputValues[0]; // Output the same value as input
+                        break;
+
                 case 'inputNode':
                     results = node.data.value ? 1 : 0;
                     break;

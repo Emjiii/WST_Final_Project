@@ -47,7 +47,7 @@ const nodeTypes = {
   xnorNode: XnorGateCanvas,
   bufferNode: BufferGateCanvas,
   inputNode: InputSwitch,
-  button: PushButton,
+  inputButton: PushButton,
   ledOutput: LedOutput,
   rgbLedOutput: RgbLedOutput,
   speakerOutput: SpeakerOutput,
