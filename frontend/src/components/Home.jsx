@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PersonIcon } from './icons/HeaderIcons';
 import AuthModal from './AuthModal';
-import SignOutModal from './signOutModal';
+import SignOutModal from './SignOutModal';
 import { useAuth } from './auth/authContext';
 import '../styles/homepage.css';
+import Logo from './icons/logo.png';
 
 
 const Home = () => {
@@ -49,7 +50,14 @@ const Home = () => {
 
       {/* Navigation */}
       <nav className="navbar">
-        <div className="nav-brand">Logic Gate Simulator</div>
+        <div className="nav-brand">
+          <img 
+            src={Logo} 
+            alt="Logic Gate Logo" 
+            className="nav-logo"
+          />
+          GateWorks
+        </div>
         <div className="nav-links">
           <a href="#features">Features</a>
           <a href="#about">About</a>

@@ -1,5 +1,6 @@
 import { saveAs } from 'file-saver';
 import { toPng, toJpeg, toBlob, toSvg } from 'html-to-image';
+import { showSaveCircuitModal, showSaveImageCircuitModal } from './modal'; // Import the modal function
 
 export const saveCircuit = (getNodes, getEdges) => {
     const circuitData = {
@@ -13,11 +14,12 @@ export const saveCircuit = (getNodes, getEdges) => {
         saveAs(blob, `${filename}.json`);
     };
 
-    // Prompt user for a filename
-    const filename = prompt('Enter a filename for your circuit:');
-    if (filename) {
-        saveDataAsFile(filename);
-    }
+    // Call the modal when needed
+    showSaveCircuitModal((filename) => {
+        if (filename) {
+            saveDataAsFile(filename);
+        }
+    });
 };
 
 /**
@@ -65,28 +67,30 @@ export const saveCircuitAsImage = async (elementId, format = 'png') => {
         if (miniMap) miniMap.style.display = '';
         if (zoomControls) zoomControls.style.display = '';
 
+        // Replace the prompt with the modal for filename input
         const defaultFilename = `circuit-${new Date().toISOString()}`;
-        const filename = prompt(`Enter a filename for your circuit image (${format.toUpperCase()}):`, defaultFilename);
-        if (!filename) {
-            console.error('Filename is required to save the image.');
-            return;
-        }
+        showSaveImageCircuitModal(defaultFilename, (filename) => {
+            if (!filename) {
+                console.error('Filename is required to save the image.');
+                return;
+            }
 
-        let mimeType = 'image/png';
-        if (format === 'jpeg') {
-            mimeType = 'image/jpeg';
-        } else if (format === 'svg') {
-            mimeType = 'image/svg+xml';
-        }
+            let mimeType = 'image/png';
+            if (format === 'jpeg') {
+                mimeType = 'image/jpeg';
+            } else if (format === 'svg') {
+                mimeType = 'image/svg+xml';
+            }
 
-        if (format === 'svg') {
-            const blob = new Blob([dataUrl], { type: mimeType });
-            saveAs(blob, `${filename}.svg`);
-        } else {
-            saveAs(dataUrl, `${filename}.${format}`);
-        }
+            if (format === 'svg') {
+                const blob = new Blob([dataUrl], { type: mimeType });
+                saveAs(blob, `${filename}.svg`);
+            } else {
+                saveAs(dataUrl, `${filename}.${format}`);
+            }
 
-        console.log(`Circuit saved as ${filename}.${format}`);
+            console.log(`Circuit saved as ${filename}.${format}`);
+        });
     } catch (error) {
         console.error('Error capturing circuit as image:', error);
         if (error.name === 'SecurityError') {
