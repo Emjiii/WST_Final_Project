@@ -76,7 +76,7 @@ const SignupForm = ({ onSwitchToLogin, onClose }) => {
       <div className="signup-form-grid">
         <div className="form-group">
           <label>Username:</label>
-\          <input type="text"
+          <input type="text"
            required 
            className="form-input" 
            value={username}
