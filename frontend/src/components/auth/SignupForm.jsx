@@ -11,11 +11,11 @@ const SignupForm = ({ onSwitchToLogin }) => {
   const [isLoading, setIsLoading] = useState(false);
   
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [isRegistering, setIsRegistering] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Save user data to Firebase Realtime Database
   const saveUserToDatabase = async (userId, email, username) => {

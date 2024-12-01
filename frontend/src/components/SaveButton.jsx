@@ -26,6 +26,15 @@ const SaveButton = ({ onClose, onSave, getNodes, getEdges }) => {
     }
   };
 
+  const handleSaveFileOnDatabase = () => {
+    try {
+      onSave('saveOnDatabase')
+    } catch (error) {
+      console.error('Error in handleSaveOnDatabase:', error);
+      onClose(); // Close modal even if there's an error
+    }
+  }
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
@@ -33,6 +42,12 @@ const SaveButton = ({ onClose, onSave, getNodes, getEdges }) => {
           <h2 className={styles.modalTitle}>Save Options</h2>
         </div>
         <div className={styles.modalBody}>
+          <button 
+            className={`${styles.modalButton} ${styles.saveImageBtn}`}
+            onClick={handleSaveFileOnDatabase}
+          >
+            Save File online
+          </button>
           <button 
             className={`${styles.modalButton} ${styles.saveFileBtn}`}
             onClick={handleSaveAsFile}
