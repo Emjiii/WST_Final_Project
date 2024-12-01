@@ -5,7 +5,7 @@ import { doCreateUserWithEmailAndPassword } from './firebase/auth';
 import {db} from './firebase/firebaseConfig'
 import {ref, set} from 'firebase/database';
 
-const SignupForm = ({ onSwitchToLogin }) => {
+const SignupForm = ({ onSwitchToLogin, onClose }) => {
 
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false);
@@ -32,6 +32,8 @@ const SignupForm = ({ onSwitchToLogin }) => {
   };
 
 
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -52,6 +54,7 @@ const SignupForm = ({ onSwitchToLogin }) => {
     } catch (error) {
       console.error('Error creating account:', error);
       setErrorMessage(error.message);
+
     } finally {
       setIsRegistering(false);
     }
@@ -60,16 +63,26 @@ const SignupForm = ({ onSwitchToLogin }) => {
   return (
     <>
     {useAuth.userLoggedIn && (<Navigate to={'/workspace'} replace={true} />)}
+    
+    {/* Loader Overlay */}
+    {isLoading && (
+        <div className="loader-overlay">
+          <div className="loader"></div>
+        </div>
+    )}
+    
+    
     <form className="modal-form" onSubmit={handleSubmit}>
       <div className="signup-form-grid">
         <div className="form-group">
           <label>Username:</label>
-          <input type="text"
+\          <input type="text"
            required 
            className="form-input" 
            value={username}
            onChange={(e) => setUsername(e.target.value)}
            />
+
         </div>
         <div className="form-group">
           <label>Email:</label>
@@ -109,6 +122,14 @@ const SignupForm = ({ onSwitchToLogin }) => {
         disabled={isLoading}
       >
         {isLoading ? 'Creating Account...' : 'Sign Up'}
+      </button>
+
+      <button 
+        type="button" 
+        className={`auth-submit-button ${isLoading ? 'loading' : ''}`}
+        disabled={isLoading}
+      >
+        {isLoading ? 'Creating Account...' : 'Sign in with Google'}
       </button>
       
       <p className="auth-switch">

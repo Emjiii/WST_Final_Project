@@ -7,7 +7,7 @@
 .modalContent {
   @apply bg-white/95 rounded-xl sm:rounded-2xl 
          p-4 sm:p-6 md:p-8 
-         w-[85%] sm:w-[360px] md:w-[400px] lg:w-[450px] 
+         w-[50%] sm:w-[55%] md:w-[45%] lg:w-[40%] xl:w-[40%]
          text-center relative mx-auto 
          border border-white/20;
   transform: translateY(0);
@@ -31,7 +31,7 @@
 .modalTitle {
   @apply text-lg sm:text-xl md:text-2xl font-bold m-0 
          bg-gradient-to-r from-[#0022FF] via-[#006FFC] to-[#00BBF9] 
-         bg-clip-text text-transparent text-center;
+         bg-clip-text text-transparent text-center font-mono;
 }
 
 .modalBody {
