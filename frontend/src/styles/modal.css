@@ -1,0 +1,128 @@
+/* styles.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@layer utilities {
+    .animate-fadeIn {
+        animation: fadeIn 0.5s ease-in-out; /* Adjust duration and timing function as needed */
+    }
+}
+
+/* Custom Modal Styles */
+.custom-modal {
+    @apply fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-200 bg-opacity-90 p-6 shadow-lg z-50 rounded-lg animate-fadeIn text-oxford-blue
+    w-[50%] sm:w-[55%] md:w-[45%] lg:w-[40%] xl:w-[40%];
+    backdrop-filter: blur(10px); /* Add a subtle blur effect */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+}
+
+.custom-modal h2 {
+    @apply text-lg sm:text-xl md:text-2xl font-bold m-3 
+         bg-gradient-to-r from-[#0022FF] via-[#006FFC] to-[#00BBF9] 
+         bg-clip-text text-transparent text-center font-mono;
+}
+
+.custom-modal input {
+    @apply w-full p-3 mt-2 mb-2 border border-gray-300 rounded-md text-base transition-colors duration-300 focus:border-brandeis-blue focus:outline-none; /* Adjusted input styles */
+    background: rgba(255, 255, 255, 0.8); /* Softer background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added shadow */
+}
+
+/* Button Styles */
+.modalButton {
+    @apply py-2 sm:py-3 md:py-4 
+           px-3 sm:px-4 md:px-6 
+           rounded-lg sm:rounded-xl 
+           font-medium sm:font-semibold 
+           text-sm sm:text-base 
+           transition-all duration-300 
+           cursor-pointer relative overflow-hidden 
+           w-full min-h-[36px] sm:min-h-[44px] md:min-h-[48px] 
+           flex items-center justify-center;
+}
+
+.modalButton.okButton {
+    @apply bg-gradient-to-r from-[#0022FF] to-[#006FFC] 
+           text-white shadow-sm 
+           hover:translate-y-[-2px] 
+           hover:shadow-lg 
+           hover:bg-gradient-to-r hover:from-[#006FFC] hover:to-[#00BBF9];
+}
+
+.modalButton.cancelButton {
+    @apply bg-[rgba(0,20,47,0.15)] text-[#00142F] 
+           border border-[rgba(0,111,252,0.2)] font-semibold 
+           hover:bg-[rgba(0,20,47,0.25)] 
+           hover:translate-y-[-2px] 
+           hover:shadow-md; /* Updated Cancel button styles */
+}
+
+/* Spacing between buttons */
+.custom-modal div {
+    @apply flex justify-between mt-4 space-x-2; /* Added spacing between buttons */
+}
+
+/* Dark mode styles */
+.dark .custom-modal {
+    @apply bg-gradient-to-br from-[rgba(0,20,47,0.95)] to-[rgba(0,20,47,0.9)] 
+            border-[rgba(0,111,252,0.2)];
+    box-shadow: 
+        0 0 0 1px rgba(0, 111, 252, 0.1),
+        0 4px 6px -1px rgba(0, 0, 0, 0.2),
+        0 2px 4px -1px rgba(0, 0, 0, 0.1),
+        0 20px 25px -5px rgba(0, 0, 0, 0.3),
+        0 10px 10px -5px rgba(0, 0, 0, 0.2),
+        0 0 15px rgba(0, 111, 252, 0.1);
+}
+
+.dark .custom-modal h2 {
+    @apply text-sky-blue; /* Light color for title in dark mode */
+}
+
+.dark .custom-modal input {
+    @apply bg-[#1A1A1A] border border-[#FFFFFF] text-white; /* Input background and border for dark mode */
+}
+
+.dark .custom-modal button {
+    @apply bg-brandeis-blue; /* Button background for dark mode */
+}
+
+.dark .modalButton.cancelButton{
+    @apply bg-white/15 text-white/90 
+         border border-white/20 
+         hover:bg-white/25;
+}
+
+.dark .custom-modal button:hover {
+    @apply bg-sky-blue; /* Hover effect for dark mode */
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .custom-modal {
+        @apply p-4; /* Adjust padding for smaller screens */
+    }
+
+    .custom-modal h2 {
+        @apply text-xl; /* Adjust title size for smaller screens */
+    }
+
+    .custom-modal input {
+        @apply text-sm; /* Adjust input text size for smaller screens */
+    }
+
+    .custom-modal button {
+        @apply text-sm; /* Adjust button text size for smaller screens */
+    }
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon } from './icons/HeaderIcons';
+import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon} from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
 import SaveButton from './SaveButton';
 import '../styles/header.css';
@@ -59,14 +59,9 @@ import AuthModal from "./AuthModal";
               </button>
 
               <div className="logo-title-container">
-                <img 
-                  src="/logo.svg" 
-                  alt="Logic Gate Logo" 
-                  className="header-logo"
-                />
-                <h1 className="header-title">
-                  Logic Gate Simulator
-                </h1>
+                <a href="/" className="header-title">
+                  <h1>GateWorks Simulator</h1>
+                </a>
               </div>
             </div>
 

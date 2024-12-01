@@ -34,7 +34,7 @@ const AuthModal = ({ isOpen, onClose }) => {
         {isLogin ? (
           <LoginForm onSwitchToSignup={() => setIsLogin(false)} onLogInSuccess={handleLogInSuccess} />
         ) : (
-          <SignupForm onSwitchToLogin={() => setIsLogin(true)} />
+          <SignupForm onSwitchToLogin={() => setIsLogin(true)} onClose={onClose} />
         )}
       </div>
     </div>

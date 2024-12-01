@@ -343,5 +343,23 @@ export const PersonIcon = ({ className, onClick }) => (
   </div>
 ); 
 
+export const DropdownIcon = ({ className }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    className={`text-gray-600 dark:text-gray-300 ${className}`} 
+    fill="none" 
+    viewBox="0 0 24 24" 
+    stroke="currentColor"
+  >
+    <path 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      strokeWidth={2} 
+      d="M19 9l-7 7-7-7" 
+    />
+  </svg>
+);
+
+
 
 
