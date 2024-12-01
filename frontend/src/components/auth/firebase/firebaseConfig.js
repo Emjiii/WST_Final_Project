@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
-
+import {getDatabase, ref, set} from 'firebase/database'
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -12,12 +12,14 @@ const firebaseConfig = {
   storageBucket: "logic-gate-simulator-31edb.firebasestorage.app",
   messagingSenderId: "134521312353",
   appId: "1:134521312353:web:3de7e960b4ddf5251b8620",
-  measurementId: "G-2RZ36W6HYK"
+  measurementId: "G-2RZ36W6HYK",
+  databaseURL:"https://logic-gate-simulator-31edb-default-rtdb.firebaseio.com/",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const analytics = getAnalytics(app);
+const db = getDatabase(app);
 
-export { app, auth };
+export { app, auth, db };

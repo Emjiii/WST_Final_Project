@@ -7,6 +7,7 @@ import '../styles/header.css';
 import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuitOperations';
 import { useAuth } from "./auth/authContext";
 import AuthModal from "./AuthModal";
+import { saveToFireBase } from "../utils/store";
 
   const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, getNodes, getEdges, setNodes, setEdges }) => {
 
@@ -26,7 +27,6 @@ import AuthModal from "./AuthModal";
 
   const handleImportCircuit = () => {
     importCircuit(setNodes, setEdges);
-    //setIsSavePopupOpen(false);
   };
 
   const handleSave = (option) => {
@@ -35,8 +35,9 @@ import AuthModal from "./AuthModal";
         saveCircuit(getNodes, getEdges);
       } else if (option === 'image') {
         saveCircuitAsImage('circuitCanvas');
+      } else if (option=='saveOnDatabase'){
+        saveToFireBase(getEdges, getEdges);
       }
-      // Close modal after save
       setIsSaveModalOpen(false);
     } catch (error) {
       console.error('Error in handleSave:', error);
