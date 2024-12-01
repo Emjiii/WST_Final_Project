@@ -360,6 +360,23 @@ export const DropdownIcon = ({ className }) => (
   </svg>
 );
 
+export const FolderIcon = ({ className }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    className={`text-gray-600 dark:text-gray-300 ${className}`} 
+    fill="none" 
+    viewBox="0 0 24 24" 
+    stroke="currentColor"
+  >
+    <path 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      strokeWidth={2} 
+      d="M3 7h18M3 7l4-4h12a2 2 0 012 2v14a2 2 0 01-2 2H3a2 2 0 01-2-2V7z" 
+    />
+  </svg>
+);
+
 
 
 
