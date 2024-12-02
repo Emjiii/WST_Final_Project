@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon} from './icons/HeaderIcons';
+import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon, FolderIcon } from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
 import SaveButton from './SaveButton';
 import '../styles/header.css';
@@ -8,8 +8,9 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
 import { useAuth } from "./auth/authContext";
 import AuthModal from "./AuthModal";
 import { saveToFireBase } from "../utils/store";
+import FolderSave from './FolderSave';
 
-  const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, getNodes, getEdges, setNodes, setEdges }) => {
+  const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, onFolderClick, getNodes, getEdges, setNodes, setEdges }) => {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -20,6 +21,9 @@ import { saveToFireBase } from "../utils/store";
   const { userLoggedIn } = useAuth();
 
   const [isModalOpen, setModalOpen] = useState(false);
+
+  const [isTableOpen, setTableOpen] = useState(false);
+  const [modalType, setModalType] = useState('');  // 'folder' or 'table'
 
   useEffect(() => {
     console.log('Nodes or edges have changed:', { nodes, edges });
@@ -42,6 +46,16 @@ import { saveToFireBase } from "../utils/store";
     } catch (error) {
       console.error('Error in handleSave:', error);
     }
+  };
+
+  const handleTruthTableClick = () => {
+    setModalType('table');
+    setTableOpen(true);
+  };
+
+  const handleFolderClick = () => {
+    setModalType('folder');
+    setTableOpen(true);
   };
 
   return (
@@ -69,7 +83,13 @@ import { saveToFireBase } from "../utils/store";
             {/* Right section */}
             <div className="header-right">
               
-              
+            <button 
+                className="header-button"
+                aria-label="Open Folder"
+                onClick={onFolderClick}
+              >
+                <FolderIcon className="header-icon" />
+              </button>
               <button
                 className="header-button"
                 aria-label="Import"
@@ -113,6 +133,7 @@ import { saveToFireBase } from "../utils/store";
                 <TableIcon className="header-icon" />
               </button>
 
+
               <button 
                 className="header-button"
                 aria-label="Toggle Theme"
@@ -123,6 +144,8 @@ import { saveToFireBase } from "../utils/store";
                   <MoonIcon className="header-icon" />
                 }
               </button>
+
+             
             </div>
           </div>
         </div>
@@ -146,6 +169,7 @@ Header.propTypes = {
   getNodes: PropTypes.func.isRequired,
   getEdges: PropTypes.func.isRequired,
   onTruthTableClick: PropTypes.func.isRequired,
+  onFolderClick: PropTypes.func.isRequired,
 };
 
 export default Header;
