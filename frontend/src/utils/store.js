@@ -1,6 +1,21 @@
-import { set, ref } from "firebase/database";
+import { get, set, ref } from "firebase/database";
 import { db, auth } from "../components/auth/firebase/firebaseConfig";
+import { Position, StepEdge } from "@xyflow/react";
 
+
+const sanitizeData = (data) => {
+    if (Array.isArray(data)) {
+        return data.map(sanitizeData);  // Recursively sanitize arrays
+    }
+    if (typeof data === 'object') {
+        return Object.fromEntries(
+            Object.entries(data)
+                .filter(([key, value]) => typeof value !== 'function')  // Remove functions
+                .map(([key, value]) => [key, sanitizeData(value)])  // Recursively sanitize objects
+        );
+    }
+    return data;  // Return the data as-is if it's not an object or array
+};
 
 export const saveToFireBase = async (getNodes, getEdges) => {
     const userId = auth.currentUser ? auth.currentUser.uid : null;
@@ -8,9 +23,11 @@ export const saveToFireBase = async (getNodes, getEdges) => {
         console.error("User is not authenticated.");
         return;
     }
-
     const circuitData = {
-        nodes: getNodes(),
+        nodes: getNodes().map(node => ({
+            ...node,
+            data: sanitizeData(node.data),  // Sanitize node data to remove functions
+        })),
         edges: getEdges(),
         timestamp: new Date().toISOString(),
     };
@@ -32,21 +49,83 @@ export const saveToFireBase = async (getNodes, getEdges) => {
     }
 };
 
-export const loadFromFirebase = async (userId, fileName) => {
+
+// Load circuit data from Firebase and set values using setValue
+export const loadFromFirebase = async (userId, fileName, setNodes, setEdges) => {
     try {
-        // Ensure fileName is passed as an argument
         if (!fileName) throw new Error("File name is required.");
-        const dbRef = ref(db, `circuit/${userId}/${fileName}`);
+        if (!userId) throw new Error("User ID is required.");
+
+        const dbRef = ref(db, `circuits/${userId}/${fileName}`);
         const snapshot = await get(dbRef);
 
         if (snapshot.exists()) {
-            console.log("Circuit loaded:", snapshot.val());
-            return snapshot.val().circuit;
+            const circuitData = snapshot.val();
+            const { nodes = [], edges = [] } = circuitData;
+
+            // Update nodes with database values and reattach interactivity
+            const updatedNodes = nodes.map((node) => ({
+                ...node,
+                data: {
+                    ...node.data,
+                    value: node.data.value || false, // Default to false if undefined
+                    setValue: (newValue) => {
+                        setNodes((prevNodes) =>
+                            prevNodes.map((n) => {
+                                if (n.id === node.id) {
+                                    return {
+                                        ...n,
+                                        data: {
+                                            ...n.data,
+                                            value: newValue,
+                                        },
+                                    };
+                                }
+                                return n;
+                            })
+                        );
+                    },
+                },
+            }));
+
+            setNodes(updatedNodes);
+            setEdges(edges || []);
+            console.log("Circuit loaded and nodes updated.");
         } else {
-            console.log("No circuit found for this user.");
+            console.log("No circuit found for this user and file name.");
             return null;
         }
     } catch (error) {
         console.error("Error loading circuit:", error);
     }
 };
+
+
+export const listUserFiles = async () => {
+    const userId = auth.currentUser ? auth.currentUser.uid : null;
+    console.log("Current User:", auth.currentUser);
+
+    if (!userId) {
+        console.error("User is not authenticated. Cannot list files.");
+        return[];
+    }
+
+    try {
+        const dbRef = ref(db, `circuits/${userId}`);
+        console.log("Database Reference Path:", dbRef.toString());
+
+        const snapshot = await get(dbRef);
+
+        if (snapshot.exists()) {
+            const files = Object.keys(snapshot.val());
+            console.log("Files found:", files);
+            return files;
+        } else {
+            console.log("No files found for this user.");
+            return [];
+        }
+    } catch (error) {
+        console.error("Error listing files:", error);
+        return [];
+    }
+}

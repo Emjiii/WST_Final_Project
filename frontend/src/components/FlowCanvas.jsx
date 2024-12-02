@@ -62,6 +62,13 @@ const FlowCanvas = () => {
   const [showTruthTable, setShowTruthTable] = useState(false);
   const [showFolder, setShowFolder] = useState(false);
 
+   // Callback to handle circuit loading
+   const handleLoadCircuit = (circuitData) => {
+    // Update nodes and edges state with loaded data
+    setNodes(circuitData.nodes || []);
+    setEdges(circuitData.edges || []);
+  };
+
   // Connection callback
   const onConnect = useCallback((params) => {
     setEdges((prevEdges) => addEdge(params, prevEdges));
@@ -228,6 +235,9 @@ const FlowCanvas = () => {
           onClose={() => setShowFolder(false)}
           nodes={nodes}
           edges={edges}
+          setNodes={setNodes}
+          setEdges={setEdges}
+          onLoadCircuit={handleLoadCircuit}
         />
       </div>
     </div>

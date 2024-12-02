@@ -8,11 +8,9 @@ const LedOutput = ({ data, isConnectable, id }) => {
     const nodes = useNodes();
 
     useEffect(() => {
-        // Find edges connected to this node
         const incomingEdge = edges.find(edge => edge.target === id);
         
         if (incomingEdge) {
-            // Find the source node using the edge's source id
             const sourceNode = nodes.find(node => node.id === incomingEdge.source);
             console.log('Source node:', sourceNode);
             
