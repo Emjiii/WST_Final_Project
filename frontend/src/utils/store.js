@@ -51,8 +51,6 @@ export const saveToFireBase = async (getNodes, getEdges) => {
     }
 };
 
-import { get, ref } from "firebase/database";
-import { db, auth } from "../components/auth/firebase/firebaseConfig";
 
 // Load circuit data from Firebase and set values using setValue
 export const loadFromFirebase = async (userId, fileName, setNodes) => {
