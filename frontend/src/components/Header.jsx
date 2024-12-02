@@ -10,7 +10,17 @@ import AuthModal from "./AuthModal";
 import { saveToFireBase } from "../utils/store";
 import FolderSave from './FolderSave';
 
-  const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, onFolderClick, getNodes, getEdges, setNodes, setEdges }) => {
+
+  const Header = ({ addGateNode, 
+    isDarkMode, 
+    setIsDarkMode, 
+    onTruthTableClick, 
+    onFolderClick,
+    getNodes,
+    getEdges, 
+    setNodes, 
+    setEdges 
+  }) => {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -40,7 +50,7 @@ import FolderSave from './FolderSave';
       } else if (option === 'image') {
         saveCircuitAsImage('circuitCanvas');
       } else if (option=='saveOnDatabase'){
-        saveToFireBase(getEdges, getEdges);
+        saveToFireBase(getNodes, getEdges);
       }
       setIsSaveModalOpen(false);
     } catch (error) {
@@ -48,6 +58,8 @@ import FolderSave from './FolderSave';
     }
   };
 
+  
+  
   const handleTruthTableClick = () => {
     setModalType('table');
     setTableOpen(true);
