@@ -8,33 +8,49 @@ const SpeakerOutput = ({ data, isConnectable, id }) => {
     const nodes = useNodes();
     const oscillatorRef = useRef(null);
     const audioContextRef = useRef(null);
+    const gainNodeRef = useRef(null);
+
+    const initAudioContext = () => {
+        if (!audioContextRef.current) {
+            try {
+                audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+                gainNodeRef.current = audioContextRef.current.createGain();
+                gainNodeRef.current.connect(audioContextRef.current.destination);
+            } catch (error) {
+                console.error('Failed to initialize audio context:', error);
+            }
+        }
+    };
 
     useEffect(() => {
-        // Initialize audio context
-        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // Cleanup function
         return () => {
-            if (oscillatorRef.current) {
-                oscillatorRef.current.stop();
-                oscillatorRef.current.disconnect();
-            }
+            stopSound();
             if (audioContextRef.current) {
                 audioContextRef.current.close();
+                audioContextRef.current = null;
             }
         };
     }, []);
 
     useEffect(() => {
         const incomingEdge = edges.find(edge => edge.target === id);
-        const inputValue = incomingEdge 
-            ? nodes.find(node => node.id === incomingEdge.source)?.data?.value 
-            : false;
-        
-        setIsPlaying(inputValue);
+        if (!incomingEdge) {
+            stopSound();
+            setIsPlaying(false);
+            return;
+        }
 
-        // Handle audio based on input value
+        const sourceNode = nodes.find(node => node.id === incomingEdge.source);
+        const inputValue = sourceNode?.data?.value ?? false;
+        
+        if (data.setValue) {
+            data.setValue(inputValue);
+        }
+        
+        setIsPlaying(!!inputValue);
+
         if (inputValue) {
+            initAudioContext();
             startSound();
         } else {
             stopSound();
@@ -42,34 +58,34 @@ const SpeakerOutput = ({ data, isConnectable, id }) => {
     }, [edges, nodes, id]);
 
     const startSound = () => {
-        if (!audioContextRef.current) return;
-        
-        // Stop any existing sound
-        stopSound();
+        if (!audioContextRef.current || oscillatorRef.current) return;
 
-        // Create and configure oscillator
-        const oscillator = audioContextRef.current.createOscillator();
-        const gainNode = audioContextRef.current.createGain();
-        
-        oscillator.type = 'sawtooth';
-        oscillator.frequency.setValueAtTime(440, audioContextRef.current.currentTime); // 440Hz = A4 note
-        
-        gainNode.gain.setValueAtTime(0.1, audioContextRef.current.currentTime); // Set volume to 0.1
+        try {
+            const oscillator = audioContextRef.current.createOscillator();
+            oscillator.type = 'triangle';
+            oscillator.frequency.setValueAtTime(440, audioContextRef.current.currentTime);
+            
+            if (gainNodeRef.current) {
+                gainNodeRef.current.gain.setValueAtTime(0.1, audioContextRef.current.currentTime);
+                oscillator.connect(gainNodeRef.current);
+            }
 
-        // Connect nodes
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContextRef.current.destination);
-        
-        // Start oscillator
-        oscillator.start();
-        oscillatorRef.current = oscillator;
+            oscillator.start();
+            oscillatorRef.current = oscillator;
+        } catch (error) {
+            console.error('Failed to start sound:', error);
+        }
     };
 
     const stopSound = () => {
         if (oscillatorRef.current) {
-            oscillatorRef.current.stop();
-            oscillatorRef.current.disconnect();
-            oscillatorRef.current = null;
+            try {
+                oscillatorRef.current.stop();
+                oscillatorRef.current.disconnect();
+                oscillatorRef.current = null;
+            } catch (error) {
+                console.error('Failed to stop sound:', error);
+            }
         }
     };
 

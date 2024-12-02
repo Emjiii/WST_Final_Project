@@ -38,12 +38,10 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
         .map(({ id, type, data}) => ({ id, type, data}));
 
       const outputNodes = nodes
-        .filter(node => node.type.includes('Output'))
-        .map(({ id, type, value }) => ({ id, type, value }));
+        .filter(node => node.type.includes('Output') || node.type === 'ledOutput' || node.type === 'speakerOutput')
+        .map(({ id, type, data }) => ({ id, type, data }));
       console.log('Input Nodes:', inputNodes);
       console.log('Output Nodes:', outputNodes);
-
-      
 
       const response = await axios.post('http://localhost:3000/truth-table/circuit', { nodes, edges });
       const truthTable = response.data;
@@ -51,8 +49,8 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
   
       if (truthTable.length > 0) {
         setTruthTableData({
-          inputs: nodes.filter(node => node.type.includes('input')).map(node => node.id), // Corrected line
-          outputs: nodes.filter(node => node.type.includes('Output')).map(node => node.id),
+          inputs: nodes.filter(node => node.type.includes('input')).map(node => node.id),
+          outputs: nodes.filter(node => node.type.includes('Output') || node.type === 'ledOutput' || node.type === 'speakerOutput').map(node => node.id),
           rows: truthTable.map(entry => ({
             inputs: entry.inputs,
             outputs: entry.outputs
@@ -83,13 +81,11 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
           <table className={styles.table}>
             <thead>
               <tr className={styles.headerRow}>
-                {/* Input Headers */}
                 {inputs.map((input, idx) => (
                   <th key={idx} className={styles.headerCell}>
                     {input}
                   </th>
                 ))}
-                {/* Output Headers */}
                 {outputs.map((output, idx) => (
                   <th key={idx} className={styles.headerCell}>
                     {output}
@@ -100,13 +96,11 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
             <tbody>
               {rows.map((row, idx) => (
                 <tr key={idx} className={styles.tableRow}>
-                  {/* Input Values */}
                   {row.inputs.map((value, valueIdx) => (
                     <td key={valueIdx} className={styles.valueCell}>
                       {value}
                     </td>
                   ))}
-                  {/* Output Values */}
                   {row.outputs.map((value, valueIdx) => (
                     <td key={valueIdx} className={styles.valueCell}>
                       {value}
@@ -142,6 +136,5 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
     </div>
   );
 };
-
 
 export default TruthTable;
