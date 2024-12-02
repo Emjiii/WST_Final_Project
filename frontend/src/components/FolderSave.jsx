@@ -4,10 +4,11 @@ import { useDarkMode } from '../utils/useDarkMode';
 import { auth } from './auth/firebase/firebaseConfig';
 import { listUserFiles, loadFromFirebase } from '../utils/store';
 
-const FolderSave = ({ isVisible, onClose, onLoadCircuit }) => {
+const FolderSave = ({ isVisible, onClose, onLoadCircuit, setNodes, setEdges }) => {
   const [isDarkMode] = useDarkMode();
   const [isExiting, setIsExiting] = useState(false);
   const [shouldRender, setShouldRender] = useState(isVisible);
+
   const [files, setFiles] = useState([]);
   const [userId, setUserId] = useState(null);
 
@@ -58,7 +59,7 @@ const FolderSave = ({ isVisible, onClose, onLoadCircuit }) => {
     }
 
     try {
-      const circuit = await loadFromFirebase(userId, fileName);
+      const circuit = await loadFromFirebase(userId, fileName, setNodes, setEdges);
       if (circuit) {
         onLoadCircuit(circuit); // Pass the loaded circuit data to the parent
       } else {

@@ -1,5 +1,6 @@
 import { get, set, ref } from "firebase/database";
 import { db, auth } from "../components/auth/firebase/firebaseConfig";
+import { Position, StepEdge } from "@xyflow/react";
 
 
 const sanitizeData = (data) => {
@@ -53,51 +54,46 @@ export const saveToFireBase = async (getNodes, getEdges) => {
 
 
 // Load circuit data from Firebase and set values using setValue
-export const loadFromFirebase = async (userId, fileName, setNodes) => {
+export const loadFromFirebase = async (userId, fileName, setNodes, setEdges) => {
     try {
-        // Ensure fileName and userId are passed as arguments
         if (!fileName) throw new Error("File name is required.");
         if (!userId) throw new Error("User ID is required.");
 
-        // Define the path in the database where the circuit is saved
         const dbRef = ref(db, `circuits/${userId}/${fileName}`);
-        
-        // Get the snapshot from the database
         const snapshot = await get(dbRef);
 
-        // Check if the snapshot exists
         if (snapshot.exists()) {
             const circuitData = snapshot.val();
-            console.log("Circuit loaded:", circuitData);
-
-            // Set nodes and edges using the setNodes function
             const { nodes = [], edges = [] } = circuitData;
-            
-            // If setNodes is provided, update the nodes
-            if (setNodes) {
-                setNodes((currentNodes) => {
-                    return currentNodes.map((node) => {
-                        // Find the corresponding node data from the loaded circuit
-                        const loadedNode = nodes.find(n => n.id === node.id);
-                        if (loadedNode) {
-                            return {
-                                ...node,
-                                data: {
-                                    ...node.data,
-                                    value: loadedNode.data.value || node.data.value, // Update value if necessary
-                                },
-                            };
-                        }
-                        return node;
-                    });
-                });
-            }
 
-            // Return nodes and edges directly if needed elsewhere
-            return {
-                nodes: nodes || [],
-                edges: edges || [],
-            };
+            // Update nodes with database values and reattach interactivity
+            const updatedNodes = nodes.map((node) => ({
+                ...node,
+                data: {
+                    ...node.data,
+                    value: node.data.value || false, // Default to false if undefined
+                    setValue: (newValue) => {
+                        setNodes((prevNodes) =>
+                            prevNodes.map((n) => {
+                                if (n.id === node.id) {
+                                    return {
+                                        ...n,
+                                        data: {
+                                            ...n.data,
+                                            value: newValue,
+                                        },
+                                    };
+                                }
+                                return n;
+                            })
+                        );
+                    },
+                },
+            }));
+
+            setNodes(updatedNodes);
+            setEdges(edges || []);
+            console.log("Circuit loaded and nodes updated.");
         } else {
             console.log("No circuit found for this user and file name.");
             return null;
@@ -106,6 +102,7 @@ export const loadFromFirebase = async (userId, fileName, setNodes) => {
         console.error("Error loading circuit:", error);
     }
 };
+
 
 
 
