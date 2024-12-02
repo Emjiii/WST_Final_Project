@@ -1,5 +1,5 @@
 function evaluateCircuit(inputs, nodes, edges) {
-    const nodeOutputs = {};//table raw data
+    const nodeOutputs = {};
 
     // Initialize input nodes
     nodes.forEach((node, index) => {
@@ -14,6 +14,7 @@ function evaluateCircuit(inputs, nodes, edges) {
         if (node.type.includes('Node')) {
             const inputEdges = edges.filter(edge => edge.target === node.id);
             const inputValues = inputEdges.map(edge => nodeOutputs[edge.source]);
+            console.log('Input Values-edge: ', inputValues);
             console.log('Input Edges:', inputEdges);
             console.log('Input Values: ', inputValues);
             console.log(`Evaluating ${node.type} with inputs:`, inputValues);
@@ -24,33 +25,71 @@ function evaluateCircuit(inputs, nodes, edges) {
                     results = inputValues.reduce((acc, val) => acc && val, true);
                     break;
                 case 'orNode':
-                    results = inputValues.reduce((acc, val) => acc || val, false);
+                    results = inputValues.reduce((acc, val) => acc || val, 0);
+                    break;
+                case 'norNode':
+                    results = !(inputValues.reduce((acc, val) => acc || val, 0)) ? 1 : 0;
+                    break;
+                case 'notNode':
+                    results = inputValues[0] ? 0 : 1;
+                    break;
+                case 'nandNode':
+                    results = !(inputValues.reduce((acc, val) => acc && val, 1)) ? 1 : 0;
+                    break;
+                case 'xorNode':
+                    results = inputValues.reduce((acc, val) => acc ^ val, 0);
+                    break;
+                case 'xnorNode':
+                    results = inputValues.reduce((acc, val) => acc ^ val, 0) === 0 ? 1 : 0;
+                    break;
+                case 'bufferNode':
+                    results = inputValues[0];
                     break;
                 case 'inputNode':
                     results = node.data.value ? 1 : 0;
                     break;
-                // Add other gate cases
                 default:
                     throw new Error(`Unknown gate type: ${node.type}`);
             }
             nodeOutputs[node.id] = results;
             console.log(`Output for ${node.type} (${node.id}):`, nodeOutputs[node.id]);
-         } 
+        }
+    });
+
+    // Trace outputs through the circuit
+    const outputNodes = nodes.filter(node => node.type.includes('Output'));
+    const outputs = outputNodes.map(node => node.data.value ? 1 : 0);
+    console.log('outputNodes: ', outputNodes);
+    console.log('Final outputs:', outputs);
+    return outputs;
+    
+    outputNodes.forEach(outputNode => {
+        const inputEdge = edges.find(edge => edge.target === outputNode.id);
+        if (inputEdge) {
+            const sourceValue = nodeOutputs[inputEdge.source];
+            outputs.push(sourceValue === 1 ? 1 : 0);
+        } else {
+            outputs.push(0);
+        }
+    });
+
+    return outputs;
+}
         //else if (node.type.includes('input')) {
             
         //     // Directly assign input node value to output
         //     nodeOutputs[node.id].node.type = node.data.value ? 1 : 0;
         //     console.log(`Direct output for input node (${node.id}):`, nodeOutputs[node.id]);
         // }
-    });
+    // });
 
     //Collect results from output nodes
-    const outputNodes = nodes.filter(node => node.type.includes('Output'));
-    const outputs = outputNodes.map(node => node.data.value ? 1 : 0);
-    console.log('outputNodes: ', outputNodes);
-    console.log('Final outputs:', outputs);
-    return outputs;
-}
+//     const outputNodes = nodes.filter(node => node.type.includes('Output'));
+//     const outputs = outputNodes.map(node => node.data.value ? 1 : 0);
+//     console.log('outputNodes: ', outputNodes);
+//     console.log('Final outputs:', outputs);
+//     return outputs;
+// }
 
 function generateCircuitTruthTable(req, res) {
     try {

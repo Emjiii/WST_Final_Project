@@ -9,7 +9,7 @@ export const createInputNode = (type, setNodes) => {
       setValue: (newValue) => updateNodeValue(nodeId, newValue, setNodes)
     },
     button: {
-      nodeType: 'button',
+      nodeType: 'inputButton',
       label: 'Push Button',
       initialState: false,
       setValue: (newValue) => updateNodeValue(nodeId, newValue, setNodes)

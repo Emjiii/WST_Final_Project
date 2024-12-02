@@ -27,7 +27,7 @@ const InputComponentsSection = ({ expandedSections, toggleSection, handleGateCli
         </div>
       </div>
 
-      <div onClick={() => handleGateClick('button')}>
+      <div onClick={() => handleGateClick('inputButton')}>
         <div className="logic-gate-card" role="button" tabIndex={0}>
           <div className="gate-icon-container">
             <PushButtonIcon className="h-8 w-8" />
