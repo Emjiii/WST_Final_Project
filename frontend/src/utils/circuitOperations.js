@@ -116,28 +116,77 @@ export const importCircuit = async (setNodes, setEdges) => {
 
         const reader = new FileReader();
         reader.onload = (e) => {
-            console.log('File read successfully'); // Debug log
             try {
                 const circuitData = JSON.parse(e.target.result);
-                console.log('Parsed circuit data:', circuitData); // Debug log
 
-                // Ensure the structure includes nodes and edges
-                if (Array.isArray(circuitData.nodes) && Array.isArray(circuitData.edges)) {
-                    // Update nodes and edges directly in React Flow state
-                    setNodes(circuitData.nodes); // Update nodes directly
-                    setEdges(circuitData.edges); // Update edges directly
-                    console.log('Nodes:', circuitData.nodes);
-                    console.log('Edges:', circuitData.edges);
-                    console.log('Circuit data imported successfully.', circuitData);
-                } else {
-                    console.error('Invalid circuit data structure. Ensure nodes and edges are arrays.');
+                if(!circuitData.nodes || !circuitData.edges) {
+                    throw new Error('Invalid circuit file format');
                 }
+
+                const newconstructedNodes = circuitData.nodes.map(node => ({
+                    ...node,
+                    data: {
+                        ...node.data,
+                        setValue: node.data.setValue || ((newValue) => {
+                            setNodes((prevNodes) =>
+                                prevNodes.map((n) => 
+                                    n.id === node.id
+                                        ? { ...n, data: { ...n.data, value: newValue} }
+                                        :n
+                                )
+                            );
+                                
+                        })
+                     
+                    }
+                    
+                }));
+
+                const newconstructedEdges = circuitData.edges.map(edge => ({
+                    ...edge
+                }));
+
+                setNodes(newconstructedNodes); // Update nodes directly
+                setEdges(newconstructedEdges); // Update edges directly
+                
+                console.log('Circuit imported successfully.');
             } catch (error) {
-                console.error('Error parsing JSON:', error);
+                console.error('Error parsing or importing circuit data:', error);
             }
         };
+
         reader.readAsText(file);
     };
 
-    fileInput.click(); // Trigger the file input dialog
-}; 
+    fileInput.click();
+};
+
+
+
+//         const reader = new FileReader();
+//         reader.onload = (e) => {
+//             console.log('File read successfully'); // Debug log
+//             try {
+//                 const circuitData = JSON.parse(e.target.result);
+//                 console.log('Parsed circuit data:', circuitData); // Debug log
+
+//                 // Ensure the structure includes nodes and edges
+//                 if (Array.isArray(circuitData.nodes) && Array.isArray(circuitData.edges)) {
+//                     // Update nodes and edges directly in React Flow state
+//                     setNodes(circuitData.nodes); // Update nodes directly
+//                     setEdges(circuitData.edges); // Update edges directly
+//                     console.log('Nodes:', circuitData.nodes);
+//                     console.log('Edges:', circuitData.edges);
+//                     console.log('Circuit data imported successfully.', circuitData);
+//                 } else {
+//                     console.error('Invalid circuit data structure. Ensure nodes and edges are arrays.');
+//                 }
+//             } catch (error) {
+//                 console.error('Error parsing JSON:', error);
+//             }
+//         };
+//         reader.readAsText(file);
+//     };
+
+//     fileInput.click(); // Trigger the file input dialog
+// }; 
