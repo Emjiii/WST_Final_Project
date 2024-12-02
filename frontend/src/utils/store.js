@@ -17,9 +17,6 @@ const sanitizeData = (data) => {
     return data;  // Return the data as-is if it's not an object or array
 };
 
-//const sanitizedCircuitData = sanitizeData(circuitData);
-
-
 export const saveToFireBase = async (getNodes, getEdges) => {
     const userId = auth.currentUser ? auth.currentUser.uid : null;
     if (!userId) {
@@ -102,8 +99,6 @@ export const loadFromFirebase = async (userId, fileName, setNodes, setEdges) => 
         console.error("Error loading circuit:", error);
     }
 };
-
-
 
 
 export const listUserFiles = async () => {
