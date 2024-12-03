@@ -33,6 +33,8 @@ import ControlPanel from './ControlPanel';
 import '@xyflow/react/dist/style.css';
 import '../styles/flow.css';
 import TruthTable from './TruthTable';
+import FolderSave from './FolderSave';
+
 
 
 const nodeTypes = {
@@ -56,6 +58,8 @@ const FlowCanvas = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [isDarkMode, setIsDarkMode] = useDarkMode();
   const [showTruthTable, setShowTruthTable] = useState(false);
+  const [showFolder, setShowFolder] = useState(false);
+
 
   // Connection callback
   const onConnect = useCallback((params) => {
@@ -155,6 +159,7 @@ const FlowCanvas = () => {
         isDarkMode={isDarkMode} 
         setIsDarkMode={setIsDarkMode}
         onTruthTableClick={() => setShowTruthTable(prev => !prev)}
+        onFolderClick={() => setShowFolder(prev => !prev)}
         getNodes={() => nodes} 
         getEdges={() => edges} 
       />
@@ -213,6 +218,14 @@ const FlowCanvas = () => {
         </ReactFlow>
         <TruthTable 
           isVisible={showTruthTable}
+          nodes={nodes}
+          edges={edges}
+        />
+
+        
+        <FolderSave 
+          isVisible={showFolder}
+          onClose={() => setShowFolder(false)}
           nodes={nodes}
           edges={edges}
         />

@@ -1,0 +1,359 @@
+.folderContainer {
+    @apply bg-white/90 dark:bg-gray-900/90
+      p-2 sm:p-4 md:p-6 
+      border-l border-gray-200/50 dark:border-gray-700/50
+      h-full overflow-y-auto
+      transition-all duration-500 ease-in-out;
+    @apply w-full 
+      md:w-[45%] 
+      lg:w-[50%] 
+      xl:w-[55%]
+      2xl:w-[60%];
+    min-width: max-content;
+    backdrop-filter: blur(12px);
+    box-shadow: 
+      inset 4px 0 8px -4px rgba(0, 0, 0, 0.1),
+      inset 0 0 20px rgba(0, 0, 0, 0.03),
+      0 8px 32px -8px rgba(0, 0, 0, 0.2),
+      0 4px 8px rgba(0, 0, 0, 0.1);
+    transform-style: preserve-3d;
+    perspective: 2000px;
+    height: 100vh;
+  }
+  
+  .tableWrapper {
+    @apply overflow-x-auto
+      backdrop-filter backdrop-blur-lg
+      transition-all duration-500
+      w-full
+      rounded-lg;
+    min-width: min-content;
+    background: linear-gradient(
+      165deg,
+      rgba(0, 20, 47, 0.95),    
+      rgba(0, 20, 47, 0.9)
+    );
+    box-shadow: 
+      0 4px 24px -6px rgba(0, 0, 0, 0.12),
+      0 2px 12px -2px rgba(0, 0, 0, 0.06);
+    transform: translateZ(30px) rotateX(2deg);
+  }
+  
+  .table {
+    @apply w-full border-collapse;
+    background: transparent;
+    min-width: max-content;
+    position: relative;
+    isolation: isolate;
+  }
+  
+  .headerRow {
+    @apply relative;
+    &::after {
+      content: '';
+      @apply absolute bottom-0 left-0 right-0 h-[2px];
+      background: linear-gradient(
+        90deg,
+        rgba(59, 130, 246, 0.7),
+        rgba(147, 51, 234, 0.7),
+        rgba(59, 130, 246, 0.7)
+      );
+      animation: shimmer 3s infinite linear;
+    }
+  }
+  
+  .headerCell {
+    @apply text-white
+      px-4 py-3 sm:px-6 sm:py-4
+      text-sm font-bold
+      uppercase tracking-widest
+      whitespace-nowrap
+      relative;
+    background: linear-gradient(
+      to bottom right,
+      #0022FF 0%,    
+      #006FFC 50%,   
+      #00BBF9 100%   
+    );
+    border-bottom: 2px solid rgba(0, 245, 212, 0.3);
+    text-shadow: 0 2px 4px rgba(0, 20, 47, 0.2);  
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background: linear-gradient(
+        to bottom right,
+        #006FFC 0%,   
+        #00BBF9 50%,   
+        #00F5D4 100%   
+      );
+      transform: translateZ(10px);
+      text-shadow: 0 4px 8px rgba(0, 20, 47, 0.3); 
+    }
+
+    &::before {
+        content: '';
+        @apply absolute inset-0 opacity-0;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        transition: opacity 0.3s ease;
+    }
+    
+      &:hover::before {
+        @apply opacity-100;
+    }
+  }
+  
+  .tableRow {
+    @apply transition-all duration-300;
+    background: rgba(255, 255, 255, 0.1);  
+    
+    &:nth-child(even) {
+      background: rgba(255, 255, 255, 0.15);  
+    }
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);  
+      transform: translateZ(15px) scale(1.01);
+      box-shadow: 
+        0 8px 24px -6px rgba(0, 111, 252, 0.15),
+        0 2px 12px -2px rgba(0, 187, 249, 0.1);
+    }
+  }
+  
+  .valueCell {
+    @apply px-4 py-3 sm:px-6 sm:py-4
+    text-center font-mono text-sm
+    transition-all duration-300
+    whitespace-nowrap relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  &::after {
+    content: '';
+    @apply absolute inset-0 opacity-0;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(255, 255, 255, 0.05),
+      transparent
+    );
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::after {
+    @apply opacity-100;
+  }
+}
+  
+  .actionButton {
+    @apply px-3 py-1 mx-1
+      rounded-md
+      text-xs font-semibold
+      transition-all duration-300;
+    background: linear-gradient(
+      to right,
+      #0022FF,    
+      #006FFC   
+    );
+    &:hover {
+      background: linear-gradient(
+        to right,
+        #006FFC,   
+        #00BBF9   
+      );
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 111, 252, 0.3);
+    }
+  }
+  
+  .title {
+    @apply text-2xl sm:text-3xl md:text-4xl 
+      font-bold
+      text-transparent 
+      bg-clip-text
+      text-center pb-3 sm:pb-4 md:pb-6
+      uppercase tracking-wider
+      bg-gradient-to-r from-[#0022FF] via-[#006FFC] to-[#00BBF9]
+      dark:from-[#006FFC] dark:via-[#00BBF9] dark:to-[#00F5D4]
+      hover:from-[#006FFC] hover:via-[#00BBF9] hover:to-[#00F5D4]
+      transition-all duration-300;
+    text-shadow: 0 2px 4px rgba(0, 20, 47, 0.1);  
+    animation: titleGradient 6s infinite linear;
+  }
+  
+  .slideIn {
+    animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transform-style: preserve-3d;
+    perspective: 2000px;
+  }
+  
+  .slideOut {
+    animation: slideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+    transform-style: preserve-3d;
+    perspective: 2000px;
+  }
+  
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateX(100%) rotateY(-20deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) rotateY(0);
+    }
+  }
+  
+  @keyframes slideOut {
+    0% {
+      opacity: 1;
+      transform: translateX(0) rotateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(100%) rotateY(-20deg);
+    }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  
+  @keyframes titleGradient {
+    0% {
+      background-position: 0% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+
+  .tableWrapper::-webkit-scrollbar {
+    @apply h-2 w-2;
+  }
+  
+  .tableWrapper::-webkit-scrollbar-track {
+    @apply bg-transparent rounded-full;
+  }
+  
+  
+  .tableWrapper::-webkit-scrollbar-thumb {
+    @apply bg-blue-500/50 dark:bg-blue-400/50 
+      rounded-full 
+      hover:bg-blue-600/50 dark:hover:bg-blue-500/50;
+  }
+  
+ 
+  
+  /* Add the glass morphism effect */
+  .folderContainer::before {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.12),
+      rgba(255, 255, 255, 0.06)
+    );
+    backdrop-filter: blur(16px);
+    z-index: -1;
+    animation: gradientShift 8s infinite linear;
+  }
+  
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @media (max-width: 640px) {
+    .folderContainer {
+      @apply p-2;
+      transform: none;
+    }
+    
+    .headerCell, .valueCell {
+      @apply px-3 py-2 text-xs;
+    }
+  }
+
+   /* Dark mode styles */
+   :global(.dark) .folderContainer {
+    background: linear-gradient(
+      165deg,
+      #00142F, 
+      rgba(0, 20, 47, 0.95)
+    );
+    box-shadow: 
+      inset 4px 0 12px -4px rgba(0, 34, 255, 0.15),
+      inset 0 0 20px rgba(0, 111, 252, 0.1),
+      0 8px 24px -6px rgba(0, 187, 249, 0.2),
+      0 4px 16px -4px rgba(0, 245, 212, 0.15),
+      0 0 32px rgba(0, 20, 47, 0.4);
+  }
+
+  :global(.dark) .tableWrapper {
+    background: linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.95),    
+      rgba(255, 255, 255, 0.9)
+    );
+    box-shadow: 
+      0 4px 24px -6px rgba(0, 111, 252, 0.2),
+      0 2px 12px -2px rgba(0, 187, 249, 0.15);
+  }
+  
+  
+  :global(.dark) .headerRow::after {
+    box-shadow: 
+      0 0 12px rgba(0, 187, 249, 0.3),             
+      0 0 20px rgba(0, 245, 212, 0.2);               
+  }
+  
+  /* Update glass morphism for dark mode */
+  :global(.dark) .folderContainer::before {
+    background: linear-gradient(
+      145deg,
+      rgba(0, 34, 255, 0.08),    
+      rgba(0, 111, 252, 0.04)   
+    );
+    box-shadow: 
+      0 8px 32px rgba(0, 187, 249, 0.1),            
+      0 4px 16px rgba(0, 245, 212, 0.05);         
+  }
+  
+
+  
+  :global(.dark) .tableWrapper::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      to right,
+      rgba(0, 111, 252, 0.5),    
+      rgba(0, 187, 249, 0.5)     
+    );
+    box-shadow: 0 0 8px rgba(0, 245, 212, 0.2);      
+  }
+  
+  /* Dark mode value cells */
+  :global(.dark) .valueCell {
+    color: rgba(0, 20, 47, 0.9);  
+    border-bottom: 1px solid rgba(0, 20, 47, 0.1);
+  }
+  
+  /* Dark mode value cells */
+  :global(.dark) .tableRow {
+    background: rgba(0, 20, 47, 0.1);  
+    
+    &:nth-child(even) {
+      background: rgba(0, 20, 47, 0.15);  
+    }
+    
+    &:hover {
+      background: rgba(0, 20, 47, 0.2);  
+      transform: translateZ(15px) scale(1.01);
+      box-shadow: 
+        0 8px 24px -6px rgba(0, 187, 249, 0.2),
+        0 2px 12px -2px rgba(0, 245, 212, 0.15);
+    }
+  }

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon} from './icons/HeaderIcons';
+import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon, FolderIcon} from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
 import SaveButton from './SaveButton';
 import '../styles/header.css';
 import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuitOperations';
 import { useAuth } from "./auth/authContext";
 import AuthModal from "./AuthModal";
+import FolderSave from './FolderSave';
 
-  const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, getNodes, getEdges }) => {
+
+  const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick,onFolderClick,getNodes, getEdges }) => {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -19,6 +21,9 @@ import AuthModal from "./AuthModal";
   const { userLoggedIn } = useAuth();
 
   const [isModalOpen, setModalOpen] = useState(false);
+
+  const [isTableOpen, setTableOpen] = useState(false);
+  const [modalType, setModalType] = useState('');  // 'folder' or 'table'
 
   useEffect(() => {
     console.log('Nodes or edges have changed:', { nodes, edges });
@@ -68,6 +73,14 @@ import AuthModal from "./AuthModal";
             {/* Right section */}
             <div className="header-right">
               
+            <button 
+                className="header-button"
+                aria-label="Open Folder"
+                onClick={onFolderClick}
+              >
+                <FolderIcon className="header-icon" />
+              </button>
+
               
               <button
                 className="header-button"
@@ -145,6 +158,8 @@ Header.propTypes = {
   getNodes: PropTypes.func.isRequired,
   getEdges: PropTypes.func.isRequired,
   onTruthTableClick: PropTypes.func.isRequired,
+  onFolderClick: PropTypes.func.isRequired,
+
 };
 
 export default Header;

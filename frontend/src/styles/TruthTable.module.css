@@ -244,16 +244,6 @@
   100% { background-position: 200% center; }
 }
 
-@keyframes pulseGreen {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
-}
-
-@keyframes pulseRed {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
-}
-
 @keyframes titleGradient {
   0% {
     background-position: 0% center;
