@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {Navigate, Link} from 'react-router-dom'
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "./firebase/auth";
 import { useAuth } from "./authContext";
+import { getErrorMessage } from '../../utils/getErrorMessage';
 
 const LoginForm = ({ onSwitchToSignup, onLogInSuccess }) => {
   const {userLoggedIn} = useAuth()
@@ -10,30 +11,33 @@ const LoginForm = ({ onSwitchToSignup, onLogInSuccess }) => {
   const [password, setPassword] = useState('');
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Added loading state
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const isAuthenticated  = await doSignInWithEmailAndPassword(email, password); 
-    if (!isSigningIn) {
-      setIsSigningIn(true);
-      try {
-        if (isAuthenticated){
-          onLogInSuccess();
-        }
-      } catch (error) {
-        setErrorMessage(error.message);
-      } finally {
-        setIsSigningIn(false);
-      }
+    setIsLoading(true); // Start loading
+    setErrorMessage(''); // Reset error message
+
+    try {
+        await doSignInWithEmailAndPassword(email, password);
+        onLogInSuccess(); // Call the success callback
+    } catch (error) {
+        setErrorMessage(getErrorMessage(error.code)); // Set the error message
+        console.error('Error logging in:', error);
+    } finally {
+        setIsLoading(false); // Stop loading regardless of success or failure
     }
-  };
+};
 
   const onGoogleSignIn = (e) => {
     e.preventDefault()
     if(!isSigningIn){
       setIsSigningIn(true)
+      setIsLoading(true); // Reset loading state
       doSignInWithGoogle().catch(err =>{
         setIsSigningIn(false)
+        setIsLoading(false); // Reset loading state
       })
 
     }
@@ -42,7 +46,15 @@ const LoginForm = ({ onSwitchToSignup, onLogInSuccess }) => {
   return (
     <div>
       {userLoggedIn && (<Navigate to={'/workspace'} replace={true} />)}
+       {/* Loader Overlay */}
+       {isLoading && (
+        <div className="loader-overlay">
+          <div className="loader"></div>
+        </div>
+      )}
+      
       <form className="modal-form" onSubmit={handleSubmit}>
+        {errorMessage && <div className="error-notification">{errorMessage}</div>} {/* Display error message */}
         <div className="form-group">
           <label>Email:</label>
           <input 
@@ -64,8 +76,8 @@ const LoginForm = ({ onSwitchToSignup, onLogInSuccess }) => {
           />
         </div>
         
-        <button type="submit" className="auth-submit-button">
-          Login
+        <button type="submit" className="auth-submit-button" disabled={isLoading}>
+          {isLoading ? 'Logging In...' : 'Login'}
         </button>
         
         <p className="auth-switch">

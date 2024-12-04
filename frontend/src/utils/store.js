@@ -1,6 +1,8 @@
 import { get, set, ref } from "firebase/database";
 import { db, auth } from "../components/auth/firebase/firebaseConfig";
 import { Position, StepEdge } from "@xyflow/react";
+import { showSaveOnlineModal} from './modal'; // Import the modal function
+
 
 
 const sanitizeData = (data) => {
@@ -32,21 +34,22 @@ export const saveToFireBase = async (getNodes, getEdges) => {
         timestamp: new Date().toISOString(),
     };
 
-        // Prompt user for a filename
-    const filename = prompt('Enter a filename for your circuit:');
-    if (!filename) {
-        console.log("Save operation canceled. Filename is required.");
-        return;
-    }
-    
-    try {
-        // Define the path in the database where the circuit will be saved
-        const dbRef = ref(db, `circuits/${userId}/${filename}`);
-        await set(dbRef, circuitData);
-        console.log(`Circuit saved to database with filename: ${filename}`);
-    } catch (error) {
-        console.error("Error saving circuit to database:", error);
-    }
+    // Call the modal for filename input
+    showSaveOnlineModal(async (filename) => { // Use your new modal function
+        if (!filename) {
+            console.log("Save operation canceled. Filename is required.");
+            return;
+        }
+
+        try {
+            // Define the path in the database where the circuit will be saved
+            const dbRef = ref(db, `circuits/${userId}/${filename}`);
+            await set(dbRef, circuitData);
+            console.log(`Circuit saved to database with filename: ${filename}`);
+        } catch (error) {
+            console.error("Error saving circuit to database:", error);
+        }
+    });
 };
 
 

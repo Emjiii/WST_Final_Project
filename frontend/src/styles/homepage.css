@@ -644,6 +644,24 @@ body {
   @apply sm:max-w-md;
 }
 
+.modal-body{
+  @apply flex items-center gap-4;
+}
+.avatar{
+  @apply w-20 h-20 rounded-full border border-[rgba(0,245,212,0.2)] shadow-md;
+}
+
+.modal-title {
+  @apply text-xl sm:text-3xl font-bold mb-2
+         bg-gradient-to-r from-[#0022FF] via-[#006FFC] to-[#00BBF9]
+         bg-clip-text text-transparent text-left;
+  font-family: var(--font-mono);
+}
+
+.modal-text{
+  @apply text-[rgba(255,255,255,0.8)];
+}
+
 
 
 @media (min-width: 768px) {
@@ -809,12 +827,7 @@ body {
 }
 
 
-.modal-title {
-  @apply text-xl sm:text-2xl font-bold mb-6
-         bg-gradient-to-r from-[#0022FF] via-[#006FFC] to-[#00BBF9]
-         bg-clip-text text-transparent text-center;
-  font-family: var(--font-mono);
-}
+
 
 /* Two-column layout for signup form */
 .signup-form-grid {
@@ -881,6 +894,14 @@ body {
   100% {
     transform: rotate(calc(var(--s, 1) * 1turn));
   }
+}
+
+/* Add this to your CSS file */
+.error-notification {
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
 }
 
 /* Loading state for submit button */

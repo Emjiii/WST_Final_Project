@@ -101,3 +101,13 @@
 .dark .header-button:hover .header-icon {
   color: rgba(255, 255, 255, 0.9); /* Keep icon color consistent */
 }
+
+/* Add this to your header.css */
+.dropdown-menu {
+  @apply absolute top-full right-2 bg-gradient-to-r from-blue-500 to-indigo-500 bg-opacity-90 border border-gray-300 rounded-lg shadow-md z-10 flex flex-col p-2 mt-1;
+}
+
+
+.dropdown-menu .header-button {
+  @apply my-1 p-2 rounded-lg transition-all duration-200 flex items-center justify-center hover:bg-gray-200; /* Add hover effect */
+}

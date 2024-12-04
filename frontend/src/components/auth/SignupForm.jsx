@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Navigate, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './authContext';
 import { doCreateUserWithEmailAndPassword } from './firebase/auth';
-import {db} from './firebase/firebaseConfig'
-import {ref, set} from 'firebase/database';
+import { getDatabase, ref, set } from 'firebase/database';
+import { getErrorMessage } from '../../utils/getErrorMessage';
+
 
 const SignupForm = ({ onSwitchToLogin, onClose }) => {
 
@@ -17,23 +18,25 @@ const SignupForm = ({ onSwitchToLogin, onClose }) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+
+
   // Save user data to Firebase Realtime Database
   const saveUserToDatabase = async (userId, email, username) => {
+    const db = getDatabase();
+    const dbRef = ref(db, `users/${userId}`); // Reference for the new user
     try {
-      const dbRef = ref(db, `users/${userId}`); // Reference for the new user
       await set(dbRef, {
         email,
         username,
       });
       console.log('User data saved to database.');
     } catch (error) {
+      setErrorMessage('Error saving user data to database: ' + error.message);
       console.error('Error saving user data to database:', error);
+      setIsLoading(false);
     }
   };
 
-
-
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,6 +46,8 @@ const SignupForm = ({ onSwitchToLogin, onClose }) => {
     }
 
     setIsRegistering(true);
+    setIsLoading(true);  // Set loading to true before making any request
+
     setErrorMessage('');
 
     try {
@@ -50,13 +55,17 @@ const SignupForm = ({ onSwitchToLogin, onClose }) => {
       const userId = userCredential.user.uid; // Get the unique user ID from Firebase
       await saveUserToDatabase(userId, email, username); // Save username and email to the database
       console.log('Account created successfully.');
+
+      
+
       navigate('/workspace'); 
     } catch (error) {
       console.error('Error creating account:', error);
-      setErrorMessage(error.message);
+      setErrorMessage(getErrorMessage(error.code));
 
     } finally {
       setIsRegistering(false);
+      setIsLoading(false);
     }
   };
 
@@ -73,6 +82,7 @@ const SignupForm = ({ onSwitchToLogin, onClose }) => {
     
     
     <form className="modal-form" onSubmit={handleSubmit}>
+      {errorMessage && <div className="error-notification">{errorMessage}</div>}
       <div className="signup-form-grid">
         <div className="form-group">
           <label>Username:</label>

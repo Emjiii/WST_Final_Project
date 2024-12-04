@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon, FolderIcon } from './icons/HeaderIcons';
+import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon, FolderIcon, DropdownIcon } from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
 import SaveButton from './SaveButton';
 import '../styles/header.css';
@@ -8,36 +8,23 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
 import { useAuth } from "./auth/authContext";
 import AuthModal from "./AuthModal";
 import { saveToFireBase } from "../utils/store";
-import FolderSave from './FolderSave';
 
-
-  const Header = ({ addGateNode, 
-    isDarkMode, 
-    setIsDarkMode, 
-    onTruthTableClick, 
-    onFolderClick,
-    getNodes,
-    getEdges, 
-    setNodes, 
-    setEdges 
-  }) => {
-
+const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, onFolderClick, getNodes, getEdges, setNodes, setEdges }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
-  const [nodes, setNodesState] = useState([]);
-  const [edges, setEdgesState] = useState([]);
-
   const { userLoggedIn } = useAuth();
-
   const [isModalOpen, setModalOpen] = useState(false);
-
-  const [isTableOpen, setTableOpen] = useState(false);
-  const [modalType, setModalType] = useState('');  // 'folder' or 'table'
+  const [isDropdownOpen, setDropdownOpen] = useState(false); // State for dropdown
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth < 640); // Initial check for mobile view
 
   useEffect(() => {
-    console.log('Nodes or edges have changed:', { nodes, edges });
-  }, [nodes, edges]);
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth < 640);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleImportCircuit = () => {
     importCircuit(setNodes, setEdges);
@@ -49,25 +36,13 @@ import FolderSave from './FolderSave';
         saveCircuit(getNodes, getEdges);
       } else if (option === 'image') {
         saveCircuitAsImage('circuitCanvas');
-      } else if (option=='saveOnDatabase'){
+      } else if (option === 'saveOnDatabase') {
         saveToFireBase(getNodes, getEdges);
       }
       setIsSaveModalOpen(false);
     } catch (error) {
       console.error('Error in handleSave:', error);
     }
-  };
-
-  
-  
-  const handleTruthTableClick = () => {
-    setModalType('table');
-    setTableOpen(true);
-  };
-
-  const handleFolderClick = () => {
-    setModalType('folder');
-    setTableOpen(true);
   };
 
   return (
@@ -94,78 +69,135 @@ import FolderSave from './FolderSave';
 
             {/* Right section */}
             <div className="header-right">
-              
-            <button 
-                className="header-button"
-                aria-label="Open Folder"
-                onClick={onFolderClick}
-              >
-                <FolderIcon className="header-icon" />
-              </button>
-              <button
-                className="header-button"
-                aria-label="Import"
-                onClick={handleImportCircuit}
-              >
-                <ImportIcon className="header-icon" />
-              </button>
-
-            {/*Save*/}
-              <button 
-                className="header-button"
-                aria-label="Save Project"
-                onClick={() => {
-                  if (!userLoggedIn) {
-                    setModalOpen(true) // Show login modal if not logged in
-                    if (userLoggedIn){
-                      setModalOpen(false)
+              {isMobileView ? (
+                <>
+                  <button 
+                    className="header-button"
+                    aria-label="Dropdown"
+                    onClick={() => setDropdownOpen(!isDropdownOpen)}
+                  >
+                    <DropdownIcon className="header-icon" />
+                  </button>
+                  {isDropdownOpen && (
+                    <div className="dropdown-menu">
+                      <button 
+                        className="header-button"
+                        aria-label="Open Folder"
+                        onClick={onFolderClick}
+                      >
+                        <FolderIcon className="header-icon" />
+                      </button>
+                      <button
+                        className="header-button"
+                        aria-label="Import"
+                        onClick={handleImportCircuit}
+                      >
+                        <ImportIcon className="header-icon" />
+                      </button>
+                      <button 
+                        className="header-button"
+                        aria-label="Save Project"
+                        onClick={() => {
+                          if (!userLoggedIn) {
+                            setModalOpen(true); // Show login modal if not logged in
+                          } else {
+                            setIsSaveModalOpen(true); // Open save modal if logged in
+                          }
+                        }}
+                      >
+                        <SaveIcon className="header-icon" />
+                      </button>
+                      {isSaveModalOpen && (
+                        <SaveButton 
+                          onClose={() => setIsSaveModalOpen(false)}
+                          onSave={handleSave}
+                          getNodes={getNodes}
+                          getEdges={getEdges}
+                        />
+                      )}
+                      <button 
+                        className="header-button"
+                        aria-label="Truth Table"
+                        onClick={onTruthTableClick}
+                      >
+                        <TableIcon className="header-icon" />
+                      </button>
+                      <button 
+                        className="header-button"
+                        aria-label="Toggle Theme"
+                        onClick={() => setIsDarkMode(!isDarkMode)}
+                      >
+                        {isDarkMode ? 
+                          <SunIcon className="header-icon" /> : 
+                          <MoonIcon className="header-icon" />
+                        }
+                      </button>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  <button 
+                    className="header-button"
+                    aria-label="Open Folder"
+                    onClick={onFolderClick}
+                  >
+                    <FolderIcon className="header-icon" />
+                  </button>
+                  <button
+                    className="header-button"
+                    aria-label="Import"
+                    onClick={handleImportCircuit}
+                  >
+                    <ImportIcon className="header-icon" />
+                  </button>
+                  <button 
+                    className="header-button"
+                    aria-label="Save Project"
+                    onClick={() => {
+                      if (!userLoggedIn) {
+                        setModalOpen(true); // Show login modal if not logged in
+                      } else {
+                        setIsSaveModalOpen(true); // Open save modal if logged in
+                      }
+                    }}
+                  >
+                    <SaveIcon className="header-icon" />
+                  </button>
+                  {isSaveModalOpen && (
+                    <SaveButton 
+                      onClose={() => setIsSaveModalOpen(false)}
+                      onSave={handleSave}
+                      getNodes={getNodes}
+                      getEdges={getEdges}
+                    />
+                  )}
+                  <button 
+                    className="header-button"
+                    aria-label="Truth Table"
+                    onClick={onTruthTableClick}
+                  >
+                    <TableIcon className="header-icon" />
+                  </button>
+                  <button 
+                    className="header-button"
+                    aria-label="Toggle Theme"
+                    onClick={() => setIsDarkMode(!isDarkMode)}
+                  >
+                    {isDarkMode ? 
+                      <SunIcon className="header-icon" /> : 
+                      <MoonIcon className="header-icon" />
                     }
-                  } else {
-                    setIsSaveModalOpen(true); // Open save modal if logged in
-                  }
-                }}
-              >
-                <SaveIcon className="header-icon" />
-              </button> 
-
-              {isSaveModalOpen && (
-                <SaveButton 
-                  onClose={() => setIsSaveModalOpen(false)}
-                  onSave={handleSave}
-                  getNodes={getNodes}
-                  getEdges={getEdges}
-                />
+                  </button>
+                </>
               )}
-
-              <button 
-                className="header-button"
-                aria-label="Truth Table"
-                onClick={onTruthTableClick}
-              >
-                <TableIcon className="header-icon" />
-              </button>
-
-
-              <button 
-                className="header-button"
-                aria-label="Toggle Theme"
-                onClick={() => setIsDarkMode(!isDarkMode)}
-              >
-                {isDarkMode ? 
-                  <SunIcon className="header-icon" /> : 
-                  <MoonIcon className="header-icon" />
-                }
-              </button>
-
-             
             </div>
           </div>
         </div>
       </header>
 
       <AuthModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
-
-          <LogicGateDrawer 
+      <LogicGateDrawer 
         isOpen={isDrawerOpen} 
         onClose={() => setIsDrawerOpen(false)} 
         addGateNode={addGateNode}

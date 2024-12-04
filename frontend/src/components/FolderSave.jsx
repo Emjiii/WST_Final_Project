@@ -70,6 +70,31 @@ const FolderSave = ({ isVisible, onClose, onLoadCircuit, setNodes, setEdges }) =
     }
   };
 
+  const handleDelete = async (fileName) => {
+    if (typeof onDeleteCircuit !== 'function') {
+      console.error('onDeleteCircuit is not a function.');
+      return;
+    }
+  
+    if (!userId) {
+      console.error('User is not authenticated, cannot delete circuit.');
+      return;
+    }
+  
+    try {
+      // Remove the file from the workspace state (e.g., nodes and edges)
+      setNodes(prevNodes => prevNodes.filter(node => node.fileName !== fileName)); // Adjust based on your state structure
+      setEdges(prevEdges => prevEdges.filter(edge => edge.fileName !== fileName)); // Adjust based on your state structure
+      
+      // Optionally, you can notify the parent component that the circuit was deleted
+      onDeleteCircuit(fileName); // Notify parent that the file was deleted from workspace
+  
+      console.log(`Circuit file "${fileName}" removed from workspace.`);
+    } catch (error) {
+      console.error('Error deleting circuit from workspace:', error);
+    }
+  };
+
   if (!shouldRender) return null;
 
   return (
@@ -100,7 +125,9 @@ const FolderSave = ({ isVisible, onClose, onLoadCircuit, setNodes, setEdges }) =
                     <button className={styles.actionButton} onClick={() => handleLoad(file)}>
                       Load
                     </button>
-                    {/* Add delete logic if required */}
+                    <button className={styles.actionButton} onClick={() => handleDelete(file)}>
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))
@@ -114,9 +141,7 @@ const FolderSave = ({ isVisible, onClose, onLoadCircuit, setNodes, setEdges }) =
           </tbody>
         </table>
       </div>
-      <button className={styles.closeButton} onClick={onClose}>
-        Close
-      </button>
+      
     </div>
   );
 };

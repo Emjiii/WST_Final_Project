@@ -165,8 +165,14 @@ const FlowCanvas = () => {
         addGateNode={addGateNode} 
         isDarkMode={isDarkMode} 
         setIsDarkMode={setIsDarkMode}
-        onTruthTableClick={() => setShowTruthTable(prev => !prev)}
-        onFolderClick={() => setShowFolder(prev => !prev)}
+        onTruthTableClick={() => {
+          setShowFolder(false);  // Close folder when opening truth table
+          setShowTruthTable(prev => !prev);
+        }}
+        onFolderClick={() => {
+          setShowTruthTable(false);  // Close truth table when opening folder
+          setShowFolder(prev => !prev);
+        }}
         getNodes={() => nodes} 
         getEdges={() => edges} 
         setNodes={setNodes}
@@ -226,11 +232,13 @@ const FlowCanvas = () => {
           ))}
         </ReactFlow>
         <TruthTable 
+          className={`truth-table ${showTruthTable ? '' : 'hidden'}`}
           isVisible={showTruthTable}
           nodes={nodes}
           edges={edges}
         />
         <FolderSave 
+          className={`folder-save ${showFolder ? '' : 'hidden'}`}
           isVisible={showFolder}
           onClose={() => setShowFolder(false)}
           nodes={nodes}
