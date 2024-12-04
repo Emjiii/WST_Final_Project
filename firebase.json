@@ -1,9 +1,6 @@
 {
-  "dataconnect": {
-    "source": "dataconnect"
-  },
   "hosting": {
-    "public": "out",
+    "public": "frontend/dist",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -15,11 +12,5 @@
         "destination": "/index.html"
       }
     ]
-  },
-  "storage": {
-    "rules": "storage.rules"
-  },
-  "database": {
-    "rules": "database.rules.json"
   }
 }
