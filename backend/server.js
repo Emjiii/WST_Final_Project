@@ -5,10 +5,10 @@ const truthTableRoutes = require('./src/truthTable/truthTableRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
-
-// Middleware to parse JSON bodies
-app.use(express.json());
+const cors = require('cors');
+app.use(cors({
+  origin: 'https://logic-gate-simulator-31edb.web.app', // Replace with your frontend URL
+}));
 
 // In-memory storage for power switch states
 let powerSwitchStates = {};
