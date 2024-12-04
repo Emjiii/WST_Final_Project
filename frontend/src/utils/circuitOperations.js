@@ -122,24 +122,23 @@ export const importCircuit = async (setNodes, setEdges) => {
                 if(!circuitData.nodes || !circuitData.edges) {
                     throw new Error('Invalid circuit file format');
                 }
-
                 const newconstructedNodes = circuitData.nodes.map(node => ({
                     ...node,
                     data: {
                         ...node.data,
                         setValue: node.data.setValue || ((newValue) => {
-                            setNodes((prevNodes) =>
-                                prevNodes.map((n) => 
+                            setNodes((prevNodes) => {
+                                const updatedNodes = prevNodes.map((n) =>
                                     n.id === node.id
-                                        ? { ...n, data: { ...n.data, value: newValue} }
-                                        :n
-                                )
-                            );
-                                
+                                        ? { ...n, data: { ...n.data, value: newValue } }
+                                        : n
+                                );
+
+                                // Only update the state if the nodes have changed
+                                return JSON.stringify(prevNodes) !== JSON.stringify(updatedNodes) ? updatedNodes : prevNodes;
+                            });
                         })
-                     
                     }
-                    
                 }));
 
                 const newconstructedEdges = circuitData.edges.map(edge => ({

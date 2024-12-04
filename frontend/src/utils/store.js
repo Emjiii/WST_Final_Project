@@ -70,8 +70,8 @@ export const loadFromFirebase = async (userId, fileName, setNodes, setEdges) => 
                     ...node.data,
                     value: node.data.value || false, // Default to false if undefined
                     setValue: (newValue) => {
-                        setNodes((prevNodes) =>
-                            prevNodes.map((n) => {
+                        setNodes((prevNodes) => {
+                            const updatedNodes = prevNodes.map((n) => {
                                 if (n.id === node.id) {
                                     return {
                                         ...n,
@@ -82,14 +82,18 @@ export const loadFromFirebase = async (userId, fileName, setNodes, setEdges) => 
                                     };
                                 }
                                 return n;
-                            })
-                        );
+                            });
+            
+                            // Only update state if the new nodes are different from the previous ones
+                            return JSON.stringify(prevNodes) !== JSON.stringify(updatedNodes) ? updatedNodes : prevNodes;
+                        });
                     },
                 },
             }));
+            
 
             setNodes(updatedNodes);
-            setEdges(edges || []);
+            setEdges(edges);
             console.log("Circuit loaded and nodes updated.");
         } else {
             console.log("No circuit found for this user and file name.");
