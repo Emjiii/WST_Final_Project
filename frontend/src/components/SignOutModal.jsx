@@ -4,6 +4,8 @@ import { doSignOut } from "./auth/firebase/auth";
 
 const SignOutModal = ({ isOpen, onClose }) => {
   const { userLoggedIn } = useAuth();
+  const { currentUser } = useAuth();
+
 
   if (!isOpen) return null;
 
@@ -19,12 +21,16 @@ const SignOutModal = ({ isOpen, onClose }) => {
     }
   };
 
+
+
   return (
     <div className="modal-overlay">
       <div className="modal-signout-content">
         <button className="close-button" onClick={onClose}>×</button>
           <div className="logged-in-view">
-            <h2>Hi User! You are currently logged in.</h2>
+            <h2>
+              Hi {currentUser?.username||currentUser?.displayName || "User"}! You are currently logged in.
+            </h2>
             <button className="sign-out-button" onClick={handleLogOut}>
               Sign Out
             </button>
