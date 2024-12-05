@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Navigate, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './authContext';
 
-import { doCreateUserWithEmailAndPassword } from './firebase/auth';
+import { doCreateUserWithEmailAndPassword, doSignInWithGoogle } from './firebase/auth';
 import { getDatabase, ref, set } from 'firebase/database';
 import { getErrorMessage } from '../../utils/getErrorMessage';
 
