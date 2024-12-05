@@ -159,20 +159,32 @@ const FlowCanvas = () => {
         }
     }, [nodes.length, setNodes]);
 
+  const handleTruthTableClick = () => {
+    // Close the folder if it's open
+    if (showFolder) {
+      setShowFolder(false);
+    }
+    // Toggle the truth table
+    setShowTruthTable(prev => !prev);
+  };
+
+  const handleFolderClick = () => {
+    // Close the truth table if it's open
+    if (showTruthTable) {
+      setShowTruthTable(false);
+    }
+    // Toggle the folder
+    setShowFolder(prev => !prev);
+  };
+
   return (
     <div className="flow-wrapper">
       <Header 
         addGateNode={addGateNode} 
         isDarkMode={isDarkMode} 
         setIsDarkMode={setIsDarkMode}
-        onTruthTableClick={() => {
-          setShowFolder(false);  // Close folder when opening truth table
-          setShowTruthTable(prev => !prev);
-        }}
-        onFolderClick={() => {
-          setShowTruthTable(false);  // Close truth table when opening folder
-          setShowFolder(prev => !prev);
-        }}
+        onTruthTableClick={handleTruthTableClick} // Use the updated function
+        onFolderClick={handleFolderClick} // Use the updated function
         getNodes={() => nodes} 
         getEdges={() => edges} 
         setNodes={setNodes}

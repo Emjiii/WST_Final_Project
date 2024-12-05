@@ -21,14 +21,14 @@ const SignOutModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
+      <div className="modal-signout-content">
         <button className="close-button" onClick={onClose}>
           ×
         </button>
         <div className="modal-body">
           {/* Neutral gender avatar */}
           <img
-            src="https://via.placeholder.com/80"
+            src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
             alt="Neutral Avatar"
             className="avatar"
           />
