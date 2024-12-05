@@ -45,19 +45,9 @@ export function AuthProvider({children}){
             setCurrentUser(null);
             setUserLoggedIn(false);
         }
+        setLoading(false);
 
-        setUserLoggedIn(true);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setCurrentUser({ ...user }); // Fallback to the user object without username
-        setUserLoggedIn(true);
-      }
-    } else {
-      setCurrentUser(null);
-      setUserLoggedIn(false);
-    }
-    setLoading(false);
-  }
+      } 
 
   const value = {
     currentUser, // Includes user info and `username` if available
