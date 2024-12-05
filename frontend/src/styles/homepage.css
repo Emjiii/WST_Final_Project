@@ -646,10 +646,16 @@ body {
 
 .modal-body{
   @apply flex items-center gap-4;
+  width: 100%;
 }
-.avatar{
+
+.avatar {
   @apply w-20 h-20 rounded-full border border-[rgba(0,245,212,0.2)] shadow-md;
+  filter: brightness(0) invert(1); /* This will make the image white */
+  /* Combine with Tailwind utilities */
+  @apply w-[30%] h-[30%] filter brightness-0 invert; 
 }
+
 
 .modal-title {
   @apply text-xl sm:text-3xl font-bold mb-2
@@ -827,12 +833,6 @@ body {
 }
 
 
-/* Add this to your CSS file */
-.avatar {
-  width: 80px; /* Adjust size as needed */
-  height: 80px; /* Adjust size as needed */
-  filter: brightness(0) invert(1); /* This will make the image white */
-}
 
 /* Two-column layout for signup form */
 .signup-form-grid {
