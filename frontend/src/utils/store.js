@@ -1,4 +1,4 @@
-import { get, set, ref } from "firebase/database";
+import { get, set, ref, remove } from "firebase/database";
 import { db, auth } from "../components/auth/firebase/firebaseConfig";
 import { Position, StepEdge } from "@xyflow/react";
 import { showSaveOnlineModal} from './modal'; // Import the modal function
@@ -136,3 +136,27 @@ export const listUserFiles = async () => {
         return [];
     }
 }
+
+
+export const deleteFromFirebase = async (fileName) => {
+    const userId = auth.currentUser ? auth.currentUser.uid : null;
+
+    if (!userId) {
+        console.error("User not authenticated. Cannot delete.");
+        return;
+    }
+
+    if (!fileName) {
+        console.error("File name is required to delete file.");
+        return;
+    }
+
+    try {
+        const dbRef = ref(db,`circuits/${userId}/${fileName}`);
+        await remove(dbRef);
+        return true;
+        // console.log(`File '${fileName}' successfully deleted.`);
+    } catch (error) {
+        console.error("Error deleting file:", error);
+    }
+};
