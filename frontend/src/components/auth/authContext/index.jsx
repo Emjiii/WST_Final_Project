@@ -3,11 +3,13 @@ import {auth} from "../firebase/firebaseConfig";
 import {onAuthStateChanged} from "firebase/auth"
 import { getDatabase, ref, get } from "firebase/database";
 
+
 const AuthContext = React.createContext();
 
-export function useAuth(){
-    return useContext(AuthContext);
+export function useAuth() {
+  return useContext(AuthContext);
 }
+
 
 export function AuthProvider({children}){
     const [currentUser, setCurrentUser] = useState(null);
@@ -43,18 +45,29 @@ export function AuthProvider({children}){
             setCurrentUser(null);
             setUserLoggedIn(false);
         }
-        setLoading(false);
-    }
 
-    const value = {
-        currentUser, 
-        userLoggedIn,
-        loading
+        setUserLoggedIn(true);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setCurrentUser({ ...user }); // Fallback to the user object without username
+        setUserLoggedIn(true);
+      }
+    } else {
+      setCurrentUser(null);
+      setUserLoggedIn(false);
     }
+    setLoading(false);
+  }
 
-    return (
-        <AuthContext.Provider value={value}>
-            {!loading && children}
-        </AuthContext.Provider>
-    )
+  const value = {
+    currentUser, // Includes user info and `username` if available
+    userLoggedIn,
+    loading,
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 }

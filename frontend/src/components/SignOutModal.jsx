@@ -3,6 +3,7 @@ import { useAuth } from "./auth/authContext"
 import { doSignOut } from "./auth/firebase/auth";
 
 const SignOutModal = ({ isOpen, onClose }) => {
+
   const { currentUser } = useAuth();
 
   if (!isOpen) return null;
@@ -18,6 +19,8 @@ const SignOutModal = ({ isOpen, onClose }) => {
       // Handle error (e.g., set error message)
     }
   };
+
+
 
   return (
     <div className="modal-overlay">

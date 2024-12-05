@@ -30,19 +30,6 @@ const LoginForm = ({ onSwitchToSignup, onLogInSuccess }) => {
     }
 };
 
-  const onGoogleSignIn = (e) => {
-    e.preventDefault()
-    if(!isSigningIn){
-      setIsSigningIn(true)
-      setIsLoading(true); // Reset loading state
-      doSignInWithGoogle().catch(err =>{
-        setIsSigningIn(false)
-        setIsLoading(false); // Reset loading state
-      })
-
-    }
-  }
-
   return (
     <div>
       {userLoggedIn && (<Navigate to={'/workspace'} replace={true} />)}

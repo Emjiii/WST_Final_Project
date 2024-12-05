@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Navigate, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './authContext';
+
 import { doCreateUserWithEmailAndPassword } from './firebase/auth';
 import { getDatabase, ref, set } from 'firebase/database';
 import { getErrorMessage } from '../../utils/getErrorMessage';
-
 
 const SignupForm = ({ onSwitchToLogin, onClose }) => {
 
@@ -68,6 +68,28 @@ const SignupForm = ({ onSwitchToLogin, onClose }) => {
       setIsLoading(false);
     }
   };
+
+  const onGoogleSignIn = async (e) => {
+    e.preventDefault();
+  
+    try {
+      setIsLoading(true); // Show loading state
+      const result = await doSignInWithGoogle(); // Perform Google Sign-In
+      const user = result.user;
+  
+      // Optionally save additional user data to the database
+      const userId = user.uid;
+      await saveUserToDatabase(userId, user.email, user.displayName || "Google User");
+  
+      console.log("Google Sign-In successful.");
+      navigate('/workspace'); // Redirect to workspace
+    } catch (error) {
+      console.error("Error during Google Sign-In:", error);
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false); // Hide loading state
+    }
+  };  
 
   return (
     <>
@@ -138,6 +160,7 @@ const SignupForm = ({ onSwitchToLogin, onClose }) => {
         type="button" 
         className={`auth-submit-button ${isLoading ? 'loading' : ''}`}
         disabled={isLoading}
+        onClick={onGoogleSignIn}
       >
         {isLoading ? 'Creating Account...' : 'Sign in with Google'}
       </button>
