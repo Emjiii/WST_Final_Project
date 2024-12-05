@@ -6,9 +6,9 @@ import styles from "../../../styles/LogicComponents/gates/GateStyles.module.css"
 
 export const OrGateCanvas = ({ isConnectable, id, data }) => {
 
-    const [input1, setInput1] = useState(null); 
-    const [input2, setInput2] = useState(null); 
-    const [output, setOutput] = useState(null);
+    const [input1, setInput1] = useState(false); 
+    const [input2, setInput2] = useState(false); 
+    const [output, setOutput] = useState(false);
     const edges = useEdges();
     const nodes = useNodes();   
    
@@ -46,36 +46,32 @@ export const OrGateCanvas = ({ isConnectable, id, data }) => {
     }, [edges, nodes, id]); // Trigger whenever edges or nodes change
    
     useEffect(() => {
-        // Calculate output whenever inputs change
-        if (input1 !== null || input2 !== null) {
-            const newOutput = Boolean(input1) || Boolean(input2);
-            setOutput(newOutput);
-   
-            // Update parent or backend
-            if (data?.setValue) {
-                data.setValue(newOutput);
-            }
-   
-            const updateOrGateState = async () => {
-                try {
-                    await axios.post('http://localhost:3000/gates/or', {
-                        input1,
-                        input2,
-                        output: newOutput,
-                    });
-                    console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
-                } catch (error) {
-                    console.error('Error syncing with backend:', error);
-                }
-            };
-    
-            updateOrGateState();
+        const areBothInputsConnected = input1 !== null && input2 !== null;
+        const newOutput = areBothInputsConnected ? (Boolean(input1) || Boolean(input2)) : false;
+        
+        setOutput(newOutput);
 
-            console.log('Inputs:', input1, input2, 'Output:', newOutput);
-        } else {
-            setOutput(null); // No valid inputs, output remains null
-            console.log('Incomplete Inputs, Output set to null');
+        // Update parent or backend
+        if (data?.setValue) {
+            data.setValue(newOutput);
         }
+
+        const updateOrGateState = async () => {
+            try {
+                await axios.post('http://localhost:3000/gates/or', {
+                    input1,
+                    input2,
+                    output: newOutput,
+                });
+                console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
+            } catch (error) {
+                console.error('Error syncing with backend:', error);
+            }
+        };
+
+        updateOrGateState();
+
+        console.log('Inputs:', input1, input2, 'Output:', newOutput);
     }, [input1, input2, data]); 
     
     return (

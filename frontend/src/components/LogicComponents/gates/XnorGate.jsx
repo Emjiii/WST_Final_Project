@@ -43,34 +43,30 @@ export const XnorGateCanvas = ({ isConnectable, id, data }) => {
     }, [edges, nodes, id]);
 
     useEffect(() => {
-        if (input1 !== null && input2 !== null) {
-            const newOutput = !(Boolean(input1) ^ Boolean(input2));
-            setOutput(newOutput);
-        
-            if (data?.setValue) {
-                data.setValue(newOutput);
-            }
-
-        const xnorGateState = async () => {
-            try {
-                await axios.post('http://localhost:3000/gates/xnor', {
-                    input1,
-                    input2,
-                    output: newOutput
-                });
-                console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
-                } catch (error) {
-                    console.error('Error updating XNOR gate state:', error);
-                }
-            };
-
-            xnorGateState();
-            console.log('Inputs:', input1, input2, 'Output:', newOutput);
-        } else {
-            setOutput(null);
-            console.log('Incomplete Inputs, Output set to null');
+        const areBothInputsConnected = input1 !== null && input2 !== null;
+        const newOutput = areBothInputsConnected ? (Boolean(input1) === Boolean(input2)) : false;
+        setOutput(newOutput);
+    
+        if (data?.setValue) {
+            data.setValue(newOutput);
         }
-    }, [input1, input2, data]);
+
+    const xnorGateState = async () => {
+        try {
+            await axios.post('http://localhost:3000/gates/xnor', {
+                input1,
+                input2,
+                output: newOutput
+            });
+            console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
+            } catch (error) {
+                console.error('Error updating XNOR gate state:', error);
+            }
+        };
+
+        xnorGateState();
+        console.log('Inputs:', input1, input2, 'Output:', newOutput);
+}, [input1, input2, data]);
 
     return (
         <div className={`${styles.gateContainer} ${xnorStyles.xnorGate}`}>
