@@ -30,33 +30,29 @@ export const BufferGateCanvas = ({ isConnectable, id, data }) => {
     }, [edges, nodes, id]);
 
     useEffect(() => {
-        if (input !== null) {
-            const newOutput = Boolean(input);
-            setOutput(newOutput);
-       
-            if (data?.setValue) {
-                data.setValue(newOutput);
-            }
-
-            const bufferGateState = async () => {
-                try {
-                    await axios.post('http://localhost:3000/gates/buffer', {
-                        input,
-                        output: newOutput
-                    });
-                    console.log('Backend Sync Successful:', { input, output: newOutput });
-                } catch (error) {
-                    console.error('Error syncing with backend:', error);
-                }
-            };
-
-            bufferGateState();
-            console.log('Inputs:', input, 'Output:', newOutput);
-        } else {
-            setOutput(null);
-            console.log('Incomplete Inputs, Output set to null');
+        const isInputConnected = input !== null;
+        const newOutput = isInputConnected ? Boolean(input) : false;
+        setOutput(newOutput);
+    
+        if (data?.setValue) {
+            data.setValue(newOutput);
         }
-    }, [input, data]);
+
+        const bufferGateState = async () => {
+            try {
+                await axios.post('http://localhost:3000/gates/buffer', {
+                    input,
+                    output: newOutput
+                });
+                console.log('Backend Sync Successful:', { input, output: newOutput });
+            } catch (error) {
+                console.error('Error syncing with backend:', error);
+            }
+        };
+
+        bufferGateState();
+        console.log('Inputs:', input, 'Output:', newOutput);
+}, [input, data]);
 
     return (
         <div className={`${styles.gateContainer} ${bufferStyles.bufferGate}`}>
