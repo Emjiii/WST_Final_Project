@@ -19,6 +19,7 @@
     transform-style: preserve-3d;
     perspective: 2000px;
     height: 100vh;
+    animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
   
   .tableWrapper {
@@ -226,3 +227,4 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
+

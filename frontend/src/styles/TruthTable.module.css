@@ -18,6 +18,9 @@
     0 4px 8px rgba(0, 0, 0, 0.1);
   transform-style: preserve-3d;
   perspective: 2000px;
+  animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; /* Adding smooth transition to all properties */
+
 }
 
 .tableWrapper {
@@ -206,14 +209,11 @@
 
 .slideIn {
   animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  transform-style: preserve-3d;
-  perspective: 2000px;
+
 }
 
 .slideOut {
   animation: slideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) backwards;
-  transform-style: preserve-3d;
-  perspective: 2000px;
 }
 
 
@@ -244,15 +244,6 @@
   100% { background-position: 200% center; }
 }
 
-@keyframes pulseGreen {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
-}
-
-@keyframes pulseRed {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
-}
 
 @keyframes titleGradient {
   0% {

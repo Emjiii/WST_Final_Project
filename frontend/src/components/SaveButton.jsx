@@ -43,10 +43,10 @@ const SaveButton = ({ onClose, onSave, getNodes, getEdges }) => {
         </div>
         <div className={styles.modalBody}>
           <button 
-            className={`${styles.modalButton} ${styles.saveImageBtn}`}
+            className={`${styles.modalButton} ${styles.saveOnline}`}
             onClick={handleSaveFileOnDatabase}
           >
-            Save File online
+            Save file online
           </button>
           <button 
             className={`${styles.modalButton} ${styles.saveFileBtn}`}
