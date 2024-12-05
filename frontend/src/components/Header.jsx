@@ -67,7 +67,6 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, onF
               </div>
             </div>
 
-            {/* Right section */}
             <div className="header-right">
               {isMobileView ? (
                 <>
@@ -76,66 +75,68 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, onF
                     aria-label="Dropdown"
                     onClick={() => setDropdownOpen(!isDropdownOpen)}
                   >
-                    <DropdownIcon className="header-icon" />
+                    <DropdownIcon 
+                      className={`header-icon dropdown-icon ${isDropdownOpen ? 'rotated' : ''}`} 
+                    />
                   </button>
-                  {isDropdownOpen && (
-                    <div className="dropdown-menu">
-                      <button 
-                        className="header-button"
-                        aria-label="Open Folder"
-                        onClick={onFolderClick}
-                      >
-                        <FolderIcon className="header-icon" />
-                      </button>
-                      <button
-                        className="header-button"
-                        aria-label="Import"
-                        onClick={handleImportCircuit}
-                      >
-                        <ImportIcon className="header-icon" />
-                      </button>
-                      <button 
-                        className="header-button"
-                        aria-label="Save Project"
-                        onClick={() => {
-                          if (!userLoggedIn) {
-                            setModalOpen(true); // Show login modal if not logged in
-                          } else {
-                            setIsSaveModalOpen(true); // Open save modal if logged in
-                          }
-                        }}
-                      >
-                        <SaveIcon className="header-icon" />
-                      </button>
-                      {isSaveModalOpen && (
-                        <SaveButton 
-                          onClose={() => setIsSaveModalOpen(false)}
-                          onSave={handleSave}
-                          getNodes={getNodes}
-                          getEdges={getEdges}
-                        />
-                      )}
-                      <button 
-                        className="header-button"
-                        aria-label="Truth Table"
-                        onClick={onTruthTableClick}
-                      >
-                        <TableIcon className="header-icon" />
-                      </button>
-                      <button 
-                        className="header-button"
-                        aria-label="Toggle Theme"
-                        onClick={() => setIsDarkMode(!isDarkMode)}
-                      >
-                        {isDarkMode ? 
-                          <SunIcon className="header-icon" /> : 
-                          <MoonIcon className="header-icon" />
+                  <div 
+                    className={`dropdown-menu ${isDropdownOpen ? 'open' : ''} ${isDarkMode ? 'dark-mode' : ''}`}
+                  >
+                    <button 
+                      className="header-button"
+                      aria-label="Open Folder"
+                      onClick={onFolderClick}
+                    >
+                      <FolderIcon className="header-icon" />
+                    </button>
+                    <button
+                      className="header-button"
+                      aria-label="Import"
+                      onClick={handleImportCircuit}
+                    >
+                      <ImportIcon className="header-icon" />
+                    </button>
+                    <button 
+                      className="header-button"
+                      aria-label="Save Project"
+                      onClick={() => {
+                        if (!userLoggedIn) {
+                          setModalOpen(true);
+                        } else {
+                          setIsSaveModalOpen(true);
                         }
-                      </button>
-                    </div>
-                  )}
+                      }}
+                    >
+                      <SaveIcon className="header-icon" />
+                    </button>
+                    {isSaveModalOpen && (
+                      <SaveButton 
+                        onClose={() => setIsSaveModalOpen(false)}
+                        onSave={handleSave}
+                        getNodes={getNodes}
+                        getEdges={getEdges}
+                      />
+                    )}
+                    <button 
+                      className="header-button"
+                      aria-label="Truth Table"
+                      onClick={onTruthTableClick}
+                    >
+                      <TableIcon className="header-icon" />
+                    </button>
+                    <button 
+                      className="header-button"
+                      aria-label="Toggle Theme"
+                      onClick={() => setIsDarkMode(!isDarkMode)}
+                    >
+                      {isDarkMode ? 
+                        <SunIcon className="header-icon" /> : 
+                        <MoonIcon className="header-icon" />
+                      }
+                    </button>
+                  </div>
                 </>
-              ) : (
+              )  : (
                 <>
                   <button 
                     className="header-button"

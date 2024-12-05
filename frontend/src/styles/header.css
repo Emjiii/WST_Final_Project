@@ -102,12 +102,34 @@
   color: rgba(255, 255, 255, 0.9); /* Keep icon color consistent */
 }
 
-/* Add this to your header.css */
+/* Add these styles to your existing header.css */
 .dropdown-menu {
-  @apply absolute top-full right-2 bg-gradient-to-r from-blue-500 to-indigo-500 bg-opacity-90 border border-gray-300 rounded-lg shadow-md z-10 flex flex-col p-2 mt-1;
+  @apply absolute p-1.5 top-full -right-1 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg shadow-md overflow-hidden transition-all duration-300 max-h-0 opacity-0 z-10;
+}
+
+.dropdown-menu.open {
+  @apply max-h-[400px] opacity-100; /* Adjust based on your content height */
+}
+
+.dropdown-icon {
+  @apply transition-transform duration-300;
+}
+
+.dropdown-icon.rotated {
+  @apply rotate-180;
+}
+
+.header-right {
+  @apply relative;
+}
+
+/* Add spacing between buttons */
+.dropdown-menu .header-button {
+  @apply my-1.5; /* Adjust the value as needed */
 }
 
 
-.dropdown-menu .header-button {
-  @apply my-1 p-2 rounded-lg transition-all duration-200 flex items-center justify-center hover:bg-gray-200; /* Add hover effect */
+.dropdown-menu.dark-mode {
+  background: var(--gradient-primary); /* Dark mode background color */
+  color: white; /* Text color for dark mode */
 }
