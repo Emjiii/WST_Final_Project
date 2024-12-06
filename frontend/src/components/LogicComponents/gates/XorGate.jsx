@@ -51,20 +51,20 @@ export const XorGateCanvas = ({ isConnectable, id, data }) => {
             data.setValue(newOutput);
     }
 
-    const xorGateState = async () => {
-        try {
-            await axios.post('http://localhost:3000/gates/xor', {
-                input1,
-                input2,
-                output: newOutput
-            });
-            console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
-            } catch (error) {
-                console.error('Error syncing with backend:', error);
-            }
-        };
+    // const xorGateState = async () => {
+    //     try {
+    //         await axios.post('http://localhost:3000/gates/xor', {
+    //             input1,
+    //             input2,
+    //             output: newOutput
+    //         });
+    //         console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
+    //         } catch (error) {
+    //             console.error('Error syncing with backend:', error);
+    //         }
+    //     };
 
-        xorGateState();
+    //     xorGateState();
         console.log('Inputs:', input1, input2, 'Output:', newOutput);
 }, [input1, input2, data]);
 

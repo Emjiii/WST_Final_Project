@@ -38,19 +38,19 @@ export const BufferGateCanvas = ({ isConnectable, id, data }) => {
             data.setValue(newOutput);
         }
 
-        const bufferGateState = async () => {
-            try {
-                await axios.post('http://localhost:3000/gates/buffer', {
-                    input,
-                    output: newOutput
-                });
-                console.log('Backend Sync Successful:', { input, output: newOutput });
-            } catch (error) {
-                console.error('Error syncing with backend:', error);
-            }
-        };
+        // const bufferGateState = async () => {
+        //     try {
+        //         await axios.post('http://localhost:3000/gates/buffer', {
+        //             input,
+        //             output: newOutput
+        //         });
+        //         console.log('Backend Sync Successful:', { input, output: newOutput });
+        //     } catch (error) {
+        //         console.error('Error syncing with backend:', error);
+        //     }
+        // };
 
-        bufferGateState();
+        // bufferGateState();
         console.log('Inputs:', input, 'Output:', newOutput);
 }, [input, data]);
 

@@ -55,20 +55,20 @@ export const AndGate = ({ isConnectable, id, data }) => {
             data.setValue(newOutput);
         }
     
-        const andGateState = async () => {
-            try {
-                await axios.post('http://localhost:3000/gates/and', {
-                    input1,
-                    input2,
-                    output: newOutput
-                });
-                console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
-            } catch (error) {
-                console.error('Error syncing with backend:', error);
-            }
-        };
+        // const andGateState = async () => {
+        //     try {
+        //         await axios.post('http://localhost:3000/gates/and', {
+        //             input1,
+        //             input2,
+        //             output: newOutput
+        //         });
+        //         console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
+        //     } catch (error) {
+        //         console.error('Error syncing with backend:', error);
+        //     }
+        // };
 
-        andGateState();
+        // andGateState();
         
         console.log('Inputs:', input1, input2, 'Output:', newOutput);
     }, [input1, input2, data]);

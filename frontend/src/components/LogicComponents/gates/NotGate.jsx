@@ -38,19 +38,19 @@ export const NotGateCanvas = ({ isConnectable, id, data }) => {
             data.setValue(newOutput);
         }
 
-        const notGateState = async () => {
-            try {
-                await axios.post('http://localhost:3000/gates/not', {
-                    input,
-                    output: newOutput
-                });
-                console.log('Backend Sync Successful:', { input, output: newOutput });
-            } catch (error) {
-                console.error('Error syncing with backend:', error);
-            }
-        };
+        // const notGateState = async () => {
+        //     try {
+        //         await axios.post('http://localhost:3000/gates/not', {
+        //             input,
+        //             output: newOutput
+        //         });
+        //         console.log('Backend Sync Successful:', { input, output: newOutput });
+        //     } catch (error) {
+        //         console.error('Error syncing with backend:', error);
+        //     }
+        // };
 
-        notGateState();
+        // notGateState();
         console.log('Input:', input, 'Output:', newOutput);
 }, [input, data]);
     

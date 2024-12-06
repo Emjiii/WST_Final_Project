@@ -52,19 +52,19 @@ export const NorGateCanvas = ({ isConnectable, id, data }) => {
             data.setValue(newOutput);
         }
 
-        const norGateState = async () => {
-            try {
-                await axios.post('http://localhost:3000/gates/nor', {
-                input1,
-                input2,
-                output: newOutput
-            });
-            console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
-        } catch (error) {
-            console.error('Error syncing with backend:', error);
-        }
-    };
-    norGateState();
+    //     const norGateState = async () => {
+    //         try {
+    //             await axios.post('http://localhost:3000/gates/nor', {
+    //             input1,
+    //             input2,
+    //             output: newOutput
+    //         });
+    //         console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
+    //     } catch (error) {
+    //         console.error('Error syncing with backend:', error);
+    //     }
+    // };
+    // norGateState();
         console.log('Inputs:', input1, input2, 'Output:', newOutput);
 }, [input1, input2, data]);
 

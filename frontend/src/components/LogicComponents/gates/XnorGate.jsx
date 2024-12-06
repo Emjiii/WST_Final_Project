@@ -51,20 +51,20 @@ export const XnorGateCanvas = ({ isConnectable, id, data }) => {
             data.setValue(newOutput);
         }
 
-    const xnorGateState = async () => {
-        try {
-            await axios.post('http://localhost:3000/gates/xnor', {
-                input1,
-                input2,
-                output: newOutput
-            });
-            console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
-            } catch (error) {
-                console.error('Error updating XNOR gate state:', error);
-            }
-        };
+    // const xnorGateState = async () => {
+    //     try {
+    //         await axios.post('http://localhost:3000/gates/xnor', {
+    //             input1,
+    //             input2,
+    //             output: newOutput
+    //         });
+    //         console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
+    //         } catch (error) {
+    //             console.error('Error updating XNOR gate state:', error);
+    //         }
+    //     };
 
-        xnorGateState();
+    //     xnorGateState();
         console.log('Inputs:', input1, input2, 'Output:', newOutput);
 }, [input1, input2, data]);
 

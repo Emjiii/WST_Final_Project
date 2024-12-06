@@ -56,20 +56,20 @@ export const OrGateCanvas = ({ isConnectable, id, data }) => {
             data.setValue(newOutput);
         }
 
-        const updateOrGateState = async () => {
-            try {
-                await axios.post('http://localhost:3000/gates/or', {
-                    input1,
-                    input2,
-                    output: newOutput,
-                });
-                console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
-            } catch (error) {
-                console.error('Error syncing with backend:', error);
-            }
-        };
+        // const updateOrGateState = async () => {
+        //     try {
+        //         await axios.post('http://localhost:3000/gates/or', {
+        //             input1,
+        //             input2,
+        //             output: newOutput,
+        //         });
+        //         console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
+        //     } catch (error) {
+        //         console.error('Error syncing with backend:', error);
+        //     }
+        // };
 
-        updateOrGateState();
+        // updateOrGateState();
 
         console.log('Inputs:', input1, input2, 'Output:', newOutput);
     }, [input1, input2, data]); 
