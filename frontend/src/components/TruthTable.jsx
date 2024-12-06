@@ -12,8 +12,12 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Memoize the nodes and edges to prevent unnecessary re-renders
+  const memoizedNodes = useMemo(() => nodes, [JSON.stringify(nodes)]);
+  const memoizedEdges = useMemo(() => edges, [JSON.stringify(edges)]);
+
   useEffect(() => {
-    if (isVisible) {
+    if (isVisible && memoizedNodes.length > 0) {
       setShouldRender(true);
       setIsExiting(false);
       fetchTruthTable();
@@ -24,46 +28,57 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
       }, 300);
       return () => clearTimeout(timer);
     }
-  }, [isVisible, nodes, edges]);
-
+  }, [isVisible, memoizedNodes, memoizedEdges]);
+  
   const fetchTruthTable = async () => {
     setLoading(true);
     setError(null);
     try {
-      console.log('Sending nodes:', nodes);
-      console.log('Sending edges:', edges);
-      console.log('Payload:', { nodes, edges });
-
-      const inputNodes = nodes
-        .filter(node => node.type.includes('input'))
-        .map(({ id, type, data}) => ({ id, type, data}));
-
-      const outputNodes = nodes
-        .filter(node => node.type.includes('Output') || node.type === 'ledOutput' || node.type === 'speakerOutput')
-        .map(({ id, type, data }) => ({ id, type, data }));
-      console.log('Input Nodes:', inputNodes);
-      console.log('Output Nodes:', outputNodes);
-
-      const response = await axios.post(`${backendURL}/truth-table/circuit`, { nodes, edges });
-      const truthTable = response.data;
-      console.log('Fetched Truth Table:', truthTable);
+      // Ensure all input nodes have a value, with a more robust check
+      const processedNodes = memoizedNodes.map(node => {
+        if (node.type.includes('input')) {
+          return {
+            ...node,
+            data: {
+              ...node.data,
+              value: node.data.value ?? false // Default to false if undefined
+            }
+          };
+        }
+        return node;
+      });
   
-      if (truthTable.length > 0) {
+      const response = await axios.post(`${backendURL}/truth-table/circuit`, { 
+        nodes: processedNodes,
+        edges: memoizedEdges
+      }, {
+        // Add a timeout to prevent indefinite loading
+        timeout: 5000
+      });
+  
+   
+      const truthTable = response.data;
+  
+      if (truthTable && truthTable.length > 0) {
         setTruthTableData({
-          inputs: nodes.filter(node => node.type.includes('input')).map(node => node.id),
-          outputs: nodes.filter(node => node.type.includes('Output') || node.type === 'ledOutput' || node.type === 'speakerOutput').map(node => node.id),
-          rows: truthTable.map(entry => ({
-            inputs: entry.inputs,
-            outputs: entry.outputs
-          }))
+          inputs: processedNodes
+            .filter(node => node.type.includes('input'))
+            .map(node => node.id),
+          outputs: processedNodes
+            .filter(node => 
+              node.type.includes('Output') || 
+              node.type === 'ledOutput' || 
+              node.type === 'speakerOutput'
+            )
+            .map(node => node.id),
+          rows: truthTable
         });
-        console.log('Truth Table Data:', truthTableData);
       } else {
         setTruthTableData({ inputs: [], outputs: [], rows: [] });
       }
     } catch (error) {
-      console.error('Error fetching truth table from backend:', error);
-      setError('Failed to fetch truth table data.');
+      setError(`Failed to generate truth table: ${error.message}`);
+      console.error('Truth Table Error:', error);
     } finally {
       setLoading(false);
     }
@@ -72,10 +87,10 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
   const generateTruthTable = () => {
     const { inputs = [], outputs = [], rows = [] } = truthTableData;
   
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
-    if (!rows.length) return <p>No data available</p>;
-
+    if (loading) return <p className="text-center p-4">Loading truth table...</p>;
+    if (error) return <p className="text-red-500 text-center p-4">{error}</p>;
+    if (!rows.length) return <p className="text-center p-4">No data available</p>;
+    
     return (
       <div className={`${styles.tableWrapper} ${isDarkMode ? 'dark' : ''}`}>
         <div className="overflow-x-auto">

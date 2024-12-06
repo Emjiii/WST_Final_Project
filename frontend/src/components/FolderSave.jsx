@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/FolderPanel.module.css';
 import { useDarkMode } from '../utils/useDarkMode';
 import { auth } from './auth/firebase/firebaseConfig';
-import { listUserFiles, loadFromFirebase } from '../utils/store';
+import { listUserFiles, loadFromFirebase, deleteFromFirebase } from '../utils/store';
 
 const FolderSave = ({ isVisible, onClose, onLoadCircuit, setNodes, setEdges }) => {
   const [isDarkMode] = useDarkMode();
@@ -70,6 +70,27 @@ const FolderSave = ({ isVisible, onClose, onLoadCircuit, setNodes, setEdges }) =
     }
   };
 
+  const handleDelete = async (fileName) => {
+    // if (typeof onDeleteCircuit !== 'function') {
+    //   console.error('onDeleteCircuit is not a function.');
+    //   return;
+    // }
+  
+    if (!userId) {
+      console.error('User is not authenticated, cannot delete circuit.');
+      return;
+    }
+  
+    try {
+      // Remove the file from the workspace state (e.g., nodes and edges)
+      await deleteFromFirebase(fileName);
+     setFiles(files.filter(file => file !== fileName));
+     console.log(`Circuit "${fileName}" deleted succesfully`);
+    } catch (error) {
+      console.error('Error deleting circuit:', error);
+    }
+  };
+
   if (!shouldRender) return null;
 
   return (
@@ -100,7 +121,9 @@ const FolderSave = ({ isVisible, onClose, onLoadCircuit, setNodes, setEdges }) =
                     <button className={styles.actionButton} onClick={() => handleLoad(file)}>
                       Load
                     </button>
-                    {/* Add delete logic if required */}
+                    <button className={styles.actionButton} onClick={() => handleDelete(file)}>
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))
@@ -114,9 +137,7 @@ const FolderSave = ({ isVisible, onClose, onLoadCircuit, setNodes, setEdges }) =
           </tbody>
         </table>
       </div>
-      <button className={styles.closeButton} onClick={onClose}>
-        Close
-      </button>
+      
     </div>
   );
 };

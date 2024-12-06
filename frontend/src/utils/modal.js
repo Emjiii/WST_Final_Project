@@ -49,3 +49,6 @@ export const showSaveImageCircuitModal = (defaultValue, callback) => {
     createModal('Save Circuit as Image', '', callback, defaultValue);
 };
 
+export const showSaveOnlineModal = (callback) => {
+    createModal('Save file online', 'Enter a filename for your circuit', callback);
+};

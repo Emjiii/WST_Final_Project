@@ -52,6 +52,7 @@
 }
 
 .modalButton.saveFileBtn,
+.modalButton.saveOnline,
 .modalButton.saveImageBtn {
   @apply bg-gradient-to-r from-[#0022FF] to-[#006FFC] 
          text-white shadow-sm 

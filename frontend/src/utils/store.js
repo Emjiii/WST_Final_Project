@@ -1,6 +1,8 @@
-import { get, set, ref } from "firebase/database";
+import { get, set, ref, remove } from "firebase/database";
 import { db, auth } from "../components/auth/firebase/firebaseConfig";
 import { Position, StepEdge } from "@xyflow/react";
+import { showSaveOnlineModal} from './modal'; // Import the modal function
+
 
 
 const sanitizeData = (data) => {
@@ -32,21 +34,22 @@ export const saveToFireBase = async (getNodes, getEdges) => {
         timestamp: new Date().toISOString(),
     };
 
-        // Prompt user for a filename
-    const filename = prompt('Enter a filename for your circuit:');
-    if (!filename) {
-        console.log("Save operation canceled. Filename is required.");
-        return;
-    }
-    
-    try {
-        // Define the path in the database where the circuit will be saved
-        const dbRef = ref(db, `circuits/${userId}/${filename}`);
-        await set(dbRef, circuitData);
-        console.log(`Circuit saved to database with filename: ${filename}`);
-    } catch (error) {
-        console.error("Error saving circuit to database:", error);
-    }
+    // Call the modal for filename input
+    showSaveOnlineModal(async (filename) => { // Use your new modal function
+        if (!filename) {
+            console.log("Save operation canceled. Filename is required.");
+            return;
+        }
+
+        try {
+            // Define the path in the database where the circuit will be saved
+            const dbRef = ref(db, `circuits/${userId}/${filename}`);
+            await set(dbRef, circuitData);
+            console.log(`Circuit saved to database with filename: ${filename}`);
+        } catch (error) {
+            console.error("Error saving circuit to database:", error);
+        }
+    });
 };
 
 
@@ -70,8 +73,8 @@ export const loadFromFirebase = async (userId, fileName, setNodes, setEdges) => 
                     ...node.data,
                     value: node.data.value || false, // Default to false if undefined
                     setValue: (newValue) => {
-                        setNodes((prevNodes) =>
-                            prevNodes.map((n) => {
+                        setNodes((prevNodes) => {
+                            const updatedNodes = prevNodes.map((n) => {
                                 if (n.id === node.id) {
                                     return {
                                         ...n,
@@ -82,14 +85,18 @@ export const loadFromFirebase = async (userId, fileName, setNodes, setEdges) => 
                                     };
                                 }
                                 return n;
-                            })
-                        );
+                            });
+            
+                            // Only update state if the new nodes are different from the previous ones
+                            return JSON.stringify(prevNodes) !== JSON.stringify(updatedNodes) ? updatedNodes : prevNodes;
+                        });
                     },
                 },
             }));
+            
 
             setNodes(updatedNodes);
-            setEdges(edges || []);
+            setEdges(edges);
             console.log("Circuit loaded and nodes updated.");
         } else {
             console.log("No circuit found for this user and file name.");
@@ -129,3 +136,27 @@ export const listUserFiles = async () => {
         return [];
     }
 }
+
+
+export const deleteFromFirebase = async (fileName) => {
+    const userId = auth.currentUser ? auth.currentUser.uid : null;
+
+    if (!userId) {
+        console.error("User not authenticated. Cannot delete.");
+        return;
+    }
+
+    if (!fileName) {
+        console.error("File name is required to delete file.");
+        return;
+    }
+
+    try {
+        const dbRef = ref(db,`circuits/${userId}/${fileName}`);
+        await remove(dbRef);
+        return true;
+        // console.log(`File '${fileName}' successfully deleted.`);
+    } catch (error) {
+        console.error("Error deleting file:", error);
+    }
+};

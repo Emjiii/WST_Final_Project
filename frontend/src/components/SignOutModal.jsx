@@ -3,7 +3,8 @@ import { useAuth } from "./auth/authContext"
 import { doSignOut } from "./auth/firebase/auth";
 
 const SignOutModal = ({ isOpen, onClose }) => {
-  const { userLoggedIn } = useAuth();
+
+  const { currentUser } = useAuth();
 
   if (!isOpen) return null;
 
@@ -19,16 +20,36 @@ const SignOutModal = ({ isOpen, onClose }) => {
     }
   };
 
+
+
   return (
     <div className="modal-overlay">
       <div className="modal-signout-content">
-        <button className="close-button" onClick={onClose}>×</button>
-          <div className="logged-in-view">
-            <h2>Hi User! You are currently logged in.</h2>
-            <button className="sign-out-button" onClick={handleLogOut}>
-              Sign Out
-            </button>
+        <button className="close-button" onClick={onClose}>
+          ×
+        </button>
+        <div className="modal-body">
+          {/* Neutral gender avatar */}
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
+            alt="Neutral Avatar"
+            className="avatar"
+          />
+          <div>
+            <h2 className="modal-title">
+              Hi {currentUser?.username || "User"}!
+            </h2>
+            <p className="modal-text">
+              You are currently logged in.
+            </p>
           </div>
+        </div>
+        <button
+          className="sign-out-button"
+          onClick={handleLogOut}
+        >
+          Sign Out
+        </button>
       </div>
     </div>
   );

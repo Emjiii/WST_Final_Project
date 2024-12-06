@@ -130,7 +130,7 @@ const FlowCanvas = () => {
                     y: window.innerHeight / 2 - 70
                 },
                 data: { label: `${nodeData.toUpperCase()} Gate`,
-                value: null, 
+                value: false, 
                 setValue: (newValue) => {
                     if (setNodes) {
                         setNodes((nds) =>
@@ -159,14 +159,32 @@ const FlowCanvas = () => {
         }
     }, [nodes.length, setNodes]);
 
+  const handleTruthTableClick = () => {
+    // Close the folder if it's open
+    if (showFolder) {
+      setShowFolder(false);
+    }
+    // Toggle the truth table
+    setShowTruthTable(prev => !prev);
+  };
+
+  const handleFolderClick = () => {
+    // Close the truth table if it's open
+    if (showTruthTable) {
+      setShowTruthTable(false);
+    }
+    // Toggle the folder
+    setShowFolder(prev => !prev);
+  };
+
   return (
     <div className="flow-wrapper">
       <Header 
         addGateNode={addGateNode} 
         isDarkMode={isDarkMode} 
         setIsDarkMode={setIsDarkMode}
-        onTruthTableClick={() => setShowTruthTable(prev => !prev)}
-        onFolderClick={() => setShowFolder(prev => !prev)}
+        onTruthTableClick={handleTruthTableClick} // Use the updated function
+        onFolderClick={handleFolderClick} // Use the updated function
         getNodes={() => nodes} 
         getEdges={() => edges} 
         setNodes={setNodes}
@@ -226,11 +244,13 @@ const FlowCanvas = () => {
           ))}
         </ReactFlow>
         <TruthTable 
+          className={`truth-table ${showTruthTable ? '' : 'hidden'}`}
           isVisible={showTruthTable}
           nodes={nodes}
           edges={edges}
         />
         <FolderSave 
+          className={`folder-save ${showFolder ? '' : 'hidden'}`}
           isVisible={showFolder}
           onClose={() => setShowFolder(false)}
           nodes={nodes}
