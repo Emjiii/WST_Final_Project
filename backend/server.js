@@ -1,14 +1,47 @@
 const express = require('express');
+const WebSocket = require('ws');
+const http = require('http');
+const path = require('path');
 const cors = require('cors');
 const gateRoutes = require('./src/gates/gateRoutes');
 const truthTableRoutes = require('./src/truthTable/truthTableRoutes');
+
 const app = express();
+app.use(express.static(path.join(__dirname, "public")));
 const PORT = 3000;
 
 app.use(cors());
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+
+const server = http.createServer(app);
+
+const wss = new WebSocket.Server({ server });
+
+//====================================================================
+
+wss.on("connection", (ws) => {
+    console.log("New client connected");
+  
+    ws.on("message", (data) => {
+      console.log("Received:", data);
+  
+      // Broadcast the file to all connected clients
+      wss.clients.forEach((client) => {
+        if (client !== ws && client.readyState === WebSocket.OPEN) {
+          client.send(data);
+        }
+      });
+    });
+  
+    ws.on("close", () => {
+      console.log("Client disconnected");
+    });
+  });
+
+  //====================================================================
 
 // In-memory storage for power switch states
 let powerSwitchStates = {};
