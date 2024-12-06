@@ -66,6 +66,16 @@ const LoginForm = ({ onSwitchToSignup, onLogInSuccess }) => {
         <button type="submit" className="auth-submit-button" disabled={isLoading}>
           {isLoading ? 'Logging In...' : 'Login'}
         </button>
+
+        <p className="auth-forgot">
+          <button 
+            type="button" 
+            className="forgot-button"
+            onClick={onSwitchToSignup} //to change for forgot password
+            >
+           Forgot Password
+          </button>
+        </p>
         
         <p className="auth-switch">
           Don't have an account?{' '}

@@ -649,6 +649,10 @@ body {
   width: 100%;
 }
 
+.modal-form{
+  @apply px-3;
+}
+
 .avatar {
   @apply w-20 h-20 rounded-full border border-[rgba(0,245,212,0.2)] shadow-md;
   filter: brightness(0) invert(1); /* This will make the image white */
@@ -696,7 +700,7 @@ body {
 
 
 .auth-tabs {
-  @apply flex gap-4 mb-6 p-1.5 rounded-2xl mx-auto
+  @apply flex gap-4 mt-6 mb-6 p-1.5 rounded-2xl mx-auto
          w-full sm:w-[80%]
          bg-[rgba(0,245,212,0.05)] border border-[rgba(0,245,212,0.1)]
          relative;
@@ -746,7 +750,7 @@ body {
 }
 
 .form-group {
-  @apply mt-0;
+  @apply mt-2 ;
   @apply md:mt-3;
 }
 
@@ -757,7 +761,7 @@ body {
 }
 
 .form-input {
-  @apply w-full px-4 py-3;
+  @apply w-full px-4 py-6;
   @apply bg-[rgba(255,255,255,0.05)]
          rounded-xl border-2 border-[rgba(0,245,212,0.1)]
          text-white placeholder-white/30
@@ -798,12 +802,15 @@ body {
   @apply opacity-100;
 }
 
-.auth-switch {
+.auth-switch{
   @apply text-sm text-center mt-4 text-white/70;
   font-family: var(--font-display);
 }
-
-.switch-button {
+.auth-forgot{
+  @apply text-sm text-center mt-7 text-white/70;
+  font-family: var(--font-display);
+}
+.switch-button,.forgot-button {
   @apply font-medium text-[#00F5D4]
          transition-all duration-200 ml-1
          relative;
@@ -824,8 +831,22 @@ body {
   @apply transform scale-95 brightness-75;
 }
 
+.forgot-button::after {
+  content: '';
+  @apply absolute left-0 bottom-0 w-0 h-[2px]
+         bg-[#00F5D4] transition-all duration-200;
+}
+
+.forgot-button:active {
+  @apply transform scale-95 brightness-75;
+}
+
+.forgot-button:hover::after {
+  @apply w-full;
+}
+
 .close-button {
-  @apply absolute top-3 right-4
+  @apply absolute top-2 right-4
          text-2xl font-light z-10
          text-white/50 hover:text-white
          transition-colors duration-200;
