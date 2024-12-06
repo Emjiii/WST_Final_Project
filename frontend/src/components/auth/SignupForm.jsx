@@ -10,6 +10,7 @@ const SignupForm = ({ onSwitchToLogin, onClose }) => {
 
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleSigningIn, setIsGoogleSigningIn] = useState(false); // State for Google sign-in
   
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -46,7 +47,7 @@ const SignupForm = ({ onSwitchToLogin, onClose }) => {
     }
 
     setIsRegistering(true);
-    setIsLoading(true);  // Set loading to true before making any request
+    setIsLoading(true);  // Set loading to true for sign-up
 
     setErrorMessage('');
 
@@ -56,38 +57,41 @@ const SignupForm = ({ onSwitchToLogin, onClose }) => {
       await saveUserToDatabase(userId, email, username); // Save username and email to the database
       console.log('Account created successfully.');
 
-      
-
       navigate('/workspace'); 
     } catch (error) {
       console.error('Error creating account:', error);
       setErrorMessage(getErrorMessage(error.code));
-
     } finally {
       setIsRegistering(false);
-      setIsLoading(false);
+      setIsLoading(false); // Reset loading state for sign-up
     }
   };
 
   const onGoogleSignIn = async (e) => {
     e.preventDefault();
   
+    setIsGoogleSigningIn(true); // Set Google sign-in loading state
+    setIsLoading(false); // Ensure sign-up loading state is false
+
     try {
-      setIsLoading(true); // Show loading state
       const result = await doSignInWithGoogle(); // Perform Google Sign-In
-      const user = result.user;
+      
+      // Check if the sign-in was successful
+      if (result && result.user) {
+        const user = result.user;
   
-      // Optionally save additional user data to the database
-      const userId = user.uid;
-      await saveUserToDatabase(userId, user.email, user.displayName || "Google User");
+        // Optionally save additional user data to the database
+        const userId = user.uid;
+        await saveUserToDatabase(userId, user.email, user.displayName || "Google User");
   
-      console.log("Google Sign-In successful.");
-      navigate('/workspace'); // Redirect to workspace
+        console.log("Google Sign-In successful.");
+        navigate('/workspace'); // Redirect to workspace
+      }
     } catch (error) {
       console.error("Error during Google Sign-In:", error);
-      setErrorMessage(error.message);
+      setErrorMessage(getErrorMessage(error.code)); // Use getErrorMessage for error handling
     } finally {
-      setIsLoading(false); // Hide loading state
+      setIsGoogleSigningIn(false); // Mark Google sign-in as no longer in progress
     }
   };  
 
@@ -158,11 +162,11 @@ const SignupForm = ({ onSwitchToLogin, onClose }) => {
 
       <button 
         type="button" 
-        className={`auth-submit-button ${isLoading ? 'loading' : ''}`}
-        disabled={isLoading}
+        className={`auth-submit-button ${isGoogleSigningIn ? 'loading' : ''}`} // Use new state here
+        disabled={isGoogleSigningIn} // Disable if Google sign-in is in progress
         onClick={onGoogleSignIn}
       >
-        {isLoading ? 'Creating Account...' : 'Sign in with Google'}
+        {isGoogleSigningIn ? 'Signing in with Google...' : 'Sign in with Google'}
       </button>
       
       <p className="auth-switch">

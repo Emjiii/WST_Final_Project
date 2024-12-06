@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon, FolderIcon, DropdownIcon } from './icons/HeaderIcons';
+import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon, FolderIcon, DropdownIcon} from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
 import SaveButton from './SaveButton';
 import '../styles/header.css';
@@ -82,6 +82,7 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, onF
                   <div 
                     className={`dropdown-menu ${isDropdownOpen ? 'open' : ''} ${isDarkMode ? 'dark-mode' : ''}`}
                   >
+                    
                     <button 
                       className="header-button"
                       aria-label="Open Folder"
@@ -138,6 +139,7 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, onF
                 </>
               )  : (
                 <>
+                  
                   <button 
                     className="header-button"
                     aria-label="Open Folder"
