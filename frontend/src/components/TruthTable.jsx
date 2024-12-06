@@ -4,6 +4,7 @@ import styles from '../styles/TruthTable.module.css';
 import { useDarkMode } from '../utils/useDarkMode';
 
 const TruthTable = ({ isVisible, nodes, edges }) => {
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
   const [isDarkMode] = useDarkMode();
   const [isExiting, setIsExiting] = useState(false);
   const [shouldRender, setShouldRender] = useState(isVisible);
@@ -47,7 +48,7 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
         return node;
       });
   
-      const response = await axios.post('http://localhost:3000/truth-table/circuit', { 
+      const response = await axios.post(`${backendURL}/truth-table/circuit`, { 
         nodes: processedNodes,
         edges: memoizedEdges
       }, {
@@ -55,6 +56,7 @@ const TruthTable = ({ isVisible, nodes, edges }) => {
         timeout: 5000
       });
   
+   
       const truthTable = response.data;
   
       if (truthTable && truthTable.length > 0) {
