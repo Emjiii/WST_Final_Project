@@ -34,7 +34,6 @@ app.get('/', (req, res) => {
 app.use('/gates', gateRoutes);
 app.use('/truth-table', truthTableRoutes);
 
-app.post('/truth-table/circuit', truthTableRoutes);
 
 // Endpoint to get the current state of a power switch
 app.get('/api/power-switch/:id', (req, res) => {
