@@ -3,6 +3,7 @@ import {Navigate, Link} from 'react-router-dom'
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "./firebase/auth";
 import { useAuth } from "./authContext";
 import { getErrorMessage } from '../../utils/getErrorMessage';
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 const LoginForm = ({ onSwitchToSignup, onLogInSuccess }) => {
   const {userLoggedIn} = useAuth()
@@ -11,6 +12,7 @@ const LoginForm = ({ onSwitchToSignup, onLogInSuccess }) => {
   const [password, setPassword] = useState('');
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false); // Added loading state
 
 
@@ -28,6 +30,28 @@ const LoginForm = ({ onSwitchToSignup, onLogInSuccess }) => {
     } finally {
         setIsLoading(false); // Stop loading regardless of success or failure
     }
+};
+
+const handleForgotPassword = async () => {
+  if(!email) {
+    setErrorMessage('Enter email address first.');
+    return;
+  }
+  setIsLoading(true);
+  setErrorMessage('');
+  setSuccessMessage('');
+
+  try {
+    const auth = getAuth();
+    await sendPasswordResetEmail(auth, email);
+    setSuccessMessage('Password reset email sent!');
+    setPassword('');
+  } catch (error) {
+    setErrorMessage(getErrorMessage(error.code));
+    console.error('Error sending reset email for reset:', error);
+  } finally {
+    setIsLoading(false);
+  }
 };
 
   return (
@@ -71,7 +95,7 @@ const LoginForm = ({ onSwitchToSignup, onLogInSuccess }) => {
           <button 
             type="button" 
             className="forgot-button"
-            onClick={onSwitchToSignup} //to change for forgot password
+            onClick={handleForgotPassword} //to change for forgot password
             >
            Forgot Password
           </button>
