@@ -100,10 +100,6 @@
   @apply mt-2 text-gray-800;
 }
 
-.share-file-modal-uploading {
-  @apply mt-2 text-orange-500;
-}
-
 .share-file-modal-button {
   @apply py-2 sm:py-3 md:py-4 
          px-3 sm:px-4 md:px-6 
@@ -123,6 +119,10 @@
 
 .share-file-modal-close-button {
   @apply absolute top-2 right-2 bg-transparent border-none cursor-pointer text-gray-600 hover:text-gray-800;
+}
+
+.dark .share-file-modal-close-button{
+  @apply text-gray-600 hover:text-slate-100;
 }
 
 /* Dark mode adjustments */

@@ -5,9 +5,9 @@ import styles from "../../../styles/LogicComponents/outputs/RgbLedOutput.module.
 const RgbLedOutput = ({ data, isConnectable, id }) => {
     const [isLit, setIsLit] = useState(true);
 
-    useEffect(() => {
+    /*useEffect(() => {
         setIsLit(Boolean(data?.value));
-    }, [data?.value]);
+    }, [data?.value]);*/
 
     return (
         <div className={styles.container}>
