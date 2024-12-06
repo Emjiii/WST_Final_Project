@@ -2,16 +2,16 @@
   @apply fixed inset-0 bg-[rgba(0,20,47,0.85)] flex justify-center items-center z-10;
   backdrop-filter: blur(12px);
   animation: fadeIn 0.2s ease-out;
-  overflow: auto; /* Add scrolling if content overflows */
-  max-height: 100vh; /* Ensure it doesn't exceed viewport height */
+  overflow: auto; 
+  max-height: 100vh; 
 }
 
 .share-file-modal-content {
   @apply bg-slate-50 rounded-xl p-6 max-w-[90%] sm:max-w-[600px] text-center relative mx-auto shadow-lg;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  width: fit-content; /* Adjust width to content */
-  box-sizing: border-box; /* Include padding and border in width calculation */
-  resize: both; /* Allow resizing */
+  width: fit-content; 
+  box-sizing: border-box; 
+  resize: both; 
 }
 
 /* Dark mode adjustments */
@@ -39,17 +39,27 @@
          border-b-2 border-[rgba(0,111,252,0.1)];
 }
 
-.email-input-container {
+.email-input-container, .subject-input-container {
   @apply flex items-center;
 }
 
 .email-label {
-  @apply mr-2 font-bold mb-4 text-white text-lg bg-blue-500 py-1 px-2 rounded shadow-md;
+  @apply mr-2 font-bold mb-4 text-white text-lg bg-blue-500 py-1 px-3 rounded;
   line-height: 1;
+  @apply shadow-md;
+  @apply shadow-slate-500;
+}
+
+.subject-label {
+  @apply mr-2 font-bold mb-4 text-white text-lg bg-blue-500 py-3 px-2 rounded shadow-md;
+  line-height: 1;
+  @apply shadow-md;
+  @apply shadow-slate-500;
 }
 
 .share-file-modal-email,
 .share-file-modal-input-area,
+.share-file-modal-subject,
 .share-file-modal-textarea {
   @apply w-full mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-display;
   transition: border-color 0.3s, box-shadow 0.3s;
@@ -73,12 +83,14 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.dark .share-file-modal-input-area{
+.dark .share-file-modal-input-area,
+.dark .share-file-modal-subject{
   color: white;
 }
 
 .share-file-modal-input:focus,
 .share-file-modal-input-area:focus,
+.share-file-modal-subject:focus,
 .share-file-modal-textarea:focus {
   @apply border-blue-500;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
@@ -116,6 +128,7 @@
 /* Dark mode adjustments */
 .dark .share-file-modal-email,
 .dark .share-file-modal-input-area,
+.dark .share-file-modal-subject,
 .dark .share-file-modal-textarea {
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -124,53 +137,7 @@
 
 .dark .share-file-modal-email:focus,
 .dark .share-file-modal-input-area:focus,
+.dark .share-file-modal-subject:focus,
 .dark .share-file-modal-textarea:focus {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.7);
 }
-
-/* Loader Overlay */
-.loader-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999; /* Ensure it's above other elements */
-}
-
-/* Loader Animation */
-.loader {
-  width: 60px;
-  height: 25px;
-  border: 2px solid;
-  box-sizing: border-box;
-  border-radius: 50%;
-  display: grid;
-  animation: l2 2s infinite linear;
-}
-
-.loader:before,
-.loader:after {
-  content: '';
-  grid-area: 1/1;
-  border: inherit;
-  border-radius: 50%;
-  animation: inherit;
-  animation-duration: 3s;
-}
-
-.loader:after {
-  --s: -1;
-}
-
-@keyframes l2 {
-  100% {
-    transform: rotate(calc(var(--s, 1) * 1turn));
-  }
-}
-
-

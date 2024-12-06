@@ -8,6 +8,7 @@ const ShareFileModal = ({ isOpen, onClose }) => {
   const [message, setMessage] = useState('');
   const [uploading, setUploading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [subject, setSubject] = useState('');
 
   const handleShare = (e) => {
     e.preventDefault();
@@ -17,6 +18,7 @@ const ShareFileModal = ({ isOpen, onClose }) => {
       console.log("Sharing file with:", email);
       console.log("Selected file:", file);
       console.log("Message:", message);
+      console.log("Subject:", subject);
       setIsLoading(false);
       setUploading(false);
       onClose();
@@ -43,7 +45,7 @@ const ShareFileModal = ({ isOpen, onClose }) => {
           )}
           <form onSubmit={handleShare}>
             <div className="email-input-container">
-              <label className="email-label">Send to:</label>
+              <label className="email-label">Send To</label>
               <input
                 type="email"
                 placeholder="Enter recipient's email"
@@ -53,12 +55,24 @@ const ShareFileModal = ({ isOpen, onClose }) => {
                 className="share-file-modal-email"
               />
             </div>
+            <div className="subject-input-container">
+              <label className="subject-label">Subject</label>
+              <input
+                type="text"
+                placeholder="Enter subject"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                required
+                className="share-file-modal-subject"
+              />
+            </div>
             <input
               type="file"
               onChange={handleFileChange}
               required
               className="share-file-modal-input-area"
             />
+            
             <textarea
               placeholder="Write a message to accompany your file..."
               value={message}
