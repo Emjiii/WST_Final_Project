@@ -47,35 +47,32 @@ export const NandGate = ({ isConnectable, id, data }) => {
 
     // Calculate output and propagate changes
     useEffect(() => {
-        if (input1 !== null && input2 !== null) {
-            const newOutput = !(Boolean(input1) && Boolean(input2)); // NAND logic
-            setOutput(newOutput);
-    
-            if (data?.setValue) {
-                data.setValue(newOutput);
-            }
-    
-            const nandGateState = async () => {
-                try {
-                    await axios.post('http://localhost:3000/gates/nand', {
-                        input1,
-                        input2,
-                        output: newOutput,
-                    });
-                    console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
-                } catch (error) {
-                    console.error('Error syncing with backend:', error);
-                }
-            };
-    
-            nandGateState();
-            console.log('Inputs:', input1, input2, 'Output:', newOutput);
-        } else {
-            setOutput(null); // Output remains null until all inputs are connected
-            console.log('Incomplete Inputs, Output set to null');
+        const areBothInputsConnected = input1 !== null && input2 !== null;
+        const newOutput = areBothInputsConnected ? !(Boolean(input1) && Boolean(input2)) : false;
+         // NAND logic
+        setOutput(newOutput);
+
+        if (data?.setValue) {
+            data.setValue(newOutput);
         }
-    }, [input1, input2, data]);
-    
+
+        const nandGateState = async () => {
+            try {
+                await axios.post('http://localhost:3000/gates/nand', {
+                    input1,
+                    input2,
+                    output: newOutput,
+                });
+                console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
+            } catch (error) {
+                console.error('Error syncing with backend:', error);
+            }
+        };
+
+        nandGateState();
+        console.log('Inputs:', input1, input2, 'Output:', newOutput);
+}, [input1, input2, data]);
+
 
     return (
         <div className={`${styles.gateContainer} ${nandStyles.nandGate}`}>

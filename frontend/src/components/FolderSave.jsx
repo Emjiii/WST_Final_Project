@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/FolderPanel.module.css';
 import { useDarkMode } from '../utils/useDarkMode';
 import { auth } from './auth/firebase/firebaseConfig';
-import { listUserFiles, loadFromFirebase } from '../utils/store';
+import { listUserFiles, loadFromFirebase, deleteFromFirebase } from '../utils/store';
 
 const FolderSave = ({ isVisible, onClose, onLoadCircuit, setNodes, setEdges }) => {
   const [isDarkMode] = useDarkMode();
@@ -71,10 +71,10 @@ const FolderSave = ({ isVisible, onClose, onLoadCircuit, setNodes, setEdges }) =
   };
 
   const handleDelete = async (fileName) => {
-    if (typeof onDeleteCircuit !== 'function') {
-      console.error('onDeleteCircuit is not a function.');
-      return;
-    }
+    // if (typeof onDeleteCircuit !== 'function') {
+    //   console.error('onDeleteCircuit is not a function.');
+    //   return;
+    // }
   
     if (!userId) {
       console.error('User is not authenticated, cannot delete circuit.');
@@ -83,15 +83,11 @@ const FolderSave = ({ isVisible, onClose, onLoadCircuit, setNodes, setEdges }) =
   
     try {
       // Remove the file from the workspace state (e.g., nodes and edges)
-      setNodes(prevNodes => prevNodes.filter(node => node.fileName !== fileName)); // Adjust based on your state structure
-      setEdges(prevEdges => prevEdges.filter(edge => edge.fileName !== fileName)); // Adjust based on your state structure
-      
-      // Optionally, you can notify the parent component that the circuit was deleted
-      onDeleteCircuit(fileName); // Notify parent that the file was deleted from workspace
-  
-      console.log(`Circuit file "${fileName}" removed from workspace.`);
+      await deleteFromFirebase(fileName);
+     setFiles(files.filter(file => file !== fileName));
+     console.log(`Circuit "${fileName}" deleted succesfully`);
     } catch (error) {
-      console.error('Error deleting circuit from workspace:', error);
+      console.error('Error deleting circuit:', error);
     }
   };
 

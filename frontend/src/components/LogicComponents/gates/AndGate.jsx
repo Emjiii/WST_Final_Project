@@ -6,9 +6,9 @@ import andStyles from "../../../styles/LogicComponents/gates/AndGate.module.css"
 
 export const AndGate = ({ isConnectable, id, data }) => {
 
-    const [input1, setInput1] = useState(null);
-    const [input2, setInput2] = useState(null);
-    const [output, setOutput] = useState(null);
+    const [input1, setInput1] = useState(false);
+    const [input2, setInput2] = useState(false);
+    const [output, setOutput] = useState(false);
     const edges = useEdges();
     const nodes = useNodes();
 
@@ -46,34 +46,31 @@ export const AndGate = ({ isConnectable, id, data }) => {
     // Separate useEffect for output calculation
     useEffect(() => {
         // Convert inputs to boolean and calculate output
-        if (input1 !== null && input2 !== null) {
-            const newOutput = Boolean(input1) && Boolean(input2);
-            setOutput(newOutput);
-
-            if (data?.setValue) {
-                data.setValue(newOutput);
-            }
+        const areBothInputsConnected = input1 !== null && input2 !== null;
+        const newOutput = areBothInputsConnected ? (Boolean(input1) && Boolean(input2)) : false;
         
-            const andGateState = async () => {
-                try {
-                    await axios.post('http://localhost:3000/gates/and', {
-                        input1,
-                        input2,
-                        output: newOutput
-                    });
-                    console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
-                } catch (error) {
-                    console.error('Error syncing with backend:', error);
-                }
-            };
+        setOutput(newOutput);
 
-            andGateState();
-            
-            console.log('Inputs:', input1, input2, 'Output:', newOutput);
-        } else {
-            setOutput(null);
-            console.log('Incomplete Inputs, Output set to null');
+        if (data?.setValue) {
+            data.setValue(newOutput);
         }
+    
+        const andGateState = async () => {
+            try {
+                await axios.post('http://localhost:3000/gates/and', {
+                    input1,
+                    input2,
+                    output: newOutput
+                });
+                console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
+            } catch (error) {
+                console.error('Error syncing with backend:', error);
+            }
+        };
+
+        andGateState();
+        
+        console.log('Inputs:', input1, input2, 'Output:', newOutput);
     }, [input1, input2, data]);
 
     return (

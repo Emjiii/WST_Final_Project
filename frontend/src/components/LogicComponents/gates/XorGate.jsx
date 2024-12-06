@@ -43,34 +43,30 @@ export const XorGateCanvas = ({ isConnectable, id, data }) => {
     }, [edges, nodes, id]);
 
     useEffect(() => {
-        if (input1 !== null && input2 !== null) {
-            const newOutput = Boolean(input1) !== Boolean(input2);
-            setOutput(newOutput);
+        const areBothInputsConnected = input1 !== null && input2 !== null;
+        const newOutput = areBothInputsConnected ? (Boolean(input1) !== Boolean(input2)) : false;
+        setOutput(newOutput);
 
-            if (data?.setValue) {
-                data.setValue(newOutput);
-        }
+        if (data?.setValue) {
+            data.setValue(newOutput);
+    }
 
-        const xorGateState = async () => {
-            try {
-                await axios.post('http://localhost:3000/gates/xor', {
-                    input1,
-                    input2,
-                    output: newOutput
-                });
-                console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
-                } catch (error) {
-                    console.error('Error syncing with backend:', error);
-                }
-            };
+    const xorGateState = async () => {
+        try {
+            await axios.post('http://localhost:3000/gates/xor', {
+                input1,
+                input2,
+                output: newOutput
+            });
+            console.log('Backend Sync Successful:', { input1, input2, output: newOutput });
+            } catch (error) {
+                console.error('Error syncing with backend:', error);
+            }
+        };
 
-            xorGateState();
-            console.log('Inputs:', input1, input2, 'Output:', newOutput);
-        } else {
-            setOutput(null);
-            console.log('Incomplete Inputs, Output set to null');
-        }
-    }, [input1, input2, data]);
+        xorGateState();
+        console.log('Inputs:', input1, input2, 'Output:', newOutput);
+}, [input1, input2, data]);
 
      return (
         <div className={`${styles.gateContainer} ${xorStyles.xorGate}`}>

@@ -29,34 +29,31 @@ export const NotGateCanvas = ({ isConnectable, id, data }) => {
     }, [edges, nodes, id]);
 
     useEffect(() => {
-        if (input !== null) {
-            const newOutput = !Boolean(input)
-            setOutput(newOutput);
+        const isInputConnected = input !== null;
+        const newOutput = isInputConnected ? !Boolean(input) : false;
         
-            if (data?.setValue) {
-                data.setValue(newOutput);
-            }
-
-            const notGateState = async () => {
-                try {
-                    await axios.post('http://localhost:3000/gates/not', {
-                        input,
-                        output: newOutput
-                    });
-                    console.log('Backend Sync Successful:', { input, output: newOutput });
-                } catch (error) {
-                    console.error('Error syncing with backend:', error);
-                }
-            };
-
-            notGateState();
-            console.log('Input:', input, 'Output:', newOutput);
-        } else {
-            setOutput(null);
-            console.log('Incomplete Inputs, Output set to null');
+        setOutput(newOutput);
+    
+        if (data?.setValue) {
+            data.setValue(newOutput);
         }
-    }, [input, data]);
-        
+
+        const notGateState = async () => {
+            try {
+                await axios.post('http://localhost:3000/gates/not', {
+                    input,
+                    output: newOutput
+                });
+                console.log('Backend Sync Successful:', { input, output: newOutput });
+            } catch (error) {
+                console.error('Error syncing with backend:', error);
+            }
+        };
+
+        notGateState();
+        console.log('Input:', input, 'Output:', newOutput);
+}, [input, data]);
+    
 
     return (
         <div className={`${styles.gateContainer} ${notStyles.notGate}`}>
