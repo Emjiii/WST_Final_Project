@@ -29,7 +29,6 @@ import InputSwitch from '../components/LogicComponents/inputs/InputSwitch';
 // Output components
 import PushButton from '../components/LogicComponents/inputs/PushButton';
 import LedOutput from '../components/LogicComponents/outputs/LedOutput';
-import RgbLedOutput from '../components/LogicComponents/outputs/RgbLedOutput';
 import SpeakerOutput from '../components/LogicComponents/outputs/SpeakerOutput';
 import ControlPanel from './ControlPanel';
 
@@ -51,7 +50,6 @@ const nodeTypes = {
   inputNode: InputSwitch,
   inputButton: PushButton,
   ledOutput: LedOutput,
-  rgbLedOutput: RgbLedOutput,
   speakerOutput: SpeakerOutput,
 }
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon, FolderIcon, DropdownIcon,ShareIcon } from './icons/HeaderIcons';
+import { TableIcon, SunIcon, MoonIcon, MenuIcon, SaveIcon, ImportIcon, FolderIcon, DropdownIcon} from './icons/HeaderIcons';
 import LogicGateDrawer from './LogicGateDrawer';
 import SaveButton from './SaveButton';
 import '../styles/header.css';
@@ -8,7 +8,6 @@ import { saveCircuit, saveCircuitAsImage, importCircuit } from '../utils/circuit
 import { useAuth } from "./auth/authContext";
 import AuthModal from "./AuthModal";
 import { saveToFireBase } from "../utils/store";
-import ShareFileModal from './ShareFileModal';
 
 const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, onFolderClick, getNodes, getEdges, setNodes, setEdges }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -17,7 +16,6 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, onF
   const [isModalOpen, setModalOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false); // State for dropdown
   const [isMobileView, setIsMobileView] = useState(window.innerWidth < 640); // Initial check for mobile view
-  const [isShareFileModalOpen, setShareFileModalOpen] = useState(false); // State for Share File modal
 
   useEffect(() => {
     const handleResize = () => {
@@ -84,16 +82,7 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, onF
                   <div 
                     className={`dropdown-menu ${isDropdownOpen ? 'open' : ''} ${isDarkMode ? 'dark-mode' : ''}`}
                   >
-                    <button 
-                      className="header-button"
-                      aria-label="Share Files"
-                      onClick={() => {
-                        console.log("Opening Share File Modal");
-                        setShareFileModalOpen(true);
-                      }}
-                    >
-                      <ShareIcon className="header-icon" />
-                    </button>
+                    
                     <button 
                       className="header-button"
                       aria-label="Open Folder"
@@ -150,16 +139,7 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, onF
                 </>
               )  : (
                 <>
-                  <button 
-                      className="header-button"
-                      aria-label="Share Files"
-                      onClick={() => {
-                        console.log("Opening Share File Modal");
-                        setShareFileModalOpen(true);
-                      }}
-                  >
-                      <ShareIcon className="header-icon" />
-                  </button>
+                  
                   <button 
                     className="header-button"
                     aria-label="Open Folder"
@@ -225,7 +205,6 @@ const Header = ({ addGateNode, isDarkMode, setIsDarkMode, onTruthTableClick, onF
         onClose={() => setIsDrawerOpen(false)} 
         addGateNode={addGateNode}
       />
-      <ShareFileModal isOpen={isShareFileModalOpen} onClose={() => setShareFileModalOpen(false)} />
     </>
   );
 };
