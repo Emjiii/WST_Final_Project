@@ -10,28 +10,26 @@
 }
 
 .ledDome {
-    width: 60px;
-    height: 75px;
-    border-radius: 30px 30px 6px 6px;
+    width: 80px;
+    height: 120px;
+    border-radius: 50% 50% 20% 20%;
     position: relative;
     transition: all 0.2s ease;
     z-index: 1;
 }
 
 .ledDome.lit {
-    background: linear-gradient(145deg, #ff4444, #ff2222);
+    background: linear-gradient(135deg, #ff0000, #ff9900, #33cc33, #0099ff, #9900cc, #ff0000);
     box-shadow: 
-        0 0 30px #ff444466,
-        inset 3px 3px 6px #ff6666,
-        inset -3px -3px 6px #ff2222;
+        0 0 25px rgba(255, 255, 255, 0.8),
+        inset 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .ledDome.unlit {
-    background: linear-gradient(145deg, #e8edf3, #d0d5db);
+    background: linear-gradient(145deg, #e0e0e0, #d0d0d0);
     box-shadow: 
-        inset 3px 3px 6px #ffffff,
-        inset -3px -3px 6px #bcc2c9,
-        0 3px 6px rgba(0,0,0,0.1);
+        inset 0 0 5px #ffffff,
+        inset 0 0 10px #b0b0b0;
 }
 
 .innerPattern {
@@ -53,22 +51,22 @@
 }
 
 .baseRing {
-    width: 66px;
-    height: 12px;
-    border-radius: 0 0 30px 30px;
+    width: 90px;
+    height: 20px;
+    border-radius: 50%;
     position: absolute;
-    bottom: 27px;
+    bottom: -10px;
     z-index: 2;
 }
 
 .baseRing.lit {
-    background: linear-gradient(to bottom, #ff5555, #ff3333);
-    box-shadow: 0 3px 6px #ff444444;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .baseRing.unlit {
-    background: linear-gradient(to bottom, #e8edf3, #d0d5db);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    background: linear-gradient(to bottom, #e0e0e0, #c0c0c0);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 
 .legsContainer {

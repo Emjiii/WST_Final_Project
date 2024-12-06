@@ -1,0 +1,70 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    perspective: 800px; /* Added perspective for 3D effect */
+  }
+  
+  .handle {
+    position: absolute;
+    top: -15px; /* Position the handle above the disco ball */
+    left: 50%;
+    transform: translateX(-50%); /* Center the handle */
+    z-index: 2; /* Ensure the handle is above the disco ball */
+  }
+  
+  .discoBall {
+    width: 150px; /* Width of the disco ball */
+    height: 150px; /* Height of the disco ball */
+    border-radius: 50%; /* Fully rounded for disco ball effect */
+    position: relative;
+    transition: background-color 0.5s ease; /* Smooth transition for color change */
+    z-index: 1;
+    overflow: hidden; /* To contain inner glow */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Enhanced shadow for depth */
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)); /* Base color for disco ball */
+  }
+  
+  .gridOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d; /* Enable 3D transformations */
+  }
+  
+  .gridLine {
+    position: absolute;
+    width: 2px; /* Width of the grid lines */
+    background: rgba(255, 255, 255, 0.5); /* Color of the grid lines */
+    transform-origin: 50% 100%; /* Center the rotation */
+  }
+  
+  .horizontalLine {
+    height: 100%; /* Height of the horizontal grid lines */
+  }
+  
+  .verticalLine {
+    height: 100%; /* Height of the vertical grid lines */
+  }
+  
+  .innerGlow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%; /* Size of the inner glow */
+    height: 90%; /* Size of the inner glow */
+    border-radius: 50%; /* Fully rounded for inner glow */
+    background: rgba(255, 255, 255, 0.3); /* Glow effect */
+    transform: translate(-50%, -50%); /* Center the inner glow */
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.7), 0 0 60px rgba(255, 255, 255, 0.5); /* Enhanced glow shadow */
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotateY(0deg) rotateX(0deg);
+    }
+    to {
+      transform: rotateY(360deg) rotateX(0deg);
+    }
+  }
