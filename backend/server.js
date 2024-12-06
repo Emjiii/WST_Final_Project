@@ -5,6 +5,8 @@ const truthTableRoutes = require('./src/truthTable/truthTableRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json());
+
 const allowedOrigins = [
     'https://logic-gate-simulator-31edb.web.app', // Production frontend
     'http://localhost:5173', // Development frontend
