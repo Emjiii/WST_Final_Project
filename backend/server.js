@@ -5,9 +5,23 @@ const truthTableRoutes = require('./src/truthTable/truthTableRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: 'https://logic-gate-simulator-31edb.web.app', // Replace with your frontend URL
-}));
+const allowedOrigins = [
+    'https://logic-gate-simulator-31edb.web.app', // Production frontend
+    'http://localhost:5173', // Development frontend
+  ];
+  
+  app.use(cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+  
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+  }));
 
 // In-memory storage for power switch states
 let powerSwitchStates = {};
