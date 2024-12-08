@@ -7,7 +7,6 @@ A web-based logic gates simulator that allows users to visualize and interact wi
 1. [Project Overview](#project-overview)
 2. [System Architecture](#system-architecture)
 3. [Applied Computer Science Concept](#applied-computer-science-concept)
-   - [Logic Gates](#logic-gates)
 4. [Algorithms Used](#algorithms-used)
 5. [Security Mechanisms](#security-mechanisms)
 6. [Development Process and Design Decisions](#development-process-and-design-decisions)
@@ -47,7 +46,7 @@ The system follows a modular architecture comprising:
 
 ## Applied Computer Science Concept
 
-**Logic Gates**
+### Logic Gates
 
 Logic gates are the fundamental building blocks of digital circuits, acting as tiny decision-makers that process binary information. They operate on binary inputs (0 or 1) and produce a binary output based on specific logical rules.  
 Key features include:
@@ -57,6 +56,7 @@ Key features include:
 - Truth table generation for custom circuits
 - User account system for saving and sharing designs
 
+**Gates**
 - **AND**: Output is 1 only if all inputs are 1
 - **OR**: Output is 1 if at least one input is 1
 - **NOT**: Inverts the input (0 becomes 1, 1 becomes 0)
