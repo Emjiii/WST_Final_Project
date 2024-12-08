@@ -192,8 +192,8 @@ The combined expertise and collaboration have been instrumental in bringing this
 
 We would like to express our sincere gratitude to the following individuals and organizations for their invaluable support and guidance throughout the development of this project:
 
-**Ms. Fatima Marie P. Agdon** for providing essential guidance, constructive feedback, and encouragement during the project development.
+[**Ms. Fatima Marie P. Agdon**] for providing essential guidance, constructive feedback, and encouragement during the project development.
 
-**Open-source libraries and frameworks**, including React, React Flow, Node.js, Express, file-saver, htmltoimage, axios, and Firebase, which formed the foundation of our project.
+[**Open-source libraries and frameworks**], including React, React Flow, Node.js, Express, file-saver, htmltoimage, axios, and Firebase, which formed the foundation of our project.
 
 This project is the result of a collaborative effort, and we are deeply grateful to everyone who contributed directly or indirectly to its success.
