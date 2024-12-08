@@ -182,7 +182,7 @@ These algorithms work in concert to provide a robust, efficient, and user-friend
 
 The following contributors share efforts and dedication to this project:
 
-- [**Marc Juaren Gamilla**](https://github.com/johndoe) - Project Managet and Full Stack Developer
+- [**Marc Juaren Gamilla**](https://github.com/Emjiii) - Project Managet and Full Stack Developer
 - [**Sherivic Mae Dimagculang**](https://github.com/sherivicmae) - Frontend Developer
 - [**Maryflor Campued**](https://github.com/maryflorrr) - Backend Developer
 
