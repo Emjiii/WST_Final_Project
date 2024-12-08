@@ -47,7 +47,7 @@ The system follows a modular architecture comprising:
 
 ## Applied Computer Science Concept
 
-### Logic Gates
+**Logic Gates**
 
 Logic gates are the fundamental building blocks of digital circuits, acting as tiny decision-makers that process binary information. They operate on binary inputs (0 or 1) and produce a binary output based on specific logical rules.  
 Key features include:
@@ -194,6 +194,6 @@ We would like to express our sincere gratitude to the following individuals and 
 
 [**Ms. Fatima Marie P. Agdon**] for providing essential guidance, constructive feedback, and encouragement during the project development.
 
-[**Open-source libraries and frameworks**], including React, React Flow, Node.js, Express, file-saver, htmltoimage, axios, and Firebase, which formed the foundation of our project.
+[**Open-source libraries and frameworks**], including React, React Flow, Node.js, Express, File-saver, Htmltoimage, Axios, Tailwond and Firebase, which formed the foundation of our project.
 
 This project is the result of a collaborative effort, and we are deeply grateful to everyone who contributed directly or indirectly to its success.
