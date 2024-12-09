@@ -48,43 +48,54 @@ The system follows a modular architecture comprising:
 
 ### Logic Gates
 
-Logic gates are the fundamental building blocks of digital circuits, acting as tiny decision-makers that process binary information. They operate on binary inputs (0 or 1) and produce a binary output based on specific logical rules.  
-Key features include:
+Logic gates are the fundamental building blocks of digital circuits, acting as tiny decision-makers that process binary information. They operate on binary inputs (0 or 1) and produce a binary output based on specific logical rules.
 
-- Interactive drag-and-drop interface for circuit design
+## Key features:
+
+- **Interactive drag-and-drop interface for circuit design**
+
   ![image](https://github.com/user-attachments/assets/4c163176-8829-44ae-8f62-5a15887c2162)
 
-- Real-time circuit simulation and output visualization
+- **Real-time circuit simulation and output visualization**
+
   ![image](https://github.com/user-attachments/assets/963638bb-6036-42c4-9a59-8222ee67c56b)
 
-- Truth table generation for custom circuits
+- **Truth table generation for custom circuits**
+
   ![image](https://github.com/user-attachments/assets/51d02907-6377-4411-9eb1-a0a39c9b61bb)
 
-- User account system for saving and sharing designs
+- **User account system for saving and sharing designs**
+
   ![image](https://github.com/user-attachments/assets/b15be081-54a1-4f96-9b31-6c061daf02b3)
 
+## Gates
 
-**Gates**
-  ![image](https://github.com/user-attachments/assets/f9b3ad4b-eb4e-4fa2-9bd1-bd31c32d7606)
+Gate, Inputs and Outputs Selection Section:
+
+![image](https://github.com/user-attachments/assets/f9b3ad4b-eb4e-4fa2-9bd1-bd31c32d7606)
 
 - **AND**: Output is 1 only if all inputs are 1
+
   ![image](https://github.com/user-attachments/assets/210de2e2-089f-4f3e-88da-cff1a47497da)
 
 - **OR**: Output is 1 if at least one input is 1
+
   ![image](https://github.com/user-attachments/assets/59f05c2d-89f2-47ae-a941-6bcf315460aa)
 
 - **NOT**: Inverts the input (0 becomes 1, 1 becomes 0)
+
   ![image](https://github.com/user-attachments/assets/8616d46c-6b8c-4a96-950e-38ef70dd0f47)
 
 - **XOR**: Output is 1 if inputs are different
+
   ![image](https://github.com/user-attachments/assets/c8e7407e-68da-4c9d-b49f-c15e4f9bce7b)
 
 - **NAND**: Combination of AND followed by NOT
   ![image](https://github.com/user-attachments/assets/d322fc61-581b-4a32-afec-3cdfbfa3d0b3)
 
 - **NOR**: Combination of OR followed by NOT
-  ![image](https://github.com/user-attachments/assets/6e8bc3db-8c20-4746-bd62-d4becf4527c0)
 
+  ![image](https://github.com/user-attachments/assets/6e8bc3db-8c20-4746-bd62-d4becf4527c0)
 
 ## Algorithms Used
 
