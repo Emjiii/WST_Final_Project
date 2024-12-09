@@ -207,7 +207,7 @@ These algorithms work in concert to provide a robust, efficient, and user-friend
    cd frontend
    npm run dev
    ```
-4. **Navigate to Backend**:
+4. **Use browser**:
 
    Local: http://localhost:5173/
 
