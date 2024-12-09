@@ -50,7 +50,7 @@ The system follows a modular architecture comprising:
 
 Logic gates are the fundamental building blocks of digital circuits, acting as tiny decision-makers that process binary information. They operate on binary inputs (0 or 1) and produce a binary output based on specific logical rules.
 
-## Key features:
+### Key features:
 
 - **Interactive drag-and-drop interface for circuit design**
 
@@ -68,7 +68,7 @@ Logic gates are the fundamental building blocks of digital circuits, acting as t
 
   ![image](https://github.com/user-attachments/assets/b15be081-54a1-4f96-9b31-6c061daf02b3)
 
-## Gates
+### Gates
 
 Gate, Inputs and Outputs Selection Section:
 
