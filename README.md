@@ -91,6 +91,7 @@ Gate, Inputs and Outputs Selection Section:
   ![image](https://github.com/user-attachments/assets/c8e7407e-68da-4c9d-b49f-c15e4f9bce7b)
 
 - **NAND**: Combination of AND followed by NOT
+  
   ![image](https://github.com/user-attachments/assets/d322fc61-581b-4a32-afec-3cdfbfa3d0b3)
 
 - **NOR**: Combination of OR followed by NOT
