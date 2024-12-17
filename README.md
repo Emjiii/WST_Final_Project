@@ -211,7 +211,7 @@ These algorithms work in concert to provide a robust, efficient, and user-friend
 
 ---
 
-##👥 Contributors
+## 👥 **Contributors**
 
 The following contributors share efforts and dedication to this project:
 
@@ -223,7 +223,7 @@ The combined expertise and collaboration have been instrumental in bringing this
 
 ---
 
-##🙏 Acknowledgment
+## 🙏 **Acknowledgment**
 
 We would like to express our sincere gratitude to the following individuals and organizations for their invaluable support and guidance throughout the development of this project:
 
